@@ -56,7 +56,9 @@ export default function Login() {
                     justify={"space-between"}
                   >
                     <NextLink href="/register" passHref>
-                      <Link color={"gray.400"}>Don't have an account?</Link>
+                      <Link color={"gray.400"}>
+                        Don&apos;t have an account?
+                      </Link>
                     </NextLink>
 
                     <NextLink href="/forgot-password" passHref>
