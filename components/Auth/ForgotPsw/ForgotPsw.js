@@ -57,7 +57,7 @@ export default function ForgotPsw() {
             >
               Request Reset
             </Button>
-            <NextLink href="/auth" passHref>
+            <NextLink href="/login" passHref>
               <Link color={"blue.400"}>Back to login</Link>
             </NextLink>
           </Stack>

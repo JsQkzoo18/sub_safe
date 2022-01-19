@@ -17,14 +17,13 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import SEO_C from "../../SEO_C";
+import NextLink from "next/link";
 
-export default function Register({ isLoginForm }) {
+export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
-      <SEO_C title="Crear cuenta - SubaSafe" />
       <ScaleFade initialScale={0.9} in={true}>
         <Flex
           minH={"100vh"}
@@ -98,9 +97,9 @@ export default function Register({ isLoginForm }) {
                 <Stack pt={6}>
                   <Text align={"center"}>
                     Already a user?{" "}
-                    <Link color={"blue.400"} onClick={isLoginForm}>
-                      Login
-                    </Link>
+                    <NextLink href="/login" passHref>
+                      <Link color={"blue.400"}>Login</Link>
+                    </NextLink>
                   </Text>
                 </Stack>
               </Stack>

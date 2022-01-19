@@ -15,12 +15,10 @@ import {
   ScaleFade,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import SEO_C from "../../SEO_C/SEO_C";
 
-export default function Login({ isRegisterForm }) {
+export default function Login() {
   return (
     <>
-      <SEO_C title="Iniciar Sesión - SubaSafe" />
       <ScaleFade initialScale={0.9} in={true}>
         <Flex
           minH={"100vh"}
@@ -57,9 +55,10 @@ export default function Login({ isRegisterForm }) {
                     align={"start"}
                     justify={"space-between"}
                   >
-                    <Link color={"gray.400"} onClick={isRegisterForm}>
-                      Don't have an account?
-                    </Link>
+                    <NextLink href="/register" passHref>
+                      <Link color={"gray.400"}>Don't have an account?</Link>
+                    </NextLink>
+
                     <NextLink href="/forgot-password" passHref>
                       <Link color={"blue.400"}>Forgot password?</Link>
                     </NextLink>

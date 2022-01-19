@@ -25,12 +25,13 @@ import {
   ChevronRightIcon,
   SearchIcon,
 } from "@chakra-ui/icons";
+import NextLink from "next/link";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box pos="relative" zIndex={1}>
+    <Box pos="relative" zIndex={2}>
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
@@ -101,7 +102,9 @@ export default function Navbar() {
             variant={"link"}
             href={"#"}
           >
-            Sign In
+            <NextLink href="/login" passHref>
+              <Link> Sign In</Link>
+            </NextLink>
           </Button>
           <Button
             display={{ base: "none", md: "inline-flex" }}
@@ -114,7 +117,9 @@ export default function Navbar() {
               bg: "pink.300",
             }}
           >
-            Sign Up
+            <NextLink href="/register" passHref>
+              <Link> Sign Up</Link>
+            </NextLink>
           </Button>
         </Stack>
       </Flex>
