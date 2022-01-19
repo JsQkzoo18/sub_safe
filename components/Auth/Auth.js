@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 
-export default function Auth() {
-  const [showLogin, setShowLogin] = useState(true);
+export default function Auth({ isLogin = true }) {
+  const [showLogin, setShowLogin] = useState(isLogin);
 
   const isLoginForm = () => {
     setShowLogin(true);
