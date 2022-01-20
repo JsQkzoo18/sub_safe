@@ -61,7 +61,7 @@ export default function Footer() {
         align={{ base: "center", md: "center" }}
       >
         <Logo />
-        <Text>© 2022 SubaSafe. All rights reserved</Text>
+        <Text>© 2022 SubaSafe. Todos los derechos reservados</Text>
         <Stack direction={"row"} spacing={6}>
           <FooterButton label={"Mail"} href={"#"}>
             <EmailIcon />
