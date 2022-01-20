@@ -23,20 +23,20 @@ export default function Login() {
         minH={"100vh"}
         align={"center"}
         justify={"center"}
-        bg={useColorModeValue("gray.50", "gray.800")}
+        bg={useColorModeValue("gray.50", "grayDark")}
       >
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"}>Inicia Sesión en tu cuenta</Heading>
             <Text fontSize={"lg"} color={"gray.600"}>
               para disfrutar todas las{" "}
-              <Link color={"blue.400"}>características</Link>
+              <Link color={"#purpleDark"}>características</Link>
               ✌️
             </Text>
           </Stack>
           <Box
             rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
+            bg={useColorModeValue("white", "blueDark")}
             boxShadow={"lg"}
             p={8}
           >
@@ -64,14 +64,14 @@ export default function Login() {
                   </NextLink>
 
                   <NextLink href="/forgot-password" passHref>
-                    <Link color={"blue.400"}>Olvidaste la contraseña?</Link>
+                    <Link color={"#5034C8"}>Olvidaste la contraseña?</Link>
                   </NextLink>
                 </Stack>
                 <Button
-                  bg={"blue.400"}
+                  bg={"grayLight"}
                   color={"white"}
                   _hover={{
-                    bg: "blue.500",
+                    bg: "grayDark",
                   }}
                   type="submit"
                 >
