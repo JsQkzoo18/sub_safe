@@ -29,7 +29,7 @@ export default function Register() {
           minH={"100vh"}
           align={"center"}
           justify={"center"}
-          bg={useColorModeValue("gray.50", "gray.800")}
+          bg={useColorModeValue("gray.50", "grayDark")}
         >
           <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
             <Stack align={"center"}>
@@ -42,7 +42,7 @@ export default function Register() {
             </Stack>
             <Box
               rounded={"lg"}
-              bg={useColorModeValue("white", "gray.700")}
+              bg={useColorModeValue("white", "blueDark")}
               boxShadow={"lg"}
               p={8}
             >
@@ -85,10 +85,10 @@ export default function Register() {
                   <Button
                     loadingText="Submitting"
                     size="lg"
-                    bg={"blue.400"}
+                    bg={"grayLight"}
                     color={"white"}
                     _hover={{
-                      bg: "blue.500",
+                      bg: "grayDark",
                     }}
                   >
                     Regístrate
@@ -98,7 +98,7 @@ export default function Register() {
                   <Text align={"center"}>
                     Ya tienes una cuenta?{" "}
                     <NextLink href="/login" passHref>
-                      <Link color={"blue.400"}>Iniciar Sesión</Link>
+                      <Link color={"purpleDark"}>Iniciar Sesión</Link>
                     </NextLink>
                   </Text>
                 </Stack>
