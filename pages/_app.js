@@ -1,26 +1,19 @@
-import { ChakraProvider } from "@chakra-ui/react";
 // 1. Import the extendTheme function
 import { extendTheme } from "@chakra-ui/react";
 
 import "../scss/global.scss";
-// 2. Extend the theme to include custom colors, fonts, etc
-const colors = {
-  brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
-  },
-};
+import Theme from "../components/Theme/Theme";
+import Fonts from "../components/Theme/Fonts";
+import { AnimatePresence } from "framer-motion";
 
-const theme = extendTheme({ colors });
-
-// 3. Pass the `theme` prop to the `ChakraProvider`
-
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <Theme cookies={pageProps.cookies}>
+      <Fonts />
+      <AnimatePresence exitBeforeEnter initial={true}>
+        <Component {...pageProps} key={router.route} />
+      </AnimatePresence>
+    </Theme>
   );
 }
 

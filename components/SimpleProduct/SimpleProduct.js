@@ -9,10 +9,9 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-const IMAGE =
-  "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
+const IMAGE = "/toy.jpg";
 
-export default function SimpleProduct({ url = "product" }) {
+export default function SimpleProduct({ title, price, url }) {
   return (
     <Link href={`/${url}`}>
       <div className="simple-product">
@@ -66,17 +65,22 @@ export default function SimpleProduct({ url = "product" }) {
                 fontSize={"sm"}
                 textTransform={"uppercase"}
               >
-                Brand
+                Articulo
               </Text>
               <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
-                Nice Chair, pink
+                Descripción
               </Heading>
+
+              <Heading fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
+                $200
+              </Heading>
+
               <Stack direction={"row"} align={"center"}>
-                <Text fontWeight={800} fontSize={"xl"}>
-                  $57
+                <Text fontWeight={300} fontSize={"sm"}>
+                  23/01/2022
                 </Text>
                 <Text textDecoration={"line-through"} color={"gray.600"}>
-                  $199
+                  {price}
                 </Text>
               </Stack>
             </Stack>

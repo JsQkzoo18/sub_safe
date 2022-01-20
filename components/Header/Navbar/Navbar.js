@@ -26,12 +26,40 @@ import {
   SearchIcon,
 } from "@chakra-ui/icons";
 import NextLink from "next/link";
+import ThemeToggleButton from "../../Theme/ThemeToggleButton";
 
-export default function Navbar() {
+const LinkItem = ({ href, path, _target, children, ...props }) => {
+  const active = path === href;
+  const inactiveColor = useColorModeValue("gray200", "whiteAlpha.900");
+  return (
+    <NextLink href={href} passHref>
+      <Link
+        p={2}
+        bg={active ? "grassTeal" : undefined}
+        color={active ? "#202023" : inactiveColor}
+        _target={_target}
+        {...props}
+      >
+        {children}
+      </Link>
+    </NextLink>
+  );
+};
+
+export default function Navbar(props) {
   const { isOpen, onToggle } = useDisclosure();
+  const { path } = props;
 
   return (
-    <Box pos="relative" zIndex={2}>
+    <Box
+      position="fixed"
+      as="nav"
+      w="100%"
+      bg={useColorModeValue("#ffffff40", "#20202380")}
+      css={{ backdropFilter: "blur(10px)" }}
+      zIndex={2}
+      {...props}
+    >
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
@@ -83,27 +111,12 @@ export default function Navbar() {
           spacing={6}
         >
           <WrapItem>
-            <Tooltip
-              label="Ctrl + K"
-              placement="left"
-              isOpen
-              hasArrow
-              arrowSize={5}
-              bg="pink.300"
-            >
-              <IconButton aria-label="Search database" icon={<SearchIcon />} />
-            </Tooltip>
+            <IconButton aria-label="Search database" icon={<SearchIcon />} />
           </WrapItem>
 
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"#"}
-          >
+          <Button fontSize={"sm"} fontWeight={400} variant={"link"} href={"#"}>
             <NextLink href="/login" passHref>
-              <Link> Sign In</Link>
+              <Link>Iniciar Sesión</Link>
             </NextLink>
           </Button>
           <Button
@@ -118,9 +131,10 @@ export default function Navbar() {
             }}
           >
             <NextLink href="/register" passHref>
-              <Link> Sign Up</Link>
+              Registrarse
             </NextLink>
           </Button>
+          <ThemeToggleButton />
         </Stack>
       </Flex>
 
@@ -286,25 +300,25 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: "All products",
+    label: "Todos los productos",
   },
   {
-    label: "Categories",
+    label: "Categorias",
     children: [
       {
-        label: "Sex Toys",
-        subLabel: "Find your dream toy",
+        label: "Juguetes",
+        subLabel: "Encuentra los mejores juguetes",
         href: "#",
       },
       {
-        label: "Hallucinogens",
-        subLabel: "An exclusive list for exotic substances",
+        label: "Ropa",
+        subLabel: "Ropa exótica a buen precio",
         href: "#",
       },
     ],
   },
   {
-    label: "About us",
+    label: "Acerca de nosotros",
     href: "#",
   },
 ];

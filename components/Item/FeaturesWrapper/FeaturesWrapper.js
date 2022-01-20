@@ -17,14 +17,14 @@ export const FeaturesWrapper = () => {
         textTransform={"uppercase"}
         mb={"4"}
       >
-        Features
+        Características
       </Text>
 
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
         <List spacing={2}>
-          <ListItem>Product Feature 1 </ListItem>
-          <ListItem>Product Feature 2</ListItem>
-          <ListItem>Product Feature 3</ListItem>
+          <ListItem>Suaves</ListItem>
+          <ListItem>Tiernositos</ListItem>
+          <ListItem>Maravillositos</ListItem>
         </List>
       </SimpleGrid>
     </Box>

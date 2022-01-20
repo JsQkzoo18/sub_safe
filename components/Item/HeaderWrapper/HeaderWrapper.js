@@ -8,14 +8,14 @@ export const HeaderWrapper = () => {
         fontWeight={600}
         fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
       >
-        Product Title
+        Ositos Cariñosos
       </Heading>
       <Text
         color={useColorModeValue("gray.900", "gray.400")}
         fontWeight={300}
         fontSize={"2xl"}
       >
-        Prodcut Price- $126.00 USD
+        Oferta - $126.00 USD
       </Text>
     </Box>
   );

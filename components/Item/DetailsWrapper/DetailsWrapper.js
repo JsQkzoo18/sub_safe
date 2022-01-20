@@ -10,33 +10,27 @@ export const DetailsWrapper = () => {
         textTransform={"uppercase"}
         mb={"4"}
       >
-        Product Details
+        Detalles
       </Text>
 
       <List spacing={2}>
         <ListItem>
           <Text as={"span"} fontWeight={"bold"}>
-            Detail:
+            Color:
           </Text>{" "}
           1
         </ListItem>
         <ListItem>
           <Text as={"span"} fontWeight={"bold"}>
-            Detail:
+            Unidades:
           </Text>{" "}
           2
         </ListItem>
         <ListItem>
           <Text as={"span"} fontWeight={"bold"}>
-            Detail:
+            Peso:
           </Text>{" "}
           3
-        </ListItem>
-        <ListItem>
-          <Text as={"span"} fontWeight={"bold"}>
-            Detail:
-          </Text>
-          4
         </ListItem>
       </List>
     </Box>
