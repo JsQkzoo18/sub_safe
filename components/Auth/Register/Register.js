@@ -34,10 +34,10 @@ export default function Register() {
           <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
             <Stack align={"center"}>
               <Heading fontSize={"4xl"} textAlign={"center"}>
-                Sign up
+                Regístrate
               </Heading>
               <Text fontSize={"lg"} color={"gray.600"}>
-                to enjoy all of our cool features ✌️
+                para disfrutar todas las características✌️
               </Text>
             </Stack>
             <Box
@@ -50,23 +50,23 @@ export default function Register() {
                 <HStack>
                   <Box>
                     <FormControl id="firstName" isRequired>
-                      <FormLabel>First Name</FormLabel>
+                      <FormLabel>Nombre</FormLabel>
                       <Input type="text" />
                     </FormControl>
                   </Box>
                   <Box>
                     <FormControl id="lastName">
-                      <FormLabel>Last Name</FormLabel>
+                      <FormLabel>Apellido</FormLabel>
                       <Input type="text" />
                     </FormControl>
                   </Box>
                 </HStack>
                 <FormControl id="email" isRequired>
-                  <FormLabel>Email address</FormLabel>
+                  <FormLabel>Correo Electrónico</FormLabel>
                   <Input type="email" />
                 </FormControl>
                 <FormControl id="password" isRequired>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Contraseña</FormLabel>
                   <InputGroup>
                     <Input type={showPassword ? "text" : "password"} />
                     <InputRightElement h={"full"}>
@@ -91,14 +91,14 @@ export default function Register() {
                       bg: "blue.500",
                     }}
                   >
-                    Sign up
+                    Regístrate
                   </Button>
                 </Stack>
                 <Stack pt={6}>
                   <Text align={"center"}>
-                    Already a user?{" "}
+                    Ya tienes una cuenta?{" "}
                     <NextLink href="/login" passHref>
-                      <Link color={"blue.400"}>Login</Link>
+                      <Link color={"blue.400"}>Iniciar Sesión</Link>
                     </NextLink>
                   </Text>
                 </Stack>

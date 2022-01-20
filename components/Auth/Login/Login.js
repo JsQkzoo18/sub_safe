@@ -27,9 +27,10 @@ export default function Login() {
       >
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Sign in to your account</Heading>
+            <Heading fontSize={"4xl"}>Inicia Sesión en tu cuenta</Heading>
             <Text fontSize={"lg"} color={"gray.600"}>
-              to enjoy all of our cool <Link color={"blue.400"}>features</Link>{" "}
+              para disfrutar todas las{" "}
+              <Link color={"blue.400"}>características</Link>
               ✌️
             </Text>
           </Stack>
@@ -40,65 +41,47 @@ export default function Login() {
             p={8}
           >
             <Stack spacing={4}>
-              <Form>
-                <FormControl id="email">
-                  <FormLabel>Email address</FormLabel>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email address"
-                  />
-                </FormControl>
-                <FormControl id="password">
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" name="password" />
-                </FormControl>
-                <Stack spacing={10}>
-                  <Stack
-                    direction={{ base: "column", sm: "row" }}
-                    align={"start"}
-                    justify={"space-between"}
-                  >
-                    <NextLink href="/register" passHref>
-                      <Link color={"gray.400"}>
-                        Don&apos;t have an account?
-                      </Link>
-                    </NextLink>
+              <FormControl id="email">
+                <FormLabel>Correo electrónico</FormLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Ingresa tú email"
+                />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Contraseña</FormLabel>
+                <Input type="password" name="password" />
+              </FormControl>
+              <Stack spacing={10}>
+                <Stack
+                  direction={{ base: "column", sm: "row" }}
+                  align={"start"}
+                  justify={"space-between"}
+                >
+                  <NextLink href="/register" passHref>
+                    <Link color={"gray.400"}>No tienes una cuenta?</Link>
+                  </NextLink>
 
-                    <NextLink href="/forgot-password" passHref>
-                      <Link color={"blue.400"}>Forgot password?</Link>
-                    </NextLink>
-                  </Stack>
-                  <Button
-                    bg={"blue.400"}
-                    color={"white"}
-                    _hover={{
-                      bg: "blue.500",
-                    }}
-                    type="submit"
-                  >
-                    Sign in
-                  </Button>
+                  <NextLink href="/forgot-password" passHref>
+                    <Link color={"blue.400"}>Olvidaste la contraseña?</Link>
+                  </NextLink>
                 </Stack>
-              </Form>
+                <Button
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  type="submit"
+                >
+                  Iniciar Sesión
+                </Button>
+              </Stack>
             </Stack>
           </Box>
         </Stack>
       </Flex>
     </ScaleFade>
   );
-}
-
-function initialValues() {
-  return {
-    identifier: "",
-    password: "",
-  };
-}
-
-function validationSchema() {
-  return {
-    identifier: Yup.string().email(true).required("El email es obligatorio"),
-    password: Yup.string().required(true),
-  };
 }
