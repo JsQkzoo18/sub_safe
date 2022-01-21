@@ -15,7 +15,7 @@ export default function SimpleProduct({ title, price, url }) {
   return (
     <Link href={`/${url}`}>
       <div className="simple-product">
-        <Center>
+        <Center cursor={"pointer"}>
           <Box
             role={"group"}
             p={3}
@@ -23,7 +23,7 @@ export default function SimpleProduct({ title, price, url }) {
             mb={2}
             maxW={"330px"}
             w={"full"}
-            bg={useColorModeValue("white", "gray.800")}
+            bg={useColorModeValue("white", "grayDark")}            
             boxShadow={"2xl"}
             rounded={"lg"}
             pos={"relative"}
@@ -39,15 +39,15 @@ export default function SimpleProduct({ title, price, url }) {
                 w: "full",
                 h: "full",
                 pos: "absolute",
-                top: 5,
+                top: 2,
                 left: 0,
                 backgroundImage: `url(${IMAGE})`,
-                filter: "blur(15px)",
+                filter: "blur(5px)", 
                 zIndex: -1,
               }}
               _groupHover={{
                 _after: {
-                  filter: "blur(20px)",
+                  filter: "blur(10px)",
                 },
               }}
             >

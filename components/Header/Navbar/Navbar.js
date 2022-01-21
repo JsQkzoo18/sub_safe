@@ -25,6 +25,7 @@ import {
   ChevronRightIcon,
   SearchIcon,
 } from "@chakra-ui/icons";
+
 import NextLink from "next/link";
 import ThemeToggleButton from "../../Theme/ThemeToggleButton";
 
@@ -124,10 +125,10 @@ export default function Navbar(props) {
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
-            bg={"pink.400"}
+            bg={"purpleDark"}
             href={"#"}
             _hover={{
-              bg: "pink.300",
+              bg: "grayLight",
             }}
           >
             <NextLink href="/register" passHref>
