@@ -23,6 +23,7 @@ import {
   Text,
   Box,
   Heading,
+  Fade,
 } from "@chakra-ui/react";
 import { HeaderWrapper } from "../Item/HeaderWrapper/HeaderWrapper";
 import { DescriptionWrapper } from "../Item/DescriptionWrapper/DescriptionWrapper";
@@ -33,7 +34,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 
 export default function TabProduct() {
   return (
-    <Tabs>
+    <Tabs _focus={{ outline: "none" }}>
       <TabList>
         <Tab>Información</Tab>
         <Tab>Ofertar</Tab>
@@ -56,7 +57,7 @@ export default function TabProduct() {
 }
 
 const Description = () => (
-  <>
+  <Fade in={true}>
     <Stack spacing={{ base: 6, md: 10 }}>
       <Stack
         spacing={{ base: 4, sm: 6 }}
@@ -74,7 +75,7 @@ const Description = () => (
       </Stack>
     </Stack>
     <MoreDetailsWrapper />
-  </>
+  </Fade>
 );
 
 const Bids = () => (

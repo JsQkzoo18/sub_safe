@@ -16,7 +16,6 @@ import {
   useDisclosure,
   Image,
   WrapItem,
-  Tooltip,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -29,9 +28,8 @@ import {
 import NextLink from "next/link";
 import ThemeToggleButton from "../../Theme/ThemeToggleButton";
 
-export default function Navbar(props) {
+export default function TopBar(props) {
   const { isOpen, onToggle } = useDisclosure();
-  const { path } = props;
 
   return (
     <Box
@@ -109,20 +107,6 @@ export default function Navbar(props) {
           </WrapItem>
 
           <Button
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            display={{ base: "none", md: "inline-flex" }}
-            _focus={{
-              textDecoration: "none",
-              outline: "none",
-            }}
-          >
-            <NextLink href="/login" passHref>
-              <Link>Iniciar Sesión</Link>
-            </NextLink>
-          </Button>
-          <Button
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
@@ -131,13 +115,9 @@ export default function Navbar(props) {
             _hover={{
               bg: "grayLight",
             }}
-            _focus={{
-              textDecoration: "none",
-              outline: "none",
-            }}
           >
-            <NextLink href="/register" passHref>
-              Registrarse
+            <NextLink href="/" passHref>
+              Ir a Inicio
             </NextLink>
           </Button>
           <ThemeToggleButton />
@@ -164,17 +144,13 @@ const DesktopNav = () => {
             <PopoverTrigger>
               <Link
                 p={2}
+                href={navItem.href ?? "#"}
                 fontSize={"sm"}
                 fontWeight={500}
-                href={navItem.href ?? "#"}
                 color={linkColor}
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,
-                }}
-                _focus={{
-                  textDecoration: "none",
-                  outline: "none",
                 }}
               >
                 {navItem.label}
@@ -206,39 +182,38 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel }) => {
   return (
-    <NextLink href={href} passHref>
-      <Link
-        role={"group"}
-        display={"block"}
-        p={2}
-        rounded={"md"}
-        _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-      >
-        <Stack direction={"row"} align={"center"}>
-          <Box>
-            <Text
-              transition={"all .3s ease"}
-              _groupHover={{ color: "pink.400" }}
-              fontWeight={500}
-            >
-              {label}
-            </Text>
-            <Text fontSize={"sm"}>{subLabel}</Text>
-          </Box>
-          <Flex
+    <Link
+      href={href}
+      role={"group"}
+      display={"block"}
+      p={2}
+      rounded={"md"}
+      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+    >
+      <Stack direction={"row"} align={"center"}>
+        <Box>
+          <Text
             transition={"all .3s ease"}
-            transform={"translateX(-10px)"}
-            opacity={0}
-            _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-            justify={"flex-end"}
-            align={"center"}
-            flex={1}
+            _groupHover={{ color: "pink.400" }}
+            fontWeight={500}
           >
-            <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
-          </Flex>
-        </Stack>
-      </Link>
-    </NextLink>
+            {label}
+          </Text>
+          <Text fontSize={"sm"}>{subLabel}</Text>
+        </Box>
+        <Flex
+          transition={"all .3s ease"}
+          transform={"translateX(-10px)"}
+          opacity={0}
+          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
+          justify={"flex-end"}
+          align={"center"}
+          flex={1}
+        >
+          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
+    </Link>
   );
 };
 
@@ -253,15 +228,6 @@ const MobileNav = () => {
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
       <Stack flex={{ base: 1, md: 0 }} direction={"row"} spacing={6}>
-        <WrapItem>
-          <IconButton aria-label="Search database" icon={<SearchIcon />} />
-        </WrapItem>
-
-        <Button fontSize={"sm"} fontWeight={400} variant={"link"} href={"#"}>
-          <NextLink href="/login" passHref>
-            <Link>Iniciar Sesión</Link>
-          </NextLink>
-        </Button>
         <Button
           display={{ base: "none", md: "inline-flex" }}
           fontSize={"sm"}
@@ -274,7 +240,7 @@ const MobileNav = () => {
           }}
         >
           <NextLink href="/register" passHref>
-            Registrarse
+            Inicio
           </NextLink>
         </Button>
       </Stack>
@@ -337,23 +303,7 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: "Todos los productos",
-    href: "/",
-  },
-  {
-    label: "Categorias",
-    children: [
-      {
-        label: "Juguetes",
-        subLabel: "Encuentra los mejores juguetes",
-        href: "#",
-      },
-      {
-        label: "Ropa",
-        subLabel: "Ropa exótica a buen precio",
-        href: "#",
-      },
-    ],
+    label: "Contacto",
   },
   {
     label: "Acerca de nosotros",
