@@ -111,13 +111,14 @@ function Bids() {
       </InputGroup>
 
       <Button
-        rounded={"none"}
+        /* rounded={"none"} */
         w={"full"}
         mt={8}
         size={"lg"}
         py={"7"}
-        bg={useColorModeValue("gray.900", "gray.50")}
-        color={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("purpleDark", "purpleDark")}
+        borderRadius={"8"}
+        color={useColorModeValue("white", "white")}
         textTransform={"uppercase"}
         _hover={{
           transform: "translateY(2px)",

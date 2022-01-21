@@ -85,10 +85,10 @@ export default function Register() {
                   <Button
                     loadingText="Submitting"
                     size="lg"
-                    bg={"grayLight"}
+                    bg={"purpleDark"}
                     color={"white"}
                     _hover={{
-                      bg: "grayDark",
+                      bg: "#6F57D2",
                     }}
                   >
                     Regístrate
