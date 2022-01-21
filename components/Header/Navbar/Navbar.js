@@ -85,14 +85,16 @@ export default function Navbar(props) {
               xl: "flex",
             }}
           />
-          <Text
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
-            fontWeight={"bold"}
-            color={useColorModeValue("gray.800", "white")}
-          >
-            SubaSafe
-          </Text>
+          <NextLink href="/" passHref>
+            <Text
+              textAlign={useBreakpointValue({ base: "center", md: "left" })}
+              fontFamily={"heading"}
+              fontWeight={"bold"}
+              color={useColorModeValue("gray.800", "white")}
+            >
+              SubaSafe
+            </Text>
+          </NextLink>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
