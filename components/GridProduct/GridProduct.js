@@ -1,4 +1,5 @@
 import { Box, SimpleGrid, Icon, Text, Stack, Flex } from "@chakra-ui/react";
+import Footer from "../Footer";
 import SimpleProduct from "../SimpleProduct/SimpleProduct";
 
 export default function GridProduct() {
@@ -20,6 +21,7 @@ export default function GridProduct() {
         <SimpleProduct />
         <SimpleProduct />
       </SimpleGrid>
+      <Footer />
     </Box>
   );
 }

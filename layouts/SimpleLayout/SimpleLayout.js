@@ -10,7 +10,6 @@ export default function SimpleLayout({ children }) {
       <Container className="content" maxW="8xl" centerContent>
         {children}
       </Container>
-      <Footer />
     </div>
   );
 }

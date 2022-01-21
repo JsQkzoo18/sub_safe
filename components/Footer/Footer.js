@@ -3,21 +3,15 @@ import {
   chakra,
   Container,
   Image,
-  Link,
   Stack,
   Text,
-  useBreakpointValue,
   useColorModeValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
 import { EmailIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const Logo = (props) => {
-  return (
-    <>
-      <Image boxSize="40px" src="/tag.png" alt="Logo" mr={5} />
-    </>
-  );
+  return <Image boxSize="40px" src="/tag.png" alt="Logo" mr={5} />;
 };
 
 const FooterButton = ({ children, label, href }) => {
@@ -53,7 +47,7 @@ export default function Footer() {
     >
       <Container
         as={Stack}
-        maxW={"6xl"}
+        maxW={"full"}
         py={4}
         direction={{ base: "column", md: "row" }}
         spacing={4}
