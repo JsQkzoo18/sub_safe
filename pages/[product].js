@@ -1,17 +1,5 @@
-import {
-  Container,
-  Stack,
-  Button,
-  SimpleGrid,
-  StackDivider,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import { DescriptionWrapper } from "../components/Item/DescriptionWrapper/DescriptionWrapper";
-import { DetailsWrapper } from "../components/Item/DetailsWrapper/DetailsWrapper";
-import { FeaturesWrapper } from "../components/Item/FeaturesWrapper/FeaturesWrapper";
-import { HeaderWrapper } from "../components/Item/HeaderWrapper/HeaderWrapper";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 import { ImageWrapper } from "../components/Item/ImageWrapper/ImageWrapper";
-import { MoreDetailsWrapper } from "../components/Item/MoreDetailsWrapper/MoreDetailsWrapper";
 import SimpleLayout from "../layouts/SimpleLayout";
 import TabProduct from "../components/Tab/TabProduct";
 

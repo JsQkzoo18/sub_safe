@@ -97,14 +97,13 @@ const Bids = () => (
     </StatGroup>
 
     <InputGroup>
-      <InputLeftElement
-        pointerEvents="none"
-        color="gray.300"
-        fontSize="1.2em"
-        children="$"
-      />
+      <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
+        $
+      </InputLeftElement>
       <Input placeholder="Toma mi oferta!" />
-      <InputRightElement children={<CheckIcon color="green.500" />} />
+      <InputRightElement>
+        <CheckIcon color="green.500" />
+      </InputRightElement>
     </InputGroup>
 
     <Button
