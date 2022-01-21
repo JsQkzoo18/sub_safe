@@ -49,10 +49,10 @@ export default function ForgotPsw() {
           </FormControl>
           <Stack spacing={6}>
             <Button
-              bg={"grayLight"}
+              bg={"purpleDark"}
               color={"white"}
               _hover={{
-                bg: "grayDark",
+                bg: "#6F57D2",
               }}
             >
               Solicitar reinicio
