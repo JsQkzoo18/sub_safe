@@ -3,13 +3,23 @@ import {
   FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/form-control";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/input";
-import { Alert, AlertIcon, Collapse } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Button,
+  Collapse,
+  InputRightElement,
+  InputGroup,
+} from "@chakra-ui/react";
 import { Field, useField } from "formik";
+import { useState } from "react";
 import PasswordStrengthMeter from "../PasswordStrengthMeter/PasswordStrengthMeter ";
 
-const TextField = ({ label, ispass = false, ...props }) => {
+const TextField = ({ label, ispass = false, isRequired, ...props }) => {
   const [field, meta] = useField(props);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -20,10 +30,33 @@ const TextField = ({ label, ispass = false, ...props }) => {
             : meta.error && meta.touched
         }
         id={field.name}
+        isRequired={isRequired}
       >
         <FormLabel>{label}</FormLabel>
-        <Field as={Input} {...field} {...props} />
-
+        <InputGroup>
+          {props.type === "password" ? (
+            <>
+              <Field
+                as={Input}
+                {...field}
+                {...props}
+                type={showPassword ? "text" : "password"}
+              />
+              <InputRightElement h={"full"}>
+                <Button
+                  variant={"ghost"}
+                  onClick={() =>
+                    setShowPassword((showPassword) => !showPassword)
+                  }
+                >
+                  {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
+              </InputRightElement>
+            </>
+          ) : (
+            <Field as={Input} {...field} {...props} />
+          )}
+        </InputGroup>
         <Collapse
           in={
             ispass

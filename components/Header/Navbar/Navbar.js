@@ -87,7 +87,7 @@ export default function Navbar(props) {
           />
           <NextLink href="/" passHref>
             <Text
-              textAlign={useBreakpointValue({ base: "center", md: "left" })}
+              textAlign={{ base: "center", md: "left" }}
               fontFamily={"heading"}
               fontWeight={"bold"}
               color={useColorModeValue("gray.800", "white")}

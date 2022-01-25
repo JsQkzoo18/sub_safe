@@ -75,7 +75,7 @@ export default function TopBar(props) {
             boxSize="40px"
             src="/tag.png"
             alt="Logo"
-            mr={5}
+            marginRight={5}
             display={{
               base: "none",
               md: "flex",
@@ -84,7 +84,7 @@ export default function TopBar(props) {
             }}
           />
           <Text
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
+            textAlign={{ base: "center", md: "left" }}
             fontFamily={"heading"}
             fontWeight={"bold"}
             color={useColorModeValue("gray.800", "white")}
@@ -234,12 +234,11 @@ const MobileNav = () => {
           fontWeight={600}
           color={"white"}
           bg={"purpleDark"}
-          href={"#"}
           _hover={{
             bg: "grayLight",
           }}
         >
-          <NextLink href="/register" passHref>
+          <NextLink href="/" passHref>
             Inicio
           </NextLink>
         </Button>
@@ -289,12 +288,11 @@ const MobileNavItem = ({ label, children, href }) => {
           borderColor={useColorModeValue("gray.200", "gray.700")}
           align={"start"}
         >
-          {children &&
-            children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
-                {child.label}
-              </Link>
-            ))}
+          {children?.map((child) => (
+            <Link key={child.label} py={2} href={child.href}>
+              {child.label}
+            </Link>
+          ))}
         </Stack>
       </Collapse>
     </Stack>

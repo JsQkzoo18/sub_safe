@@ -15,20 +15,33 @@ import NextLink from "next/link";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { initialValues, validationSchema } from "../../../utils/formValidation";
+import {
+  loginInitialValues,
+  loginValidationSchema,
+} from "../../../utils/formValidation";
 import TextField from "../../Forms/TextField/TextField";
+import { loginApi } from "../../../api/user";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
+
   // const { login } = useAuth();
-  // console.log(formik.values.password);
   return (
     <Formik
-      initialValues={initialValues()}
-      validationSchema={Yup.object(validationSchema())}
-      onSubmit={(values, actions) => {
-        alert(JSON.stringify(values.password.trim(), null, 2));
-        actions.resetForm();
+      initialValues={loginInitialValues()}
+      validationSchema={Yup.object(loginValidationSchema())}
+      onSubmit={async (values, actions) => {
+        try {
+          const response = await loginApi({
+            email: "jhonmvl18@gmail.com",
+            password: "admin1245",
+          });
+          const { access } = response;
+        } catch (error) {
+          toast.error(error.message);
+        }
+        // actions.resetForm();
       }}
     >
       {(formik) => (
@@ -75,7 +88,6 @@ export default function Login() {
                     placeholder="Ingresa tú contraseña"
                     type="password"
                     label="Contraseña"
-                    ispass
                   />
 
                   <AditionalLinks />
