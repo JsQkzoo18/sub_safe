@@ -7,9 +7,6 @@ export default function hooks_tst() {
   const { products } = useGetProducts();
   const { categories } = useGetCategories();
 
-  console.log(products);
-  console.log(categories);
-
   return (
     <Container maxW="container.xl">
       <Center>
@@ -20,9 +17,7 @@ export default function hooks_tst() {
         <Heading>Products</Heading>
         {products && (
           <Code colorScheme={"green"}>
-            <div>
-              <pre>{JSON.stringify(products, null, 2)}</pre>
-            </div>
+            <pre>{JSON.stringify(products, null, 2)}</pre>
           </Code>
         )}
       </Stack>
@@ -31,9 +26,7 @@ export default function hooks_tst() {
         <Heading>Categories</Heading>
         {categories && (
           <Code colorScheme={"orange"}>
-            <div>
-              <pre>{JSON.stringify(categories, null, 2)}</pre>
-            </div>
+            <pre>{JSON.stringify(categories, null, 2)}</pre>
           </Code>
         )}
       </Stack>
