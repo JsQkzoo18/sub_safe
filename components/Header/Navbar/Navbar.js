@@ -270,7 +270,6 @@ const MobileNav = () => {
           fontWeight={600}
           color={"white"}
           bg={"purpleDark"}
-          href={"#"}
           _hover={{
             bg: "grayLight",
           }}

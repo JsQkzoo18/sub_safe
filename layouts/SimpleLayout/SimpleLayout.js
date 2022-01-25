@@ -1,7 +1,8 @@
 import React from "react";
 import { Container } from "@chakra-ui/react";
 import Navbar from "../../components/Header/Navbar";
-import Footer from "../../components/Footer";
+import { HyperThemeEditor } from "@hypertheme-editor/chakra-ui";
+import ThemeEditorToggle from "../../components/Theme/ThemeEditorToggle";
 
 export default function SimpleLayout({ children }) {
   return (
@@ -9,6 +10,7 @@ export default function SimpleLayout({ children }) {
       <Navbar />
       <Container className="content" maxW="8xl" centerContent>
         {children}
+        <ThemeEditorToggle />
       </Container>
     </div>
   );

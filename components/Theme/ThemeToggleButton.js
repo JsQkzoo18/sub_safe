@@ -1,6 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import {
+  IconButton,
+  useColorMode,
+  useColorModeValue,
+  Wrap,
+} from "@chakra-ui/react";
+import { SunIcon, MoonIcon, AddIcon, SettingsIcon } from "@chakra-ui/icons";
+import ThemeEditorToggle from "./ThemeEditorToggle";
 
 const ThemeToggleButton = () => {
   const { toggleColorMode } = useColorMode();
@@ -8,7 +14,7 @@ const ThemeToggleButton = () => {
   return (
     <AnimatePresence exitBeforeEnter initial={false}>
       <motion.div
-        style={{ display: "inline-block" }}
+        style={{ display: "flex", alignItems: "center" }}
         key={useColorModeValue("light", "dark")}
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -21,6 +27,9 @@ const ThemeToggleButton = () => {
           icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
           onClick={toggleColorMode}
         />
+        <Wrap display={{ base: "none", md: "none", lg: "inline-flex" }}>
+          <ThemeEditorToggle />
+        </Wrap>
       </motion.div>
     </AnimatePresence>
   );

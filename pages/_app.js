@@ -5,14 +5,17 @@ import "../scss/global.scss";
 import Theme from "../components/Theme/Theme";
 import Fonts from "../components/Theme/Fonts";
 import { AnimatePresence } from "framer-motion";
+import { ThemeEditorProvider } from "@hypertheme-editor/chakra-ui";
 
 function MyApp({ Component, pageProps, router }) {
   return (
     <Theme cookies={pageProps.cookies}>
-      <Fonts />
-      <AnimatePresence exitBeforeEnter initial={true}>
-        <Component {...pageProps} key={router.route} />
-      </AnimatePresence>
+      <ThemeEditorProvider>
+        <Fonts />
+        <AnimatePresence exitBeforeEnter initial={true}>
+          <Component {...pageProps} key={router.route} />
+        </AnimatePresence>
+      </ThemeEditorProvider>
     </Theme>
   );
 }
