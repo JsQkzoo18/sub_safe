@@ -37,7 +37,7 @@ export default function Login() {
           const response = await loginAPI(values);
           const { access } = response;
           console.log(access);
-          login(access); //
+          login(access);
         } catch (error) {
           toast.error(error.message);
         }
