@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import {
   Flex,
   Box,
@@ -9,6 +11,7 @@ import {
   useColorModeValue,
   Link,
   ScaleFade,
+  Wrap,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import TextField from "../../Forms/TextField/TextField";
@@ -16,26 +19,43 @@ import {
   registerInitialValues,
   registerValidationSchema,
 } from "../../../utils/formValidation";
-import { loginApi } from "../../../api/user";
+import { loginApi, registerApi } from "../../../api/user";
 import toast from "react-hot-toast";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { random } from "../../../utils/random";
 
 export default function Register() {
+  const [loading, setLoading] = useState(false);
+
+  const randomNumer = random(1, 10);
+
   return (
     <Formik
       initialValues={registerInitialValues()}
       validationSchema={Yup.object(registerValidationSchema())}
       onSubmit={async (values, actions) => {
+        setLoading(true);
+        const { first_name, last_name, username, phone, email, password } =
+          values;
+        const dataForm = {
+          first_name,
+          last_name,
+          username,
+          email,
+          password,
+          phone: `${phone}`,
+          city: 1,
+          gender: "M",
+        };
+
         try {
-          const response = await loginApi({
-            email: "jhonmvl18@gmail.com",
-            password: "admin1245",
-          });
-          const { access } = response;
+          const response = await registerApi(dataForm);
+          console.log(response);
         } catch (error) {
           toast.error(error.message);
         }
+        setLoading(false);
         // actions.resetForm();
       }}
     >
@@ -51,7 +71,8 @@ export default function Register() {
               spacing={8}
               mx={"auto"}
               maxW={"lg"}
-              py={12}
+              marginTop={15}
+              py={20}
               px={6}
               as="form"
               onSubmit={formik.handleSubmit}
@@ -74,7 +95,7 @@ export default function Register() {
                   <HStack>
                     <Box>
                       <TextField
-                        name="name"
+                        name="first_name"
                         placeholder="Ingresa tú nombre"
                         type="text"
                         label="Nombre"
@@ -83,13 +104,39 @@ export default function Register() {
                     </Box>
                     <Box>
                       <TextField
-                        name="lastname"
+                        name="last_name"
                         placeholder="Ingresa tú apellido"
                         type="text"
                         label="Apellido"
+                        isRequired
                       />
                     </Box>
                   </HStack>
+
+                  <TextField
+                    name="username"
+                    placeholder="Nombre de usuario (autogenerado)"
+                    type="text"
+                    label="Nombre de usuario"
+                    isReadOnly
+                    value={
+                      (formik.values.username =
+                        formik.values.first_name.length > 0 &&
+                        formik.values.last_name.length > 0
+                          ? `${formik.values.first_name}_${formik.values.last_name}_${randomNumer}`
+                          : "")
+                    }
+                  />
+
+                  <TextField
+                    name="phone"
+                    placeholder="907865457"
+                    type="tel"
+                    label="Numero de celular"
+                    maxLength={9}
+                    isRequired
+                    value={formik.values.phone}
+                  />
 
                   <TextField
                     name="email"
@@ -119,7 +166,6 @@ export default function Register() {
                   <Stack spacing={10} pt={2}>
                     <Button
                       type="submit"
-                      loadingText="Submitting"
                       size="lg"
                       bg={"purpleDark"}
                       color={"white"}

@@ -5,6 +5,7 @@ const uppercaseRegex = /(?=.*[A-Z])/;
 const numericRegex = /(?=.*[0-9])/;
 const specialRegex = /[!@#$%^&*()]+/;
 const onlyLetters = /^[a-z]+$/gi;
+const onlyNumbers = /^([0-9])*$/;
 
 export function loginInitialValues() {
   return {
@@ -26,8 +27,10 @@ export function loginValidationSchema() {
 
 export function registerInitialValues() {
   return {
-    name: "",
-    lastname: "",
+    first_name: "",
+    last_name: "",
+    username: "",
+    phone: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -36,13 +39,17 @@ export function registerInitialValues() {
 
 export function registerValidationSchema() {
   return {
-    name: Yup.string()
+    first_name: Yup.string()
       .min(3, "El nombre es demasiado corto")
       .required("El nombre es obligatorio")
       .matches(onlyLetters, "Solo se permiten letras"),
-    lastname: Yup.string()
+    last_name: Yup.string()
       .min(3, "El apellido es demasiado corto")
       .matches(onlyLetters, "Solo se permiten letras"),
+    username: Yup.string(),
+    phone: Yup.string()
+      .max(9, "El numero maximo es 9")
+      .matches(onlyNumbers, "Solo se permiten numeros"),
     email: Yup.string()
       .email("El formato del correo no es correcto")
       .required("Ingresa tu correo por favor!"),

@@ -22,26 +22,29 @@ import {
 import TextField from "../../Forms/TextField/TextField";
 import { loginApi } from "../../../api/user";
 import toast from "react-hot-toast";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
 
-  // const { login } = useAuth();
+  const { login } = useAuth();
   return (
     <Formik
+      validateOnBlur
       initialValues={loginInitialValues()}
       validationSchema={Yup.object(loginValidationSchema())}
       onSubmit={async (values, actions) => {
+        setLoading(true);
         try {
-          const response = await loginApi({
-            email: "jhonmvl18@gmail.com",
-            password: "admin1245",
-          });
+          const response = await loginApi(values);
           const { access } = response;
+          console.log(access);
+          // login(access);
         } catch (error) {
           toast.error(error.message);
         }
-        // actions.resetForm();
+        setLoading(false);
+        actions.resetForm();
       }}
     >
       {(formik) => (

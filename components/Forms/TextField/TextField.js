@@ -12,24 +12,27 @@ import {
   Collapse,
   InputRightElement,
   InputGroup,
+  InputLeftAddon,
 } from "@chakra-ui/react";
 import { Field, useField } from "formik";
 import { useState } from "react";
 import PasswordStrengthMeter from "../PasswordStrengthMeter/PasswordStrengthMeter ";
 
-const TextField = ({ label, ispass = false, isRequired, ...props }) => {
+const TextField = ({
+  label,
+  ispass = false,
+  isRequired,
+  isReadOnly,
+  isDisabled,
+  ...props
+}) => {
   const [field, meta] = useField(props);
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
       <FormControl
-        isInvalid={
-          ispass
-            ? meta.error && meta.value.length > 0
-            : meta.error && meta.touched
-        }
-        id={field.name}
+        isInvalid={meta.error && meta.value?.length > 0}
         isRequired={isRequired}
       >
         <FormLabel>{label}</FormLabel>
@@ -53,18 +56,22 @@ const TextField = ({ label, ispass = false, isRequired, ...props }) => {
                 </Button>
               </InputRightElement>
             </>
+          ) : props.type === "tel" ? (
+            <>
+              <InputLeftAddon children="+593" />
+              <Field as={Input} {...field} {...props} />
+            </>
           ) : (
-            <Field as={Input} {...field} {...props} />
+            <Field
+              as={Input}
+              isReadOnly={isReadOnly}
+              isDisabled={isDisabled}
+              {...field}
+              {...props}
+            />
           )}
         </InputGroup>
-        <Collapse
-          in={
-            ispass
-              ? meta.error && meta.value.length > 0
-              : meta.error && meta.touched
-          }
-          animateOpacity
-        >
+        <Collapse in={meta.error && meta.value?.length > 0} animateOpacity>
           <FormErrorMessage>
             <Alert
               status="error"
@@ -78,7 +85,7 @@ const TextField = ({ label, ispass = false, isRequired, ...props }) => {
           </FormErrorMessage>
         </Collapse>
       </FormControl>
-      {ispass && field.value.length > 0 && (
+      {ispass && field.value?.length > 0 && (
         <PasswordStrengthMeter password={meta.value} />
       )}
     </>
