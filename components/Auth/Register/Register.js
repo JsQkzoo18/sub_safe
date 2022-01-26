@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   Flex,
   Box,
@@ -11,18 +10,21 @@ import {
   useColorModeValue,
   Link,
   ScaleFade,
-  Wrap,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import toast from "react-hot-toast";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+import CustomAutoCompleteInput from "../../Forms/AutoComplete/CustomAutoCompleteInput";
 import TextField from "../../Forms/TextField/TextField";
 import {
   registerInitialValues,
   registerValidationSchema,
 } from "../../../utils/formValidation";
-import { loginApi, registerApi } from "../../../api/user";
-import toast from "react-hot-toast";
-import { Formik } from "formik";
-import * as Yup from "yup";
+
+import { registerAPI } from "../../../api/user";
+
 import { random } from "../../../utils/random";
 
 export default function Register() {
@@ -49,8 +51,10 @@ export default function Register() {
           gender: "M",
         };
 
+        console.log(dataForm);
+
         try {
-          const response = await registerApi(dataForm);
+          const response = await registerAPI(dataForm);
           console.log(response);
         } catch (error) {
           toast.error(error.message);
@@ -138,6 +142,7 @@ export default function Register() {
                     value={formik.values.phone}
                   />
 
+                  <CustomAutoCompleteInput />
                   <TextField
                     name="email"
                     placeholder="Ingresa tú email"

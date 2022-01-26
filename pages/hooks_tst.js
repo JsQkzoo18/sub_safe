@@ -1,5 +1,6 @@
 import { Center, Code, Container, Heading, Stack } from "@chakra-ui/react";
 import React from "react";
+import CustomAutoCompleteInput from "../components/Forms/AutoComplete/CustomAutoCompleteInput";
 import { useGetCategories } from "../hooks/useCategories";
 import { useGetProducts } from "../hooks/useProduct";
 
@@ -13,6 +14,7 @@ export default function hooks_tst() {
         <Heading>Prueba de Hooks - API</Heading>
       </Center>
 
+      <CustomAutoCompleteInput />
       <Stack>
         <Heading>Products</Heading>
         {products && (

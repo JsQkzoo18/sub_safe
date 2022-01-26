@@ -1,13 +1,12 @@
-import { BASE_PATH } from "../utils/constants";
+import { BASE_PATH } from "../utils/env";
 
-export async function getAllProducts() {
+export async function getAllProductsAPI() {
   try {
-    const url = `${BASE_PATH}/api/articulos`;
-    const response = await fetch(url);
+    const compositeUrl = `${BASE_PATH}/api/articulos`;
+    const response = await fetch(compositeUrl);
     const result = await response.json();
     return result;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }

@@ -10,7 +10,6 @@ import {
   useColorModeValue,
   ScaleFade,
 } from "@chakra-ui/react";
-
 import NextLink from "next/link";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -20,13 +19,12 @@ import {
   loginValidationSchema,
 } from "../../../utils/formValidation";
 import TextField from "../../Forms/TextField/TextField";
-import { loginApi } from "../../../api/user";
+import { loginAPI } from "../../../api/user";
 import toast from "react-hot-toast";
 import { useAuth } from "../../../hooks/useAuth";
 
 export default function Login() {
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false); //Promise status check
   const { login } = useAuth();
   return (
     <Formik
@@ -36,7 +34,7 @@ export default function Login() {
       onSubmit={async (values, actions) => {
         setLoading(true);
         try {
-          const response = await loginApi(values);
+          const response = await loginAPI(values);
           const { access } = response;
           console.log(access);
           // login(access);
@@ -44,7 +42,7 @@ export default function Login() {
           toast.error(error.message);
         }
         setLoading(false);
-        actions.resetForm();
+        // actions.resetForm();
       }}
     >
       {(formik) => (

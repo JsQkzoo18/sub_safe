@@ -1,0 +1,326 @@
+[
+  {
+    "label": "Guayaquil",
+    "value": 1
+  },
+  {
+    "label": "Quito",
+    "value": 2
+  },
+  {
+    "label": "Cuenca",
+    "value": 3
+  },
+  {
+    "label": "Santo Domingo de los Colorados",
+    "value": 4
+  },
+  {
+    "label": "Machala",
+    "value": 5
+  },
+  {
+    "label": "Eloy Alfaro",
+    "value": 6
+  },
+  {
+    "label": "Manta",
+    "value": 7
+  },
+  {
+    "label": "Portoviejo",
+    "value": 8
+  },
+  {
+    "label": "Loja",
+    "value": 9
+  },
+  {
+    "label": "Ambato",
+    "value": 10
+  },
+  {
+    "label": "Esmeraldas",
+    "value": 11
+  },
+  {
+    "label": "Quevedo",
+    "value": 12
+  },
+  {
+    "label": "Riobamba",
+    "value": 13
+  },
+  {
+    "label": "Milagro",
+    "value": 14
+  },
+  {
+    "label": "Ibarra",
+    "value": 15
+  },
+  {
+    "label": "Babahoyo",
+    "value": 16
+  },
+  {
+    "label": "Sangolquí",
+    "value": 17
+  },
+  {
+    "label": "Pelileo",
+    "value": 18
+  },
+  {
+    "label": "Daule",
+    "value": 19
+  },
+  {
+    "label": "idac4 ",
+    "value": 20
+  },
+  {
+    "label": "Tulcán",
+    "value": 21
+  },
+  {
+    "label": "Chone",
+    "value": 22
+  },
+  {
+    "label": "Pasaje",
+    "value": 23
+  },
+  {
+    "label": "Santa Rosa",
+    "value": 24
+  },
+  {
+    "label": "Nueva Loja",
+    "value": 25
+  },
+  {
+    "label": "Huaquillas",
+    "value": 26
+  },
+  {
+    "label": "Montecristi",
+    "value": 27
+  },
+  {
+    "label": "Samborondón",
+    "value": 28
+  },
+  {
+    "label": "Puerto Francisco de Orellana",
+    "value": 29
+  },
+  {
+    "label": "Jipijapa",
+    "value": 30
+  },
+  {
+    "label": "Santa Elena",
+    "value": 31
+  },
+  {
+    "label": "Otavalo",
+    "value": 32
+  },
+  {
+    "label": "Cayambe",
+    "value": 33
+  },
+  {
+    "label": "San Jacinto de Buena Fe",
+    "value": 34
+  },
+  {
+    "label": "Ventanas",
+    "value": 35
+  },
+  {
+    "label": "Velasco Ibarra",
+    "value": 36
+  },
+  {
+    "label": "La Troncal",
+    "value": 37
+  },
+  {
+    "label": "Salinas",
+    "value": 38
+  },
+  {
+    "label": "Azogues",
+    "value": 39
+  },
+  {
+    "label": "Vinces",
+    "value": 40
+  },
+  {
+    "label": "La Concordia",
+    "value": 41
+  },
+  {
+    "label": "Rosa Zarate",
+    "value": 42
+  },
+  {
+    "label": "Balzar",
+    "value": 43
+  },
+  {
+    "label": "Naranjito",
+    "value": 44
+  },
+  {
+    "label": "Naranjal",
+    "value": 45
+  },
+  {
+    "label": "Puyo",
+    "value": 46
+  },
+  {
+    "label": "Guaranda",
+    "value": 47
+  },
+  {
+    "label": "La Maná",
+    "value": 48
+  },
+  {
+    "label": "Tena",
+    "value": 49
+  },
+  {
+    "label": "San Lorenzo de Esmeraldas",
+    "value": 50
+  },
+  {
+    "label": "Catamayo",
+    "value": 51
+  },
+  {
+    "label": "Pedernales",
+    "value": 52
+  },
+  {
+    "label": "Atuntaqui",
+    "value": 53
+  },
+  {
+    "label": "Bahía de Caráquez",
+    "value": 54
+  },
+  {
+    "label": "Puerto Quito",
+    "value": 55
+  },
+  {
+    "label": "Pedro Carbo",
+    "value": 56
+  },
+  {
+    "label": "Macas",
+    "value": 57
+  },
+  {
+    "label": "Yaguachi Nuevo",
+    "value": 58
+  },
+  {
+    "label": "Valencia",
+    "value": 59
+  },
+  {
+    "label": "Piñas",
+    "value": 60
+  },
+  {
+    "label": "San Gabriel",
+    "value": 61
+  },
+  {
+    "label": "Atacames",
+    "value": 62
+  },
+  {
+    "label": "Alausí",
+    "value": 63
+  },
+  {
+    "label": "Lomas de Sargentillo",
+    "value": 64
+  },
+  {
+    "label": "Muisne",
+    "value": 65
+  },
+  {
+    "label": "Macará",
+    "value": 66
+  },
+  {
+    "label": "Baños",
+    "value": 67
+  },
+  {
+    "label": "San Miguel de Salcedo",
+    "value": 68
+  },
+  {
+    "label": "Zamora",
+    "value": 69
+  },
+  {
+    "label": "Puerto Ayora",
+    "value": 70
+  },
+  {
+    "label": "Valdez",
+    "value": 71
+  },
+  {
+    "label": "Santa Cruz",
+    "value": 72
+  },
+  {
+    "label": "Tosagua",
+    "value": 73
+  },
+  {
+    "label": "Píllaro",
+    "value": 74
+  },
+  {
+    "label": "Puerto Baquerizo Moreno",
+    "value": 75
+  },
+  {
+    "label": "Pedro Vicente Maldonado",
+    "value": 76
+  },
+  {
+    "label": "Archido",
+    "value": 77
+  },
+  {
+    "label": "Llacao",
+    "value": 78
+  },
+  {
+    "label": "Junín",
+    "value": 79
+  },
+  {
+    "label": "El Chaco",
+    "value": 80
+  },
+  {
+    "label": "Otra ciudad",
+    "value": 81
+  }
+]

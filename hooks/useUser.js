@@ -1,9 +1,9 @@
-import { getMeApi } from "../api/user";
+import { getMeAPI } from "../api/user";
 
 export function useUser() {
   const getMe = async (token) => {
     try {
-      const response = await getMeApi(token);
+      const response = await getMeAPI(token);
       console.log(response);
       return response;
     } catch (error) {

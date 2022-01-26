@@ -644,6 +644,13 @@
   dependencies:
     "@chakra-ui/utils" "1.9.1"
 
+"@choc-ui/chakra-autocomplete@^4.15.2":
+  version "4.15.2"
+  resolved "https://registry.yarnpkg.com/@choc-ui/chakra-autocomplete/-/chakra-autocomplete-4.15.2.tgz#f9128ad142b7186c7be1841759efe87ff67448f7"
+  integrity sha512-6wFia8ki+t2DEInf+vNJfLEduzEJ5RGMABMdkZnWhqi6tB1nPus9rza0iNgECKE3D2j2wWk8bAYHuMipNxjBTQ==
+  dependencies:
+    react-nanny "^2.9.0"
+
 "@ctrl/tinycolor@^3.4.0":
   version "3.4.0"
   resolved "https://registry.npmjs.org/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz"
@@ -2624,6 +2631,11 @@ react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-nanny@^2.9.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/react-nanny/-/react-nanny-2.12.0.tgz#8ee7d20319f81131fc1be50ddf3197f286a81dde"
+  integrity sha512-oQ3Mo2oBPVELl96IHc43zVsCJUt8BYoEXoeBtPJzTfTTVezQx3/CRZZ+4Ck6TITxawRTUiOcU8v7EPaGpDk01A==
 
 react-refresh@0.8.3:
   version "0.8.3"
