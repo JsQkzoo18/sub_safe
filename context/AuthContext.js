@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 import { setToken } from "../api/token";
-import { getMeApi } from "../api/user";
+import { getMeAPI } from "../api/user";
 import { useUser } from "../hooks";
 
 export const AuthContext = createContext({
@@ -14,8 +14,8 @@ export function AuthProvider(props) {
 
   const getMe = async (token) => {
     try {
-      const response = await getMeApi(token);
-      console.log(response);
+      const response = await getMeAPI(token);
+      console.log("/aut/me.", response);
       return response;
     } catch (error) {
       throw error;
@@ -23,8 +23,8 @@ export function AuthProvider(props) {
   };
 
   const login = async (token) => {
+    console.log("Login");
     setToken(token);
-
     console.log(getMe(token));
   };
 

@@ -30,7 +30,7 @@ import { random } from "../../../utils/random";
 export default function Register() {
   const [loading, setLoading] = useState(false);
 
-  const randomNumer = random(1, 10);
+  const randomNumber = random(1, 10);
 
   return (
     <Formik
@@ -81,14 +81,7 @@ export default function Register() {
               as="form"
               onSubmit={formik.handleSubmit}
             >
-              <Stack align={"center"}>
-                <Heading fontSize={"4xl"} textAlign={"center"}>
-                  Regístrate
-                </Heading>
-                <Text fontSize={"lg"} color={"gray.600"}>
-                  para disfrutar todas las características✌️
-                </Text>
-              </Stack>
+              <Header />
               <Box
                 rounded={"lg"}
                 bg={useColorModeValue("white", "blueDark")}
@@ -127,7 +120,7 @@ export default function Register() {
                       (formik.values.username =
                         formik.values.first_name.length > 0 &&
                         formik.values.last_name.length > 0
-                          ? `${formik.values.first_name}_${formik.values.last_name}_${randomNumer}`
+                          ? `${formik.values.first_name}_${formik.values.last_name}_${randomNumber}`
                           : "")
                     }
                   />
@@ -193,6 +186,16 @@ export default function Register() {
   );
 }
 
+function Header() {
+  <Stack align={"center"}>
+    <Heading fontSize={"4xl"} textAlign={"center"}>
+      Regístrate
+    </Heading>
+    <Text fontSize={"lg"} color={"gray.600"}>
+      para disfrutar todas las características✌️
+    </Text>
+  </Stack>;
+}
 function AdditionalLinks() {
   return (
     <Stack pt={6}>
