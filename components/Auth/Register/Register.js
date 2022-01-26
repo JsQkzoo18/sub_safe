@@ -187,14 +187,16 @@ export default function Register() {
 }
 
 function Header() {
-  <Stack align={"center"}>
-    <Heading fontSize={"4xl"} textAlign={"center"}>
-      Regístrate
-    </Heading>
-    <Text fontSize={"lg"} color={"gray.600"}>
-      para disfrutar todas las características✌️
-    </Text>
-  </Stack>;
+  return (
+    <Stack align={"center"}>
+      <Heading fontSize={"4xl"} textAlign={"center"}>
+        Regístrate
+      </Heading>
+      <Text fontSize={"lg"} color={"gray.600"}>
+        para disfrutar todas las características✌️
+      </Text>
+    </Stack>
+  );
 }
 function AdditionalLinks() {
   return (
