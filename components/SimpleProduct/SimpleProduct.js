@@ -6,89 +6,107 @@ import {
   Text,
   Stack,
   Image,
-  Slide,
-  SlideFade,
+  Skeleton,
+  Tag,
+  Flex,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { fadeInUp } from "../../lib/animations";
 
 const IMAGE = "/toy.jpg";
 
-export default function SimpleProduct({ title, price, url }) {
+const MotionBox = motion(Box);
+const MotionImage = motion(Image);
+
+export default function SimpleProduct({
+  name,
+  currentBid,
+  url = "oso1",
+  description = "",
+  date,
+  category,
+  mainImage,
+}) {
   return (
-    <Link href={`/${url}`}>
+    <Link href={`/products/${url}`}>
       <div className="simple-product">
-        <Center cursor={"pointer"}>
-          <SlideFade in={true} offsetY="20px">
+        <Center>
+          <MotionBox
+            role={"group"}
+            p={3}
+            mt={2}
+            mb={2}
+            maxW={"330px"}
+            w={"full"}
+            bg={useColorModeValue("white", "grayDark")}
+            boxShadow={"xl"}
+            rounded={"lg"}
+            cursor={"pointer"}
+            whileHover={{ scale: 1.025 }}
+            whileTap={{ scale: 0.95 }}
+            variants={fadeInUp}
+          >
             <Box
-              role={"group"}
-              p={3}
-              mt={2}
-              mb={2}
-              maxW={"330px"}
-              w={"full"}
-              bg={useColorModeValue("white", "grayDark")}
-              boxShadow={"2xl"}
               rounded={"lg"}
               pos={"relative"}
-              zIndex={1}
+              height={"230px"}
+              _after={{
+                transition: "all .3s ease",
+                content: '""',
+                w: "full",
+                h: "full",
+                pos: "absolute",
+                top: 2,
+                left: 0,
+                backgroundImage: `url(${IMAGE})`,
+                filter: "blur(5px)",
+                zIndex: -1,
+              }}
+              _groupHover={{
+                _after: {
+                  filter: "blur(10px)",
+                },
+              }}
             >
-              <Box
+              <MotionImage
                 rounded={"lg"}
-                pos={"relative"}
-                height={"230px"}
-                _after={{
-                  transition: "all .3s ease",
-                  content: '""',
-                  w: "full",
-                  h: "full",
-                  pos: "absolute",
-                  top: 2,
-                  left: 0,
-                  backgroundImage: `url(${IMAGE})`,
-                  filter: "blur(5px)",
-                  zIndex: -1,
-                }}
-                _groupHover={{
-                  _after: {
-                    filter: "blur(10px)",
-                  },
-                }}
-              >
-                <Image
-                  rounded={"lg"}
-                  height={230}
-                  width={282}
-                  objectFit={"cover"}
-                  src={IMAGE}
-                />
-              </Box>
-              <Stack pt={10} align={"center"}>
-                <Text
-                  color={"gray.500"}
-                  fontSize={"sm"}
-                  textTransform={"uppercase"}
-                >
-                  Articulo
-                </Text>
-                <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
-                  Descripción
-                </Heading>
-
-                <Heading fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
-                  $200
-                </Heading>
-
-                <Stack direction={"row"} align={"center"}>
-                  <Text fontWeight={300} fontSize={"sm"}>
-                    23/01/2022
-                  </Text>
-                  <Text textDecoration={"line-through"} color={"gray.600"}>
-                    {price}
-                  </Text>
-                </Stack>
-              </Stack>
+                height={230}
+                width={282}
+                objectFit={"cover"}
+                src={mainImage}
+                initial={{ y: 60, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1 }}
+                fallback={<Skeleton />}
+              />
             </Box>
-          </SlideFade>
+            <Stack pt={10} align={"center"}>
+              <Text
+                color={"gray.500"}
+                fontSize={"md"}
+                textTransform={"uppercase"}
+              >
+                {name}
+              </Text>
+              <Text
+                fontSize={"sm"}
+                fontFamily={"body"}
+                fontWeight={500}
+                isTruncated
+                maxW={"260px"}
+              >
+                {description}
+              </Text>
+
+              <Text fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
+                $ {currentBid}
+              </Text>
+            </Stack>
+            <Flex justify={"flex-start"} alignItems={"flex-start"}>
+              <Tag colorScheme={"purple"}>{category}</Tag>
+            </Flex>
+          </MotionBox>
         </Center>
       </div>
     </Link>

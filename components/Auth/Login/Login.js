@@ -48,7 +48,8 @@ export default function Login() {
       {(formik) => (
         <ScaleFade initialScale={0.9} in={true}>
           <Flex
-            minH={"100vh"}
+            h={{ base: "100%", lg: "100vh" }}
+            minH={{ base: "100%", lg: "100vh" }}
             align={"center"}
             justify={"center"}
             bg={useColorModeValue("gray.50", "grayDark")}

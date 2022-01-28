@@ -13,6 +13,9 @@ import {
   InputRightElement,
   InputGroup,
   InputLeftAddon,
+  Text,
+  FormHelperText,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Field, useField } from "formik";
 import { useState } from "react";
@@ -20,6 +23,7 @@ import PasswordStrengthMeter from "../PasswordStrengthMeter/PasswordStrengthMete
 
 const TextField = ({
   label,
+  helper = "",
   ispass = false,
   isRequired,
   isReadOnly,
@@ -32,7 +36,9 @@ const TextField = ({
   return (
     <>
       <FormControl
-        isInvalid={meta.error && meta.value?.length > 0}
+        isInvalid={
+          (meta.error && meta.value?.length > 0) || (meta.error && meta.touched)
+        }
         isRequired={isRequired}
       >
         <FormLabel>{label}</FormLabel>
@@ -52,7 +58,15 @@ const TextField = ({
                     setShowPassword((showPassword) => !showPassword)
                   }
                 >
-                  {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  {showPassword ? (
+                    <ViewIcon
+                      color={useColorModeValue("purpleDark", "white")}
+                    />
+                  ) : (
+                    <ViewOffIcon
+                      color={useColorModeValue("purpleDark", "white")}
+                    />
+                  )}
                 </Button>
               </InputRightElement>
             </>
@@ -71,16 +85,30 @@ const TextField = ({
             />
           )}
         </InputGroup>
-        <Collapse in={meta.error && meta.value?.length > 0} animateOpacity>
+        {helper.length > 0 && (
+          <FormHelperText
+            color={useColorModeValue("purpleDark", "white")}
+            ml={1}
+          >
+            {helper}
+          </FormHelperText>
+        )}
+        <Collapse
+          in={
+            (meta.error && meta.value?.length > 0) ||
+            (meta.error && meta.touched)
+          }
+          animateOpacity
+        >
           <FormErrorMessage>
             <Alert
-              status="error"
+              status="warning"
               variant="subtle"
               rounded={"md"}
               fontWeight={"500"}
             >
               <AlertIcon />
-              {meta.error}
+              <Text color={"yellow.600"}>{meta.error}</Text>
             </Alert>
           </FormErrorMessage>
         </Collapse>

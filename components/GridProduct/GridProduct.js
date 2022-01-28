@@ -1,27 +1,36 @@
-import { Box, SimpleGrid, Icon, Text, Stack, Flex } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import Footer from "../Footer";
 import SimpleProduct from "../SimpleProduct/SimpleProduct";
+import { motion } from "framer-motion";
+import { map } from "lodash";
 
-export default function GridProduct() {
+const MotionBox = motion(Box);
+
+export default function GridProduct({ products }) {
   return (
-    <Box>
-      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={8} mt={20}>
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-        <SimpleProduct />
-      </SimpleGrid>
+    <MotionBox initial="initial" animate="animate">
+      <Grid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(4, 1fr)",
+        }}
+        gap={{ base: "3", sm: "5", md: "7", lg: "9" }}
+      >
+        {map(products, (x, index) => (
+          <SimpleProduct
+            key={index}
+            name={x.name}
+            currentBid={x.current_bid}
+            description={x.description}
+            date={x.date}
+            category={x.category.name}
+            mainImage={x.main_image}
+          />
+        ))}
+      </Grid>
       <Footer />
-    </Box>
+    </MotionBox>
   );
 }

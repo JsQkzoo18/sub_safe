@@ -1,15 +1,19 @@
 import React from "react";
 import { Container } from "@chakra-ui/react";
 import Navbar from "../../components/Header/Navbar";
-import ThemeEditorToggle from "../../components/Theme/ThemeEditorToggle";
 
 export default function SimpleLayout({ children }) {
   return (
     <div className="simple-layout">
       <Navbar />
-      <Container className="content" maxW="8xl" centerContent>
+      <Container
+        maxW="full"
+        minH={{ base: "100%", lg: "100vh" }}
+        pt={{ base: 16, lg: 24 }}
+        px={{ base: 16, lg: 24 }}
+        overflowY={"scroll"}
+      >
         {children}
-        <ThemeEditorToggle />
       </Container>
     </div>
   );

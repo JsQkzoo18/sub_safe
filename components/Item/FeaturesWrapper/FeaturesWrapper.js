@@ -5,6 +5,7 @@ import {
   useColorModeValue,
   List,
   ListItem,
+  Divider,
 } from "@chakra-ui/react";
 
 export const FeaturesWrapper = () => {
@@ -12,7 +13,7 @@ export const FeaturesWrapper = () => {
     <Box>
       <Text
         fontSize={{ base: "16px", lg: "18px" }}
-        color={useColorModeValue("yellow.500", "yellow.300")}
+        color={useColorModeValue("purpleDark", "yellow.300")}
         fontWeight={"500"}
         textTransform={"uppercase"}
         mb={"4"}
@@ -20,7 +21,7 @@ export const FeaturesWrapper = () => {
         Características
       </Text>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+      <SimpleGrid columns={1} spacing={10}>
         <List spacing={2}>
           <ListItem>Suaves</ListItem>
           <ListItem>Tiernositos</ListItem>

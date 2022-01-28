@@ -9,9 +9,7 @@ export const AuthContext = createContext({
   logout: () => null,
 });
 
-export function AuthProvider(props) {
-  const { children } = props;
-
+export function AuthProvider({ children }) {
   const getMe = async (token) => {
     try {
       const response = await getMeAPI(token);

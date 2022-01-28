@@ -17,9 +17,11 @@ export function loginInitialValues() {
 export function loginValidationSchema() {
   return {
     email: Yup.string()
-      .email("El formato del correo no es correcto")
-      .required("Ingresa tu correo por favor!"),
+      .strict(true)
+      .required("Ingresa tu correo por favor!")
+      .email("El formato del correo no es correcto"),
     password: Yup.string()
+      .strict(true)
       .required("Ingresa tu contraseña por favor!")
       .min(8, "La contraseña debe tener más de 8 carácteres"),
   };
@@ -31,6 +33,7 @@ export function registerInitialValues() {
     last_name: "",
     username: "",
     phone: "",
+    city: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -41,16 +44,19 @@ export function registerValidationSchema() {
   return {
     first_name: Yup.string()
       .min(3, "El nombre es demasiado corto")
-      .required("El nombre es obligatorio")
+      .required("El nombre es necesario")
       .matches(onlyLetters, "Solo se permiten letras"),
     last_name: Yup.string()
+      .required("El apellido es necesario")
       .min(3, "El apellido es demasiado corto")
       .matches(onlyLetters, "Solo se permiten letras"),
     username: Yup.string(),
+    city: Yup.string().required("Debe seleccionar una ciudad"),
     phone: Yup.string()
       .max(9, "El numero maximo es 9")
       .matches(onlyNumbers, "Solo se permiten numeros"),
     email: Yup.string()
+      .strict(true)
       .email("El formato del correo no es correcto")
       .required("Ingresa tu correo por favor!"),
     password: Yup.string()

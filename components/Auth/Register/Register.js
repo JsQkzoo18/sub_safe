@@ -38,16 +38,23 @@ export default function Register() {
       validationSchema={Yup.object(registerValidationSchema())}
       onSubmit={async (values, actions) => {
         setLoading(true);
-        const { first_name, last_name, username, phone, email, password } =
-          values;
+        const {
+          first_name,
+          last_name,
+          username,
+          phone,
+          city,
+          email,
+          password,
+        } = values;
         const dataForm = {
           first_name,
           last_name,
           username,
           email,
           password,
-          phone: `${phone}`,
-          city: 1,
+          phone: `+593${phone}`,
+          city,
           gender: "M",
         };
 
@@ -66,8 +73,9 @@ export default function Register() {
       {(formik) => (
         <ScaleFade initialScale={0.9} in={true}>
           <Flex
-            minH={"100vh"}
-            align={"center"}
+            h={{ base: "100%", lg: "100vh" }}
+            minH={{ base: "100%", lg: "100vh" }}
+            overflowY={"scroll"}
             justify={"center"}
             bg={useColorModeValue("gray.50", "grayDark")}
           >
@@ -75,9 +83,7 @@ export default function Register() {
               spacing={8}
               mx={"auto"}
               maxW={"lg"}
-              marginTop={15}
-              py={20}
-              px={6}
+              mt={"60px"}
               as="form"
               onSubmit={formik.handleSubmit}
             >
@@ -112,9 +118,10 @@ export default function Register() {
 
                   <TextField
                     name="username"
-                    placeholder="Nombre de usuario (autogenerado)"
+                    placeholder="nickname"
                     type="text"
                     label="Nombre de usuario"
+                    helper="El nombre de usuario se genera automaticamente"
                     isReadOnly
                     value={
                       (formik.values.username =
@@ -135,7 +142,7 @@ export default function Register() {
                     value={formik.values.phone}
                   />
 
-                  <CustomAutoCompleteInput />
+                  <CustomAutoCompleteInput helper="Escribe el nombre de tu ciudad" />
                   <TextField
                     name="email"
                     placeholder="Ingresa tú email"

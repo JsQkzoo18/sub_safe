@@ -1,6 +1,4 @@
 // 1. Import the extendTheme function
-import { extendTheme } from "@chakra-ui/react";
-
 import "../scss/global.scss";
 import Theme from "../components/Theme/Theme";
 import Fonts from "../components/Theme/Fonts";

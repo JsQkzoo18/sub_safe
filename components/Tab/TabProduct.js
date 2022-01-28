@@ -24,21 +24,24 @@ import {
   Box,
   Heading,
   Fade,
+  SimpleGrid,
+  Divider,
+  Flex,
 } from "@chakra-ui/react";
 import { HeaderWrapper } from "../Item/HeaderWrapper/HeaderWrapper";
 import { DescriptionWrapper } from "../Item/DescriptionWrapper/DescriptionWrapper";
 import { FeaturesWrapper } from "../Item/FeaturesWrapper/FeaturesWrapper";
 import { DetailsWrapper } from "../Item/DetailsWrapper/DetailsWrapper";
 import { MoreDetailsWrapper } from "../Item/MoreDetailsWrapper/MoreDetailsWrapper";
-import { CheckIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronLeftIcon } from "@chakra-ui/icons";
 
 export default function TabProduct() {
   return (
-    <Tabs _focus={{ outline: "none" }}>
+    <Tabs variant={"solid-rounded"} colorScheme="green" isFitted>
       <TabList>
-        <Tab>Información</Tab>
+        <Tab _selected={{ color: "white", bg: "purpleDark" }}>Información</Tab>
         <Tab>Ofertar</Tab>
-        <Tab>Comentarios</Tab>
+        <Tab _selected={{ color: "white", bg: "blue.500" }}>Comentarios</Tab>
       </TabList>
 
       <TabPanels>
@@ -57,8 +60,12 @@ export default function TabProduct() {
 }
 
 const Description = () => (
-  <Fade in={true}>
-    <Stack spacing={{ base: 6, md: 10 }}>
+  <>
+    <Stack
+      spacing={{ base: 6, md: 10 }}
+      overflowY="scroll"
+      maxHeight={{ base: "full", md: "full", lg: "550px" }}
+    >
       <Stack
         spacing={{ base: 4, sm: 6 }}
         direction={"column"}
@@ -70,12 +77,25 @@ const Description = () => (
       >
         <HeaderWrapper />
         <DescriptionWrapper />
-        <FeaturesWrapper />
+
         <DetailsWrapper />
       </Stack>
     </Stack>
-    <MoreDetailsWrapper />
-  </Fade>
+    <Flex justify={"flex-start"}>
+      <Button
+        variant="ghost"
+        mt={10}
+        color={"purpleDark"}
+        _hover={{
+          bg: "purpleDark",
+          color: "white",
+        }}
+        leftIcon={<ChevronLeftIcon />}
+      >
+        Regresar
+      </Button>
+    </Flex>
+  </>
 );
 
 const Bids = () => (

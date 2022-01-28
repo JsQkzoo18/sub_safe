@@ -12,11 +12,9 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Image,
   WrapItem,
-  Tooltip,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -28,31 +26,56 @@ import {
 
 import NextLink from "next/link";
 import ThemeToggleButton from "../../Theme/ThemeToggleButton";
+import SearchButton from "../SearchButton/SearchButton";
+import { useGetCategories } from "../../../hooks/useCategories";
+import { capitalize } from "lodash";
 
 export default function Navbar(props) {
   const { isOpen, onToggle } = useDisclosure();
   const { path } = props;
+  const { categories } = useGetCategories();
+
+  const isLogin = true;
+
+  const NAV_ITEMS = [
+    {
+      label: "Todos los productos",
+      href: "/",
+    },
+    {
+      label: "Categorias",
+      children: categories,
+    },
+    {
+      label: "Acerca de nosotros",
+      href: "#",
+    },
+  ];
 
   return (
-    <Box
-      position="fixed"
-      as="nav"
-      w="100%"
-      bg={useColorModeValue("#ffffff40", "#20202380")}
-      css={{ backdropFilter: "blur(10px)" }}
-      zIndex={2}
-      {...props}
-    >
+    <Box {...props}>
       <Flex
+        as={"header"}
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={"solid"}
+        boxShadow={"sm"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
+        justify={"center"}
+        pos="fixed"
+        top="0"
+        zIndex={999}
+        w={"full"}
+        css={{
+          backdropFilter: "saturate(180%) blur(5px)",
+          backgroundColor: useColorModeValue(
+            "rgba(255, 255, 255, 0.8)",
+            "rgba(26, 32, 44, 0.8)"
+          ),
+        }}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -88,7 +111,6 @@ export default function Navbar(props) {
           <NextLink href="/" passHref>
             <Text
               textAlign={{ base: "center", md: "left" }}
-              fontFamily={"heading"}
               fontWeight={"bold"}
               color={useColorModeValue("gray.800", "white")}
             >
@@ -96,7 +118,7 @@ export default function Navbar(props) {
             </Text>
           </NextLink>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
-            <DesktopNav />
+            <DesktopNav categories={categories} NAV_ITEMS={NAV_ITEMS} />
           </Flex>
         </Flex>
 
@@ -105,55 +127,65 @@ export default function Navbar(props) {
           justify={"flex-end"}
           direction={"row"}
           spacing={6}
+          alignItems={"center"}
         >
-          <WrapItem>
-            <IconButton aria-label="Search database" icon={<SearchIcon />} />
-          </WrapItem>
+          <SearchButton />
 
-          <Button
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            display={{ base: "none", md: "inline-flex" }}
-            _focus={{
-              textDecoration: "none",
-              outline: "none",
-            }}
-          >
-            <NextLink href="/login" passHref>
-              <Link>Iniciar Sesión</Link>
-            </NextLink>
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"purpleDark"}
-            _hover={{
-              bg: "grayLight",
-            }}
-            _focus={{
-              textDecoration: "none",
-              outline: "none",
-            }}
-          >
-            <NextLink href="/register" passHref>
-              Registrarse
-            </NextLink>
-          </Button>
+          {!isLogin ? (
+            <>
+              <Button
+                fontSize={"sm"}
+                fontWeight={400}
+                variant={"link"}
+                display={{ base: "none", md: "inline-flex" }}
+                _focus={{
+                  textDecoration: "none",
+                  outline: "none",
+                }}
+              >
+                <NextLink href="/login" passHref>
+                  <Link>Iniciar Sesión</Link>
+                </NextLink>
+              </Button>
+              <Button
+                display={{ base: "none", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"purpleDark"}
+                _hover={{
+                  bg: "grayLight",
+                }}
+                _focus={{
+                  textDecoration: "none",
+                  outline: "none",
+                }}
+              >
+                <NextLink href="/register" passHref>
+                  Registrarse
+                </NextLink>
+              </Button>
+            </>
+          ) : (
+            <Text>John Silva</Text>
+          )}
           <ThemeToggleButton />
         </Stack>
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
-      </Collapse>
+      <Box
+        display={{ base: "block", sm: "block", md: "block", lg: "none" }}
+        pt={{ base: "50px", sm: "50px", md: 0, lg: 0 }}
+      >
+        <Collapse in={isOpen} animateOpacity>
+          <MobileNav NAV_ITEMS={NAV_ITEMS} />
+        </Collapse>
+      </Box>
     </Box>
   );
 }
 
-const DesktopNav = () => {
+const DesktopNav = ({ categories, NAV_ITEMS }) => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
@@ -193,8 +225,12 @@ const DesktopNav = () => {
                 minW={"sm"}
               >
                 <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
+                  {navItem.children.map((x) => (
+                    <DesktopSubNav
+                      key={x.id}
+                      label={capitalize(x.name)}
+                      href={`/category/${x.id}`}
+                    />
                   ))}
                 </Stack>
               </PopoverContent>
@@ -244,15 +280,22 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
   );
 };
 
-const MobileNav = () => {
+const MobileNav = ({ NAV_ITEMS }) => {
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
-      display={{ md: "none" }}
+      paddingTop={{ base: "30px", sm: "30px", md: "20px" }}
+      display={{ md: "block" }}
+      className="loflsdfsd"
     >
-      {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+      {NAV_ITEMS.map((x) => (
+        <MobileNavItem
+          key={x.label}
+          label={capitalize(x.label)}
+          href={x.href}
+          children={x.children ?? null}
+        />
       ))}
       <Stack flex={{ base: 1, md: 0 }} direction={"row"} spacing={6}>
         <WrapItem>
@@ -326,8 +369,8 @@ const MobileNavItem = ({ label, children, href }) => {
         >
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
-                {child.label}
+              <Link key={child.id} py={2} href={`/category/${child.id}`}>
+                {capitalize(child.name)}
               </Link>
             ))}
         </Stack>
@@ -335,29 +378,3 @@ const MobileNavItem = ({ label, children, href }) => {
     </Stack>
   );
 };
-
-const NAV_ITEMS = [
-  {
-    label: "Todos los productos",
-    href: "/",
-  },
-  {
-    label: "Categorias",
-    children: [
-      {
-        label: "Juguetes",
-        subLabel: "Encuentra los mejores juguetes",
-        href: "#",
-      },
-      {
-        label: "Ropa",
-        subLabel: "Ropa exótica a buen precio",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Acerca de nosotros",
-    href: "#",
-  },
-];

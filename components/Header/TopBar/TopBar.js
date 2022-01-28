@@ -32,25 +32,29 @@ export default function TopBar(props) {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box
-      position="fixed"
-      as="nav"
-      w="100%"
-      bg={useColorModeValue("#ffffff40", "#20202380")}
-      css={{ backdropFilter: "blur(10px)" }}
-      zIndex={2}
-      {...props}
-    >
+    <Box {...props}>
       <Flex
+        as={"header"}
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={"solid"}
+        boxShadow={"sm"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
+        justify={"center"}
+        pos="fixed"
+        top="0"
+        zIndex={999}
+        w={"full"}
+        css={{
+          backdropFilter: "saturate(180%) blur(5px)",
+          backgroundColor: useColorModeValue(
+            "rgba(255, 255, 255, 0.8)",
+            "rgba(26, 32, 44, 0.8)"
+          ),
+        }}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
