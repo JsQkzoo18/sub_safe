@@ -1,6 +1,6 @@
 import { Box, Text, useColorModeValue, List, ListItem } from "@chakra-ui/react";
 
-export const DetailsWrapper = ({ owner = "Flavio", date = "2022/02/01" }) => {
+export const DetailsWrapper = ({ seller = "Flavio", date = "2022/02/01" }) => {
   return (
     <Box>
       <Text
@@ -30,7 +30,7 @@ export const DetailsWrapper = ({ owner = "Flavio", date = "2022/02/01" }) => {
             Propietario:
           </Text>
           <Text as={"span"} fontWeight={"350"} ml={2} fontSize={"lg"}>
-            {owner}
+            {seller}
           </Text>
         </ListItem>
         <ListItem

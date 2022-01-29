@@ -8,7 +8,6 @@ import { BASE_PATH } from "../../utils/env";
 const MotionBox = motion(Box);
 
 export default function GridProduct({ products }) {
-  console.log(products);
   return (
     <MotionBox initial="initial" animate="animate">
       <Grid
@@ -23,6 +22,7 @@ export default function GridProduct({ products }) {
         {map(products, (x, index) => (
           <SimpleProduct
             key={index}
+            id={x.id}
             name={x.name}
             currentBid={x.current_bid}
             description={x.description}

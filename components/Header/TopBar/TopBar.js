@@ -12,7 +12,6 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Image,
   WrapItem,
@@ -50,7 +49,7 @@ export default function TopBar(props) {
         zIndex={999}
         w={"full"}
         css={{
-          backdropFilter: "saturate(180%) blur(5px)"
+          backdropFilter: "saturate(180%) blur(5px)",
         }}
       >
         <Flex
@@ -113,10 +112,10 @@ export default function TopBar(props) {
             fontWeight={600}
             color={"white"}
             border={"1px"}
-            borderColor={useColorModeValue("white","red")}
+            borderColor={useColorModeValue("white", "red")}
             bg={useColorModeValue("pink", "black_p")}
             _hover={{
-              bg:useColorModeValue("pink  ", "red")
+              bg: useColorModeValue("pink  ", "red"),
             }}
           >
             <NextLink href="/" passHref>
@@ -265,10 +264,7 @@ const MobileNavItem = ({ label, children, href }) => {
           textDecoration: "none",
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "white")}
-        >
+        <Text fontWeight={600} color={useColorModeValue("gray.600", "white")}>
           {label}
         </Text>
         {children && (

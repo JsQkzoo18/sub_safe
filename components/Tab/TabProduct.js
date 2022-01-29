@@ -35,7 +35,14 @@ import { DetailsWrapper } from "../Item/DetailsWrapper/DetailsWrapper";
 import { MoreDetailsWrapper } from "../Item/MoreDetailsWrapper/MoreDetailsWrapper";
 import { CheckIcon, ChevronLeftIcon } from "@chakra-ui/icons";
 
-export default function TabProduct() {
+export default function TabProduct({
+  name,
+  description,
+  currentBid,
+  category,
+  seller,
+  date,
+}) {
   return (
     <Tabs variant={"solid-rounded"} colorScheme="green" isFitted>
       <TabList>
@@ -46,10 +53,17 @@ export default function TabProduct() {
 
       <TabPanels>
         <TabPanel>
-          <Description />
+          <Description
+            name={name}
+            description={description}
+            currentBid={currentBid}
+            category={category}
+            seller={seller}
+            date={date}
+          />
         </TabPanel>
         <TabPanel>
-          <Bids />
+          <Bids currentBid={currentBid} />
         </TabPanel>
         <TabPanel>
           <Comments />
@@ -59,7 +73,14 @@ export default function TabProduct() {
   );
 }
 
-const Description = () => (
+const Description = ({
+  name,
+  description,
+  currentBid,
+  category,
+  seller,
+  date,
+}) => (
   <>
     <Stack
       spacing={{ base: 6, md: 10 }}
@@ -75,10 +96,14 @@ const Description = () => (
           />
         }
       >
-        <HeaderWrapper />
-        <DescriptionWrapper />
+        <HeaderWrapper
+          name={name}
+          category={category}
+          currentBid={currentBid}
+        />
+        <DescriptionWrapper description={description} />
 
-        <DetailsWrapper />
+        <DetailsWrapper seller={seller} date={date} />
       </Stack>
     </Stack>
     <Flex justify={"flex-start"}>

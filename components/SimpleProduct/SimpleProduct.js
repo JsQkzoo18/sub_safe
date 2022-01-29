@@ -22,14 +22,14 @@ const MotionImage = motion(Image);
 export default function SimpleProduct({
   name,
   currentBid,
-  url = "oso1",
+  id = "oso1",
   description = "",
   date,
   category,
   mainImage,
 }) {
   return (
-    <Link href={`/products/${url}`}>
+    <Link href={`/products/${id}`}>
       <div className="simple-product">
         <Center>
           <MotionBox

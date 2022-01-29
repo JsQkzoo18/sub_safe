@@ -18,7 +18,7 @@ export default function hooks_tst() {
       <Carousel />
 
       <SuccessResult />
-      <CustomAutoCompleteInput />
+
       <Stack>
         <Heading>Products</Heading>
         {products && (

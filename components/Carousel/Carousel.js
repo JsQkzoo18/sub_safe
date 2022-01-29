@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { size } from "lodash";
+import React, { useEffect, useState } from "react";
+import { forEach, size } from "lodash";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 // Here we have used react-icons package for the icons
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -7,6 +7,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Slider from "react-slick";
 import { ImageWrapper } from "../Item/ImageWrapper/ImageWrapper";
 import { motion } from "framer-motion";
+import { BASE_PATH } from "../../utils/env";
 
 const MotionBox = motion(Box);
 

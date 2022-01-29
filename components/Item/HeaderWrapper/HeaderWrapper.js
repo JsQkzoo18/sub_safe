@@ -17,7 +17,7 @@ const MotionText = motion(Text);
 export const HeaderWrapper = ({
   name = " Ositos Cariñosos",
   category = "Articulos",
-  bid = 126,
+  currentBid = 126,
 }) => (
   <Box>
     <Tag
@@ -48,7 +48,7 @@ export const HeaderWrapper = ({
         Oferta
       </Badge>
       <Badge ml="1" fontSize="1em" bg="transparent">
-        $ {bid}
+        $ {currentBid}
       </Badge>
     </MotionText>
   </Box>

@@ -8,6 +8,7 @@ export const DescriptionWrapper = ({
       color={useColorModeValue("gray.500", "gray.100")}
       fontSize={"2xl"}
       fontWeight={"350"}
+      alignItems={"flex-start"}
     >
       {description}
     </Text>

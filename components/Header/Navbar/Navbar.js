@@ -71,7 +71,7 @@ export default function Navbar(props) {
         zIndex={999}
         w={"full"}
         css={{
-          backdropFilter: "saturate(180%) blur(5px)"
+          backdropFilter: "saturate(180%) blur(5px)",
         }}
       >
         <Flex
@@ -164,7 +164,7 @@ export default function Navbar(props) {
               </Button>
             </>
           ) : (
-            <Text>John Silva(Perris)</Text>
+            <Text>John Silva</Text>
           )}
           <ThemeToggleButton />
         </Stack>
