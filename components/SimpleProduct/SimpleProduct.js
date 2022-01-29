@@ -39,7 +39,7 @@ export default function SimpleProduct({
             mb={2}
             maxW={"330px"}
             w={"full"}
-            bg={useColorModeValue("white", "grayDark")}
+            bg={useColorModeValue("white", "black_s")}
             boxShadow={"xl"}
             rounded={"lg"}
             cursor={"pointer"}

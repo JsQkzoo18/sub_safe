@@ -19,13 +19,13 @@ export default function ForgotPsw() {
         minH={"100vh"}
         align={"center"}
         justify={"center"}
-        bg={useColorModeValue("gray.50", "grayDark")}
+        bg={useColorModeValue("gray.50", "black_p")}
       >
         <Stack
           spacing={4}
           w={"full"}
           maxW={"md"}
-          bg={useColorModeValue("white", "blueDark")}
+          bg={useColorModeValue("white", "black_s")}
           rounded={"xl"}
           boxShadow={"lg"}
           p={6}
@@ -49,16 +49,18 @@ export default function ForgotPsw() {
           </FormControl>
           <Stack spacing={6}>
             <Button
-              bg={"purpleDark"}
+              bg={useColorModeValue("","black_p")}
+              border={"1px"}
+              borderColor={useColorModeValue("","red")}
               color={"white"}
               _hover={{
-                bg: "#6F57D2",
+                bg: useColorModeValue("","red")
               }}
             >
               Solicitar reinicio
             </Button>
             <NextLink href="/login" passHref>
-              <Link color={"grayLight"}>Regresar a inicio de sesión</Link>
+              <Link color={"white"}>Regresar a inicio de sesión</Link>
             </NextLink>
           </Stack>
         </Stack>

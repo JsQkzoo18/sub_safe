@@ -48,11 +48,12 @@ export default function Login() {
       {(formik) => (
         <ScaleFade initialScale={0.9} in={true}>
           <Flex
-            h={{ base: "100%", lg: "100vh" }}
+            /* h={{ base: "100%", lg: "100vh" }} */
             minH={{ base: "100%", lg: "100vh" }}
+            height={"100vh"}
             align={"center"}
             justify={"center"}
-            bg={useColorModeValue("gray.50", "grayDark")}
+            bg={useColorModeValue("gray.50", "black_p")}
           >
             <Stack
               spacing={8}
@@ -63,17 +64,17 @@ export default function Login() {
               as="form"
               onSubmit={formik.handleSubmit}
             >
-              <Stack align={"center"}>
+              <Stack align={"center"} >
                 <Heading fontSize={"4xl"}>Inicia Sesión en tu cuenta</Heading>
                 <Text fontSize={"lg"} color={"gray.600"}>
                   para disfrutar todas las{" "}
-                  <Link color={"purpleDark"}>características</Link>
+                  <Link color={"red"}>características</Link>
                   ✌️
                 </Text>
               </Stack>
               <Box
                 rounded={"lg"}
-                bg={useColorModeValue("white", "blueDark")}
+                bg={useColorModeValue("white", "black_s")}
                 boxShadow={"lg"}
                 p={8}
               >
@@ -96,10 +97,12 @@ export default function Login() {
 
                   <Button
                     type="submit"
-                    bg={"purpleDark"}
+                    bg={useColorModeValue("white","black_p")}
+                    border={"2px"}
+                    borderColor={useColorModeValue("white","red")}
                     color={"white"}
                     _hover={{
-                      bg: "#6F57D2",
+                      bg: useColorModeValue("white","red"),
                     }}
                   >
                     Iniciar Sesión
@@ -127,7 +130,7 @@ function AditionalLinks() {
         </NextLink>
 
         <NextLink href="/forgot-password" passHref>
-          <Link color={"#5034C8"}>Olvidaste la contraseña?</Link>
+          <Link color={"red"}>Olvidaste la contraseña?</Link>
         </NextLink>
       </Stack>
     </Stack>

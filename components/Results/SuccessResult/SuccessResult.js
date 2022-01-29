@@ -73,8 +73,11 @@ export default function SuccessResult({
                 fontWeight={"normal"}
                 px={6}
                 colorScheme={"red"}
-                bg={"red.400"}
-                _hover={{ bg: "red.500" }}
+                border={"2px"}
+                borderColor={useColorModeValue("white","red")}
+                color={useColorModeValue("black","white")}
+                bg={useColorModeValue("white","black_p")}
+                _hover={{ bg: useColorModeValue("white","red") }}
               >
                 {buttonTxt}
               </Button>
