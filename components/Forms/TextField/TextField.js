@@ -60,11 +60,11 @@ const TextField = ({
                 >
                   {showPassword ? (
                     <ViewIcon
-                      color={useColorModeValue("purpleDark", "white")}
+                      color={useColorModeValue("silver_p", "white")}
                     />
                   ) : (
                     <ViewOffIcon
-                      color={useColorModeValue("purpleDark", "white")}
+                      color={useColorModeValue("black_t", "white")}
                     />
                   )}
                 </Button>
@@ -87,7 +87,7 @@ const TextField = ({
         </InputGroup>
         {helper.length > 0 && (
           <FormHelperText
-            color={useColorModeValue("purpleDark", "white")}
+            color={useColorModeValue("black_s", "white")}
             ml={1}
           >
             {helper}

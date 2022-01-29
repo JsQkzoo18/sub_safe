@@ -78,7 +78,7 @@ export default function Register() {
             height={"100vh"}
             overflowY={"scroll"}
             justify={"center"}
-            bg={useColorModeValue("gray.50", "black_p")}
+            bg={useColorModeValue("silver_p", "black_p")}
           >
             <Stack
               spacing={8}
@@ -174,11 +174,12 @@ export default function Register() {
                       type="submit"
                       size="lg"
                       border={"2px"}
-                      borderColor={useColorModeValue("while","red")}
-                      bg={useColorModeValue("white","black_p")}
-                      color={"white"}
+                      borderColor={useColorModeValue("white","red")}
+                      bg={useColorModeValue("silver_p","black_p")}
+                      color={useColorModeValue("black_s","white")}
                       _hover={{
-                        bg: useColorModeValue("white","red"),
+                        bg: useColorModeValue("pink","red"),
+                        color:"white"
                       }}
                     >
                       Regístrate
