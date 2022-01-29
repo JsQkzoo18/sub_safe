@@ -56,13 +56,14 @@ export default function Navbar(props) {
     <Box {...props}>
       <Flex
         as={"header"}
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("white", "black_s")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         boxShadow={"sm"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        borderBottom={"1px"}
+        borderColor={useColorModeValue("gray.200", "black_t")}
         align={"center"}
         justify={"center"}
         pos="fixed"
@@ -70,11 +71,7 @@ export default function Navbar(props) {
         zIndex={999}
         w={"full"}
         css={{
-          backdropFilter: "saturate(180%) blur(5px)",
-          backgroundColor: useColorModeValue(
-            "rgba(255, 255, 255, 0.8)",
-            "rgba(26, 32, 44, 0.8)"
-          ),
+          backdropFilter: "saturate(180%) blur(5px)"
         }}
       >
         <Flex
@@ -167,7 +164,7 @@ export default function Navbar(props) {
               </Button>
             </>
           ) : (
-            <Text>John Silva</Text>
+            <Text>John Silva(Perris)</Text>
           )}
           <ThemeToggleButton />
         </Stack>
@@ -283,7 +280,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 const MobileNav = ({ NAV_ITEMS }) => {
   return (
     <Stack
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "black_s")}
       p={4}
       paddingTop={{ base: "30px", sm: "30px", md: "20px" }}
       display={{ md: "block" }}

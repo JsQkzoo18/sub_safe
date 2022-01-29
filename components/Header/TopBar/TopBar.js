@@ -35,13 +35,14 @@ export default function TopBar(props) {
     <Box {...props}>
       <Flex
         as={"header"}
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("white", "black_s")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         boxShadow={"sm"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        borderBottom={"1px"}
+        borderColor={useColorModeValue("gray.200", "black_t")}
         align={"center"}
         justify={"center"}
         pos="fixed"
@@ -49,11 +50,7 @@ export default function TopBar(props) {
         zIndex={999}
         w={"full"}
         css={{
-          backdropFilter: "saturate(180%) blur(5px)",
-          backgroundColor: useColorModeValue(
-            "rgba(255, 255, 255, 0.8)",
-            "rgba(26, 32, 44, 0.8)"
-          ),
+          backdropFilter: "saturate(180%) blur(5px)"
         }}
       >
         <Flex
@@ -115,9 +112,11 @@ export default function TopBar(props) {
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
-            bg={"purpleDark"}
+            border={"1px"}
+            borderColor={useColorModeValue("","red")}
+            bg={useColorModeValue("white", "black_p")}
             _hover={{
-              bg: "grayLight",
+              bg:useColorModeValue("white", "red")
             }}
           >
             <NextLink href="/" passHref>
@@ -224,7 +223,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 const MobileNav = () => {
   return (
     <Stack
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "black_s")}
       p={4}
       display={{ md: "none" }}
     >
@@ -268,7 +267,7 @@ const MobileNavItem = ({ label, children, href }) => {
       >
         <Text
           fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
+          color={useColorModeValue("gray.600", "white")}
         >
           {label}
         </Text>

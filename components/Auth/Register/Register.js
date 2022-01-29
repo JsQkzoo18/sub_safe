@@ -75,9 +75,10 @@ export default function Register() {
           <Flex
             h={{ base: "100%", lg: "100vh" }}
             minH={{ base: "100%", lg: "100vh" }}
+            height={"100vh"}
             overflowY={"scroll"}
             justify={"center"}
-            bg={useColorModeValue("gray.50", "grayDark")}
+            bg={useColorModeValue("gray.50", "black_p")}
           >
             <Stack
               spacing={8}
@@ -90,7 +91,7 @@ export default function Register() {
               <Header />
               <Box
                 rounded={"lg"}
-                bg={useColorModeValue("white", "blueDark")}
+                bg={useColorModeValue("white", "black_s")}
                 boxShadow={"lg"}
                 p={8}
               >
@@ -172,10 +173,12 @@ export default function Register() {
                     <Button
                       type="submit"
                       size="lg"
-                      bg={"purpleDark"}
+                      border={"2px"}
+                      borderColor={useColorModeValue("while","red")}
+                      bg={useColorModeValue("white","black_p")}
                       color={"white"}
                       _hover={{
-                        bg: "#6F57D2",
+                        bg: useColorModeValue("white","red"),
                       }}
                     >
                       Regístrate
@@ -195,7 +198,7 @@ export default function Register() {
 
 function Header() {
   return (
-    <Stack align={"center"}>
+    <Stack align={"center"} >
       <Heading fontSize={"4xl"} textAlign={"center"}>
         Regístrate
       </Heading>
@@ -212,7 +215,7 @@ function AdditionalLinks() {
         Ya tienes una cuenta?
         <br />
         <NextLink href="/login" passHref>
-          <Link color={"purpleDark"}>Iniciar Sesión</Link>
+          <Link color={"red"}>Iniciar Sesión</Link>
         </NextLink>
       </Text>
     </Stack>
