@@ -3,6 +3,7 @@ import Footer from "../Footer";
 import SimpleProduct from "../SimpleProduct/SimpleProduct";
 import { motion } from "framer-motion";
 import { map } from "lodash";
+import { BASE_PATH } from "../../utils/env";
 
 const MotionBox = motion(Box);
 
@@ -27,7 +28,7 @@ export default function GridProduct({ products }) {
             description={x.description}
             date={x.date}
             category={x.category.name}
-            mainImage={x.images.main_image}
+            mainImage={` ${BASE_PATH}${x.images.main_image}`}
           />
         ))}
       </Grid>
