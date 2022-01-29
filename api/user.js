@@ -50,11 +50,6 @@ export async function registerAPI(formData) {
       body: JSON.stringify(formData),
     };
 
-    // console.log(formData);
-
-    // console.log(params.headers);
-    // console.log(params.body);
-
     const response = await fetch(compositeUrl, params);
     const result = await response.json();
     return result;

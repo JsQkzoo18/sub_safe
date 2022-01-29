@@ -58,11 +58,8 @@ export default function Register() {
           gender: "M",
         };
 
-        console.log(dataForm);
-
         try {
           const response = await registerAPI(dataForm);
-          console.log(response);
         } catch (error) {
           toast.error(error.message);
         }
@@ -174,12 +171,12 @@ export default function Register() {
                       type="submit"
                       size="lg"
                       border={"2px"}
-                      borderColor={useColorModeValue("white","red")}
-                      bg={useColorModeValue("silver_p","black_p")}
-                      color={useColorModeValue("black_s","white")}
+                      borderColor={useColorModeValue("white", "red")}
+                      bg={useColorModeValue("silver_p", "black_p")}
+                      color={useColorModeValue("black_s", "white")}
                       _hover={{
-                        bg: useColorModeValue("pink","red"),
-                        color:"white"
+                        bg: useColorModeValue("pink", "red"),
+                        color: "white",
                       }}
                     >
                       Regístrate
@@ -199,7 +196,7 @@ export default function Register() {
 
 function Header() {
   return (
-    <Stack align={"center"} >
+    <Stack align={"center"}>
       <Heading fontSize={"4xl"} textAlign={"center"}>
         Regístrate
       </Heading>

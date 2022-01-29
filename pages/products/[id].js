@@ -1,9 +1,7 @@
-import { Container, SimpleGrid, Text } from "@chakra-ui/react";
-import { ImageWrapper } from "../../components/Item/ImageWrapper/ImageWrapper";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import SEO_C from "../../components/SEO_C";
 import TabProduct from "../../components/Tab/TabProduct";
 import SimpleLayout from "../../layouts/SimpleLayout";
-import { motion } from "framer-motion";
 import Carousel from "../../components/Carousel/Carousel";
 import { useRouter } from "next/router";
 import { useGetProductByID } from "../../hooks/useProduct";
@@ -16,8 +14,6 @@ export default function Product() {
   const { product, images, loading } = useGetProductByID(query?.id);
 
   if (loading) return <Loader />;
-
-  if (product) console.log(product?.seller);
 
   return (
     <SimpleLayout>

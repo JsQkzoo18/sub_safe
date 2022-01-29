@@ -13,7 +13,6 @@ export function AuthProvider({ children }) {
   const getMe = async (token) => {
     try {
       const response = await getMeAPI(token);
-      console.log("/aut/me.", response);
       return response;
     } catch (error) {
       throw error;
@@ -21,7 +20,6 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (token) => {
-    console.log("Login");
     setToken(token);
     console.log(getMe(token));
   };

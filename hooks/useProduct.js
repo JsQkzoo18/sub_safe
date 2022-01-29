@@ -25,7 +25,6 @@ export function useGetProductByID(id) {
     (async () => {
       setLoading(true);
       const response = await getProductsByIDAPI(id);
-      console.log(response);
       if (size(response) > 0) {
         setProduct(response.data);
         setImages(response.imagesArray);
