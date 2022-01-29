@@ -97,12 +97,13 @@ export default function Login() {
 
                   <Button
                     type="submit"
-                    bg={useColorModeValue("white","black_p")}
+                    bg={useColorModeValue("silver_p","black_p")}
                     border={"2px"}
-                    borderColor={useColorModeValue("white","red")}
-                    color={"white"}
+                    borderColor={useColorModeValue("silver_p","red")}
+                    color={useColorModeValue("black_s","white")}
                     _hover={{
-                      bg: useColorModeValue("white","red"),
+                      bg: useColorModeValue("pink","red"),
+                      color:"white"
                     }}
                   >
                     Iniciar Sesión
@@ -126,7 +127,7 @@ function AditionalLinks() {
         justify={"space-between"}
       >
         <NextLink href="/register" passHref>
-          <Link color={"gray.400"}>No tienes una cuenta?</Link>
+          <Link color={useColorModeValue("black_s","gray.400")}>No tienes una cuenta?</Link>
         </NextLink>
 
         <NextLink href="/forgot-password" passHref>
