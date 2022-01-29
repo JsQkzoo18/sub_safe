@@ -1,9 +1,4 @@
-import {
-  SunIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  RepeatClockIcon,
-} from "@chakra-ui/icons";
+import { SunIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
