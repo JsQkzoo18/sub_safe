@@ -7,6 +7,7 @@ import { map } from "lodash";
 const MotionBox = motion(Box);
 
 export default function GridProduct({ products }) {
+  console.log(products);
   return (
     <MotionBox initial="initial" animate="animate">
       <Grid
@@ -26,7 +27,7 @@ export default function GridProduct({ products }) {
             description={x.description}
             date={x.date}
             category={x.category.name}
-            mainImage={x.main_image}
+            mainImage={x.images.main_image}
           />
         ))}
       </Grid>
