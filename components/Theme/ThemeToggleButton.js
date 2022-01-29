@@ -5,11 +5,15 @@ import {
   useColorModeValue,
   Wrap,
 } from "@chakra-ui/react";
-import { SunIcon, MoonIcon, AddIcon, SettingsIcon } from "@chakra-ui/icons";
+import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import ThemeEditorToggle from "./ThemeEditorToggle";
+import { useHotkeys } from "react-hotkeys-hook";
+import { useEffect } from "react";
 
 const ThemeToggleButton = () => {
   const { toggleColorMode } = useColorMode();
+
+  useHotkeys("alt+n", toggleColorMode);
 
   return (
     <AnimatePresence exitBeforeEnter initial={false}>

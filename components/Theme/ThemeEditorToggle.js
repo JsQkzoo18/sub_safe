@@ -21,9 +21,9 @@ import {
   ThemeEditorDrawer,
   ThemeEditorDrawerFooter,
   useThemeEditor,
+  ColorModeToggle,
 } from "@hypertheme-editor/chakra-ui";
 import React from "react";
-import { useRecoilState } from "recoil";
 
 export default function ThemeEditorToggle(props) {
   return (
@@ -66,7 +66,6 @@ function headerTheme() {
             Configurar colores
           </Heading>
         </Center>
-
         <Center>
           <UndoRedoButtons />
         </Center>
