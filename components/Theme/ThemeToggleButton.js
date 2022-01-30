@@ -9,6 +9,7 @@ import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import ThemeEditorToggle from "./ThemeEditorToggle";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useEffect } from "react";
+import { colorModeSchema } from "../../utils/colorMode";
 
 const ThemeToggleButton = () => {
   const { toggleColorMode } = useColorMode();
@@ -27,13 +28,13 @@ const ThemeToggleButton = () => {
       >
         <IconButton
           aria-label="Toggle theme"
-          colorScheme={useColorModeValue("purple", "orange")}
+          colorScheme={colorModeSchema()}
           icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
           onClick={toggleColorMode}
         />
-        <Wrap display={{ base: "none", md: "none", lg: "inline-flex" }}>
+        {/* <Wrap display={{ base: "none", md: "none", lg: "inline-flex" }}>
           <ThemeEditorToggle />
-        </Wrap>
+        </Wrap> */}
       </motion.div>
     </AnimatePresence>
   );

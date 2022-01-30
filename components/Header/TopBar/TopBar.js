@@ -89,7 +89,7 @@ export default function TopBar(props) {
               fontFamily={"heading"}
               fontWeight={"bold"}
               color={useColorModeValue("gray.800", "white")}
-              cursor="pointer"
+              cursor={"pointer"}
             >
               SubaSafe
             </Text>

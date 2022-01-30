@@ -13,8 +13,7 @@ import {
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../../lib/animations";
-
-const IMAGE = "/toy.jpg";
+import { colorModeSchema } from "../../utils/colorMode";
 
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
@@ -110,8 +109,8 @@ export default function SimpleProduct({
               $ {currentBid}
             </Text>
           </Stack>
-          <Flex justify={"flex-start"} alignItems={"flex-start"}>
-            <Tag colorScheme={"purple"}>{category}</Tag>
+          <Flex justify={"flex-start"} alignItems={"flex-start"} mt={2}>
+            <Tag colorScheme={colorModeSchema()}>{category}</Tag>
           </Flex>
         </MotionBox>
       </Center>

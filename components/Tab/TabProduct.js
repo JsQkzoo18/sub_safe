@@ -279,7 +279,7 @@ const CardComment = ({ user, title, description }) => (
     >
       <Stack>
         <Text
-          color={"green.500"}
+          color={useColorModeValue("primaryLight", "primaryDark")}
           textTransform={"uppercase"}
           fontWeight={800}
           fontSize={"sm"}
