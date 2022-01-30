@@ -83,14 +83,17 @@ export default function TopBar(props) {
               xl: "flex",
             }}
           />
-          <Text
-            textAlign={{ base: "center", md: "left" }}
-            fontFamily={"heading"}
-            fontWeight={"bold"}
-            color={useColorModeValue("gray.800", "white")}
-          >
-            SubaSafe
-          </Text>
+          <NextLink href="/" passHref>
+            <Text
+              textAlign={{ base: "center", md: "left" }}
+              fontFamily={"heading"}
+              fontWeight={"bold"}
+              color={useColorModeValue("gray.800", "white")}
+              cursor="pointer"
+            >
+              SubaSafe
+            </Text>
+          </NextLink>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -102,10 +105,6 @@ export default function TopBar(props) {
           direction={"row"}
           spacing={6}
         >
-          <WrapItem>
-            <IconButton aria-label="Search database" icon={<SearchIcon />} />
-          </WrapItem>
-
           <Button
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}

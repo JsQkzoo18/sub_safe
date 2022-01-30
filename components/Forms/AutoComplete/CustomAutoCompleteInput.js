@@ -43,8 +43,11 @@ export default function CustomAutoCompleteInput({ helper = "" }) {
         </AutoCompleteList>
       </AutoComplete>
       {helper.length > 0 && (
-        <FormHelperText color={useColorModeValue("purpleDark", "white")}>
-          {helper}
+        <FormHelperText
+          pl={1}
+          color={useColorModeValue("primaryLight", "primaryDark")}
+        >
+          {helper} *
         </FormHelperText>
       )}
     </FormControl>

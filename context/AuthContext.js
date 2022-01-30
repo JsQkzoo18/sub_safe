@@ -1,6 +1,5 @@
-import React, { createContext } from "react";
-import { setToken } from "../api/token";
-import { getMeAPI } from "../api/user";
+import React, { useState, createContext, useEffect } from "react";
+import { getToken, setToken, deleteToken } from "../api/token";
 import { useUser } from "../hooks";
 
 export const AuthContext = createContext({
@@ -10,26 +9,43 @@ export const AuthContext = createContext({
 });
 
 export function AuthProvider({ children }) {
-  const getMe = async (token) => {
-    try {
-      const response = await getMeAPI(token);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  };
+  const [auth, setAuth] = useState(undefined);
+  const { getMe } = useUser();
+
+  useEffect(() => {
+    (async () => {
+      const token = getToken();
+
+      if (token) {
+        const userData = await getMe(token);
+        setAuth({ token, userData });
+      } else {
+        setAuth(null);
+      }
+    })();
+  }, []);
 
   const login = async (token) => {
     setToken(token);
-    console.log(getMe(token));
+    const userData = await getMe(token);
+    setAuth({ token, userData });
   };
 
+  const logout = () => {
+    if (auth) {
+      deleteToken();
+      setAuth(null);
+    }
+  };
+
+  //New Value Context
   const valueContext = {
-    auth: null,
+    auth,
     login,
-    logout: () => console.log("Logout"),
+    logout,
   };
 
+  if (auth === undefined) return null;
   return (
     <AuthContext.Provider value={valueContext}>{children}</AuthContext.Provider>
   );

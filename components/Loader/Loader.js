@@ -1,11 +1,32 @@
-import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
+import SimpleLayout from "../../layouts/SimpleLayout";
 
-export default function Loader() {
+export default function Loader({ loadingText = "Cargando" }) {
   return (
-    <Box padding="6" boxShadow="lg" bg="white">
-      <SkeletonCircle size="10" />
-      <SkeletonText mt="4" noOfLines={4} spacing="4" />
-    </Box>
+    <SimpleLayout>
+      <Flex
+        justifyContent={"center"}
+        h={"80vh"}
+        alignItems={"center"}
+        flexDirection={"column"}
+      >
+        <Spinner
+          label="Cargando"
+          size="xl"
+          thickness="5px"
+          speed="0.85s"
+          emptyColor="gray.500"
+          color={useColorModeValue("purpleDark", "white")}
+        />
+        <Text
+          mt={5}
+          color={useColorModeValue("purpleDark", "white")}
+          fontSize={20}
+          fontWeight={"500"}
+        >
+          cargando
+        </Text>
+      </Flex>
+    </SimpleLayout>
   );
 }

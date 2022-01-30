@@ -15,6 +15,10 @@ import {
   useDisclosure,
   Image,
   WrapItem,
+  MenuButton,
+  MenuList,
+  Menu,
+  MenuItem,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -22,6 +26,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   SearchIcon,
+  ArrowForwardIcon,
 } from "@chakra-ui/icons";
 
 import NextLink from "next/link";
@@ -29,13 +34,14 @@ import ThemeToggleButton from "../../Theme/ThemeToggleButton";
 import SearchButton from "../SearchButton/SearchButton";
 import { useGetCategories } from "../../../hooks/useCategories";
 import { capitalize } from "lodash";
+import { useAuth } from "../../../hooks";
 
 export default function Navbar(props) {
   const { isOpen, onToggle } = useDisclosure();
   const { path } = props;
   const { categories } = useGetCategories();
 
-  const isLogin = true;
+  const { auth, logout } = useAuth();
 
   const NAV_ITEMS = [
     {
@@ -128,7 +134,7 @@ export default function Navbar(props) {
         >
           <SearchButton />
 
-          {!isLogin ? (
+          {!auth ? (
             <>
               <Button
                 fontSize={"sm"}
@@ -164,7 +170,45 @@ export default function Navbar(props) {
               </Button>
             </>
           ) : (
-            <Text>John Silva</Text>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                bg={"transparent"}
+                _focus={{
+                  outline: "0",
+                }}
+                display={{ base: "none", md: "flex" }}
+              >
+                <Text>
+                  {`${auth.userData.first_name} ${auth.userData.last_name}`}
+                </Text>
+              </MenuButton>
+              <MenuList>
+                <MenuItem display={{ base: "block", md: "none" }}>
+                  <Text>
+                    {`${auth.userData.first_name} ${auth.userData.last_name}`}
+                  </Text>
+                </MenuItem>
+                <MenuItem h="40px">
+                  <Button
+                    rightIcon={<ArrowForwardIcon />}
+                    onClick={logout}
+                    variant="ghost"
+                    w="full"
+                    h={"40px"}
+                    m={0}
+                    p={0}
+                    _hover={{
+                      bg: useColorModeValue("primaryLight", "primaryDark"),
+                      color: "white",
+                    }}
+                  >
+                    Cerrar Sesión
+                  </Button>
+                </MenuItem>
+              </MenuList>
+            </Menu>
           )}
           <ThemeToggleButton />
         </Stack>
@@ -175,7 +219,7 @@ export default function Navbar(props) {
         pt={{ base: "50px", sm: "50px", md: 0, lg: 0 }}
       >
         <Collapse in={isOpen} animateOpacity>
-          <MobileNav NAV_ITEMS={NAV_ITEMS} />
+          <MobileNav NAV_ITEMS={NAV_ITEMS} auth={auth} logout={logout} />
         </Collapse>
       </Box>
     </Box>
@@ -277,7 +321,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
   );
 };
 
-const MobileNav = ({ NAV_ITEMS }) => {
+const MobileNav = ({ NAV_ITEMS, auth, logout }) => {
   return (
     <Stack
       bg={useColorModeValue("white", "black_s")}
@@ -294,30 +338,78 @@ const MobileNav = ({ NAV_ITEMS }) => {
           children={x.children ?? null}
         />
       ))}
-      <Stack flex={{ base: 1, md: 0 }} direction={"row"} spacing={6}>
-        <WrapItem>
-          <IconButton aria-label="Search database" icon={<SearchIcon />} />
-        </WrapItem>
-
-        <Button fontSize={"sm"} fontWeight={400} variant={"link"} href={"#"}>
-          <NextLink href="/login" passHref>
-            <Link>Iniciar Sesión</Link>
-          </NextLink>
-        </Button>
-        <Button
-          display={{ base: "none", md: "inline-flex" }}
-          fontSize={"sm"}
-          fontWeight={600}
-          color={"white"}
-          bg={"purpleDark"}
-          _hover={{
-            bg: "grayLight",
-          }}
-        >
-          <NextLink href="/register" passHref>
-            Registrarse
-          </NextLink>
-        </Button>
+      <Stack flex={{ base: 1, md: 0 }} direction={"column"} spacing={6}>
+        {!auth ? (
+          <>
+            <Button
+              fontSize={"sm"}
+              fontWeight={400}
+              variant={"link"}
+              display={{ base: "block", md: "inline-flex" }}
+              _focus={{
+                textDecoration: "none",
+                outline: "none",
+              }}
+            >
+              <NextLink href="/login" passHref>
+                <Link>Iniciar Sesión</Link>
+              </NextLink>
+            </Button>
+            <Button
+              display={{ base: "block", md: "inline-flex" }}
+              fontSize={"sm"}
+              fontWeight={600}
+              color={"white"}
+              bg={"purpleDark"}
+              _hover={{
+                bg: "grayLight",
+              }}
+              _focus={{
+                textDecoration: "none",
+                outline: "none",
+              }}
+            >
+              <NextLink href="/register" passHref>
+                Registrarse
+              </NextLink>
+            </Button>
+          </>
+        ) : (
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              bg={"transparent"}
+              _focus={{
+                outline: "0",
+              }}
+              display={{ base: "flex", md: "none" }}
+            >
+              <Text>
+                {`${auth.userData.first_name} ${auth.userData.last_name}`}
+              </Text>
+            </MenuButton>
+            <MenuList>
+              <MenuItem h="40px">
+                <Button
+                  rightIcon={<ArrowForwardIcon />}
+                  onClick={logout}
+                  variant="ghost"
+                  w="full"
+                  h={"40px"}
+                  m={0}
+                  p={0}
+                  _hover={{
+                    bg: useColorModeValue("primaryLight", "primaryDark"),
+                    color: "white",
+                  }}
+                >
+                  Cerrar Sesión
+                </Button>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
       </Stack>
     </Stack>
   );

@@ -22,10 +22,13 @@ import TextField from "../../Forms/TextField/TextField";
 import { loginAPI } from "../../../api/user";
 import toast from "react-hot-toast";
 import { useAuth } from "../../../hooks/useAuth";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [loading, setLoading] = useState(false); //Promise status check
   const { login } = useAuth();
+  const router = useRouter();
+
   return (
     <Formik
       validateOnBlur
@@ -36,13 +39,13 @@ export default function Login() {
         try {
           const response = await loginAPI(values);
           const { access } = response;
-          console.log(access);
           login(access);
+          router.back();
         } catch (error) {
           toast.error(error.message);
         }
         setLoading(false);
-        // actions.resetForm();
+        actions.resetForm();
       }}
     >
       {(formik) => (
@@ -64,11 +67,13 @@ export default function Login() {
               as="form"
               onSubmit={formik.handleSubmit}
             >
-              <Stack align={"center"} >
+              <Stack align={"center"}>
                 <Heading fontSize={"4xl"}>Inicia Sesión en tu cuenta</Heading>
                 <Text fontSize={"lg"} color={"gray.600"}>
-                  para disfrutar todas las{" "}
-                  <Link color={"red"}>características</Link>
+                  para disfrutar todas las&nbsp;
+                  <Text as="span" color={"red"}>
+                    características
+                  </Text>
                   ✌️
                 </Text>
               </Stack>
@@ -97,13 +102,19 @@ export default function Login() {
 
                   <Button
                     type="submit"
-                    bg={useColorModeValue("silver_p","black_p")}
-                    border={"2px"}
-                    borderColor={useColorModeValue("silver_p","red")}
-                    color={useColorModeValue("black_s","white")}
+                    isLoading={loading}
+                    loadingText="Iniciando Sesión"
+                    bg={useColorModeValue("pink", "red")}
+                    color="white"
+                    transition={"0.2s transform ease-in-out"}
+                    willChange={"transform"}
                     _hover={{
-                      bg: useColorModeValue("pink","red"),
-                      color:"white"
+                      bg: useColorModeValue("silver_p", "black_p"),
+                      color: "white",
+                      border: "2px",
+                      borderColor: useColorModeValue("silver_p", "red"),
+                      transform: "scale(1.01)",
+                      willChange: "transform",
                     }}
                   >
                     Iniciar Sesión
@@ -127,7 +138,9 @@ function AditionalLinks() {
         justify={"space-between"}
       >
         <NextLink href="/register" passHref>
-          <Link color={useColorModeValue("black_s","gray.400")}>No tienes una cuenta?</Link>
+          <Link color={useColorModeValue("black_s", "gray.400")}>
+            No tienes una cuenta?
+          </Link>
         </NextLink>
 
         <NextLink href="/forgot-password" passHref>

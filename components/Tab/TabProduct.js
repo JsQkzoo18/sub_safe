@@ -1,4 +1,5 @@
-import React from "react";
+import NextLink from "next/link";
+
 import {
   Tabs,
   TabList,
@@ -23,17 +24,17 @@ import {
   Text,
   Box,
   Heading,
-  Fade,
-  SimpleGrid,
-  Divider,
   Flex,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import { HeaderWrapper } from "../Item/HeaderWrapper/HeaderWrapper";
 import { DescriptionWrapper } from "../Item/DescriptionWrapper/DescriptionWrapper";
-import { FeaturesWrapper } from "../Item/FeaturesWrapper/FeaturesWrapper";
 import { DetailsWrapper } from "../Item/DetailsWrapper/DetailsWrapper";
-import { MoreDetailsWrapper } from "../Item/MoreDetailsWrapper/MoreDetailsWrapper";
-import { CheckIcon, ChevronLeftIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronLeftIcon, LockIcon } from "@chakra-ui/icons";
+import { useAuth } from "../../hooks";
 
 export default function TabProduct({
   name,
@@ -107,69 +108,104 @@ const Description = ({
       </Stack>
     </Stack>
     <Flex justify={"flex-start"}>
-      <Button
-        variant="ghost"
-        mt={10}
-        color={"purpleDark"}
-        _hover={{
-          bg: "purpleDark",
-          color: "white",
-        }}
-        leftIcon={<ChevronLeftIcon />}
-      >
-        Regresar
-      </Button>
+      <NextLink href="/" passHref>
+        <Button
+          variant="ghost"
+          mt={10}
+          color={"purpleDark"}
+          _hover={{
+            bg: "purpleDark",
+            color: "white",
+          }}
+          leftIcon={<ChevronLeftIcon />}
+        >
+          Regresar
+        </Button>
+      </NextLink>
     </Flex>
   </>
 );
 
-const Bids = () => (
-  <Stack spacing={4}>
-    <StatGroup h="100px" color="white" borderRadius={10}>
-      <Stat p={2} color="black" bg="green.50">
-        <StatLabel>
-          <Badge colorScheme="green">Oferta inicial</Badge>
-        </StatLabel>
-        <StatNumber>$126.00</StatNumber>
-        <StatHelpText>Enero 12 - 2022</StatHelpText>
-      </Stat>
-      <Stat p={2} ml={1} color="black" bg="orange.100">
-        <StatLabel>
-          <Badge colorScheme="pink">Oferta actual</Badge>
-        </StatLabel>
-        <StatNumber>$627.00</StatNumber>
-        <StatHelpText>Enero 21 - 2022</StatHelpText>
-      </Stat>
-    </StatGroup>
+const Bids = () => {
+  const { auth } = useAuth();
+  console.log(auth);
 
-    <InputGroup>
-      <InputLeftElement pointerEvents="none" color="gray.300" fontSize="1.2em">
-        $
-      </InputLeftElement>
-      <Input placeholder="Toma mi oferta!" />
-      <InputRightElement>
-        <CheckIcon color="green.500" />
-      </InputRightElement>
-    </InputGroup>
+  const disabled = !auth ?? true;
 
-    <Button
-      rounded={"none"}
-      w={"full"}
-      mt={8}
-      size={"lg"}
-      py={"7"}
-      bg={useColorModeValue("gray.900", "gray.50")}
-      color={useColorModeValue("white", "gray.900")}
-      textTransform={"uppercase"}
-      _hover={{
-        transform: "translateY(2px)",
-        boxShadow: "lg",
-      }}
-    >
-      Ofertar
-    </Button>
-  </Stack>
-);
+  console.log(disabled);
+  return (
+    <Stack spacing={4}>
+      <StatGroup h="100px" color="white" borderRadius={10}>
+        <Stat p={2} color="black" bg="green.50">
+          <StatLabel>
+            <Badge colorScheme="green">Oferta inicial</Badge>
+          </StatLabel>
+          <StatNumber>$126.00</StatNumber>
+          <StatHelpText>Enero 12 - 2022</StatHelpText>
+        </Stat>
+        <Stat p={2} ml={1} color="black" bg="orange.100">
+          <StatLabel>
+            <Badge colorScheme="pink">Oferta actual</Badge>
+          </StatLabel>
+          <StatNumber>$627.00</StatNumber>
+          <StatHelpText>Enero 21 - 2022</StatHelpText>
+        </Stat>
+      </StatGroup>
+
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          color="gray.300"
+          fontSize="1.2em"
+        >
+          $
+        </InputLeftElement>
+        <Input placeholder="Toma mi oferta!" isDisabled={!auth ?? true} />
+        <InputRightElement>
+          <CheckIcon color="green.500" />
+        </InputRightElement>
+      </InputGroup>
+
+      {auth ? (
+        <Button
+          rounded={"none"}
+          w={"full"}
+          mt={8}
+          size={"lg"}
+          py={"7"}
+          bg={useColorModeValue("gray.900", "gray.50")}
+          color={useColorModeValue("white", "gray.900")}
+          textTransform={"uppercase"}
+          _hover={{
+            transform: "translateY(2px)",
+            boxShadow: "lg",
+          }}
+        >
+          Ofertar
+        </Button>
+      ) : (
+        <Alert
+          status="info"
+          variant="solid"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          height="150px"
+          rounded={"md"}
+        >
+          <LockIcon boxSize="40px" />
+          <AlertTitle mt={4} mb={1} fontSize="lg">
+            Inicio de sesión requerido!
+          </AlertTitle>
+          <AlertDescription maxWidth="sm">
+            Necesitas una cuenta?
+          </AlertDescription>
+        </Alert>
+      )}
+    </Stack>
+  );
+};
 
 const Comments = () => (
   <Stack spacing={{ base: 2, md: 4 }}>

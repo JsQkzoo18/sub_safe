@@ -60,11 +60,11 @@ const TextField = ({
                 >
                   {showPassword ? (
                     <ViewIcon
-                      color={useColorModeValue("silver_p", "white")}
+                      color={useColorModeValue("primaryLight", "primaryDark")}
                     />
                   ) : (
                     <ViewOffIcon
-                      color={useColorModeValue("black_t", "white")}
+                      color={useColorModeValue("primaryLight", "primaryDark")}
                     />
                   )}
                 </Button>
@@ -87,10 +87,10 @@ const TextField = ({
         </InputGroup>
         {helper.length > 0 && (
           <FormHelperText
-            color={useColorModeValue("black_s", "white")}
-            ml={1}
+            color={useColorModeValue("primaryLight", "primaryDark")}
+            pl={1}
           >
-            {helper}
+            {helper} *
           </FormHelperText>
         )}
         <Collapse
@@ -108,7 +108,9 @@ const TextField = ({
               fontWeight={"500"}
             >
               <AlertIcon />
-              <Text color={"yellow.600"}>{meta.error}</Text>
+              <Text color={useColorModeValue("yellow.600", "yellow.400")}>
+                {meta.error}
+              </Text>
             </Alert>
           </FormErrorMessage>
         </Collapse>

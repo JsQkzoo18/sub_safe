@@ -70,12 +70,12 @@ export default function Register() {
       {(formik) => (
         <ScaleFade initialScale={0.9} in={true}>
           <Flex
-            h={{ base: "100%", lg: "100vh" }}
+            h={{ base: "100%", lg: "70vh" }}
             minH={{ base: "100%", lg: "100vh" }}
-            height={"100vh"}
             overflowY={"scroll"}
             justify={"center"}
             bg={useColorModeValue("silver_p", "black_p")}
+            pt={10}
           >
             <Stack
               spacing={8}
@@ -119,7 +119,7 @@ export default function Register() {
                     placeholder="nickname"
                     type="text"
                     label="Nombre de usuario"
-                    helper="El nombre de usuario se genera automaticamente"
+                    helper="El nombre de usuario se genera automáticamente"
                     isReadOnly
                     value={
                       (formik.values.username =
@@ -134,13 +134,13 @@ export default function Register() {
                     name="phone"
                     placeholder="907865457"
                     type="tel"
-                    label="Numero de celular"
+                    label="Número de celular"
                     maxLength={9}
                     isRequired
                     value={formik.values.phone}
                   />
 
-                  <CustomAutoCompleteInput helper="Escribe el nombre de tu ciudad" />
+                  <CustomAutoCompleteInput helper="Escribe el nombre de tú ciudad" />
                   <TextField
                     name="email"
                     placeholder="Ingresa tú email"

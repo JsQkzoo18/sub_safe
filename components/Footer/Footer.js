@@ -11,7 +11,15 @@ import {
 import { EmailIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 const Logo = (props) => {
-  return <Image boxSize="40px" src="/tag.png" alt="Logo" mr={5} />;
+  return (
+    <Image
+      boxSize="40px"
+      src="/tag.png"
+      alt="Logo"
+      mr={5}
+      display={{ base: "none", md: "block" }}
+    />
+  );
 };
 
 const FooterButton = ({ children, label, href }) => {
@@ -43,14 +51,19 @@ export default function Footer() {
     <Box
       bg={useColorModeValue("gray.50", "black_s")}
       color={useColorModeValue("gray.700", "gray.200")}
-      mt={5}
+      pos={{ base: "absolute" }}
+      left={0}
+      w={"full"}
+      h={{ base: "100px", md: "70px" }}
+      mt={{ base: 5 }}
+      zIndex={100}
     >
       <Container
         as={Stack}
         maxW={"full"}
         py={4}
         direction={{ base: "column", md: "row" }}
-        spacing={4}
+        spacing={2}
         justify={{ base: "center", md: "space-between" }}
         align={{ base: "center", md: "center" }}
       >

@@ -5,6 +5,7 @@ import CustomAutoCompleteInput from "../components/Forms/AutoComplete/CustomAuto
 import SuccessResult from "../components/Results/SuccessResult/SuccessResult";
 import { useGetCategories } from "../hooks/useCategories";
 import { useGetProducts } from "../hooks/useProduct";
+import Loader from "../components/Loader";
 
 export default function hooks_tst() {
   const { products } = useGetProducts();
@@ -12,13 +13,7 @@ export default function hooks_tst() {
 
   return (
     <>
-      <Center>
-        <Heading>Prueba de Hooks - API</Heading>
-      </Center>
-      <Carousel />
-
-      <SuccessResult />
-
+      <Loader />
       <Stack>
         <Heading>Products</Heading>
         {products && (
