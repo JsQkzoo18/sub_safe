@@ -103,6 +103,7 @@ export default function Navbar(props) {
             boxSize="40px"
             src="/tag.png"
             alt="Logo"
+            cursor="pointer"
             mr={5}
             display={{
               base: "none",
@@ -116,6 +117,7 @@ export default function Navbar(props) {
               textAlign={{ base: "center", md: "left" }}
               fontWeight={"bold"}
               color={useColorModeValue("gray.800", "white")}
+              cursor="pointer"
             >
               SubaSafe
             </Text>
@@ -137,9 +139,10 @@ export default function Navbar(props) {
           {!auth ? (
             <>
               <Button
-                fontSize={"sm"}
-                fontWeight={400}
-                variant={"link"}
+                fontSize={"md"}
+                fontWeight={500}
+                variant={"ghost"}
+                color={useColorModeValue("primaryLight", "primaryDark")}
                 display={{ base: "none", md: "inline-flex" }}
                 _focus={{
                   textDecoration: "none",
@@ -147,7 +150,7 @@ export default function Navbar(props) {
                 }}
               >
                 <NextLink href="/login" passHref>
-                  <Link>Iniciar Sesión</Link>
+                  Iniciar Sesión
                 </NextLink>
               </Button>
               <Button
@@ -155,7 +158,7 @@ export default function Navbar(props) {
                 fontSize={"sm"}
                 fontWeight={600}
                 color={"white"}
-                bg={"purpleDark"}
+                bg={useColorModeValue("primaryLight", "primaryDark")}
                 _hover={{
                   bg: "grayLight",
                 }}

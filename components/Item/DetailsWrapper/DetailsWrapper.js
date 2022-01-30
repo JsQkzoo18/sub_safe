@@ -1,11 +1,12 @@
 import { Box, Text, useColorModeValue, List, ListItem } from "@chakra-ui/react";
+import { colorModeSchema } from "../../../utils/colorMode";
 
 export const DetailsWrapper = ({ seller = "Flavio", date = "2022/02/01" }) => {
   return (
     <Box>
       <Text
         fontSize={{ base: "16px", lg: "18px" }}
-        color={useColorModeValue("purpleDark", "yellow.300")}
+        color={useColorModeValue("primaryLight", "primaryDark")}
         fontWeight={"500"}
         textTransform={"uppercase"}
         mb={"4"}
@@ -16,7 +17,7 @@ export const DetailsWrapper = ({ seller = "Flavio", date = "2022/02/01" }) => {
       <List spacing={2}>
         <ListItem
           borderLeft={"3px solid"}
-          borderColor={useColorModeValue("purpleDark", "white")}
+          borderColor={useColorModeValue("primaryLight", "primaryDark")}
           rounded={"sm"}
           mb={5}
         >
@@ -35,7 +36,7 @@ export const DetailsWrapper = ({ seller = "Flavio", date = "2022/02/01" }) => {
         </ListItem>
         <ListItem
           borderLeft={"3px solid"}
-          borderColor={useColorModeValue("purpleDark", "white")}
+          borderColor={useColorModeValue("primaryLight", "primaryDark")}
           rounded={"sm"}
         >
           <Text

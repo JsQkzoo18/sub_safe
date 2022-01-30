@@ -10,6 +10,7 @@ import {
   Button,
   StackDivider,
   useColorModeValue,
+  useColorMode,
   InputGroup,
   InputLeftElement,
   Input,
@@ -25,16 +26,16 @@ import {
   Box,
   Heading,
   Flex,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 import { HeaderWrapper } from "../Item/HeaderWrapper/HeaderWrapper";
 import { DescriptionWrapper } from "../Item/DescriptionWrapper/DescriptionWrapper";
 import { DetailsWrapper } from "../Item/DetailsWrapper/DetailsWrapper";
 import { CheckIcon, ChevronLeftIcon, LockIcon } from "@chakra-ui/icons";
 import { useAuth } from "../../hooks";
+import { useGetComments } from "../../hooks/useComments";
+import RequiredLogin from "../RequiredLogin/RequiredLogin";
+import { map, size } from "lodash";
+import { colorModeSchema } from "../../utils/colorMode";
 
 export default function TabProduct({
   name,
@@ -43,16 +44,41 @@ export default function TabProduct({
   category,
   seller,
   date,
+  id,
 }) {
   return (
     <Tabs variant={"solid-rounded"} colorScheme="green" isFitted>
-      <TabList>
+      <Flex justify={"flex-start"} mt={-8}>
+        <NextLink href="/" passHref>
+          <Button
+            variant="ghost"
+            colorScheme={colorModeSchema()}
+            leftIcon={<ChevronLeftIcon />}
+            _focus={{
+              outline: "none",
+            }}
+          >
+            Regresar
+          </Button>
+        </NextLink>
+      </Flex>
+      <TabList
+        bg={useColorModeValue("white", "gray.900")}
+        rounded={"full"}
+        mt={2}
+      >
         <Tab _selected={{ color: "white", bg: "purpleDark" }}>Información</Tab>
         <Tab>Ofertar</Tab>
         <Tab _selected={{ color: "white", bg: "blue.500" }}>Comentarios</Tab>
       </TabList>
 
-      <TabPanels>
+      <TabPanels
+        bg={useColorModeValue("white", "gray.900")}
+        rounded={"md"}
+        px={5}
+        py={7}
+        mt={5}
+      >
         <TabPanel>
           <Description
             name={name}
@@ -67,7 +93,7 @@ export default function TabProduct({
           <Bids currentBid={currentBid} />
         </TabPanel>
         <TabPanel>
-          <Comments />
+          <Comments id={id} />
         </TabPanel>
       </TabPanels>
     </Tabs>
@@ -81,12 +107,14 @@ const Description = ({
   category,
   seller,
   date,
+  color,
 }) => (
   <>
     <Stack
       spacing={{ base: 6, md: 10 }}
       overflowY="scroll"
-      maxHeight={{ base: "full", md: "full", lg: "550px" }}
+      maxHeight={{ base: "full", md: "full", lg: "450px" }}
+      h={"450px"}
     >
       <Stack
         spacing={{ base: 4, sm: 6 }}
@@ -101,40 +129,26 @@ const Description = ({
           name={name}
           category={category}
           currentBid={currentBid}
+          color={color}
         />
         <DescriptionWrapper description={description} />
 
         <DetailsWrapper seller={seller} date={date} />
       </Stack>
     </Stack>
-    <Flex justify={"flex-start"}>
-      <NextLink href="/" passHref>
-        <Button
-          variant="ghost"
-          mt={10}
-          color={"purpleDark"}
-          _hover={{
-            bg: "purpleDark",
-            color: "white",
-          }}
-          leftIcon={<ChevronLeftIcon />}
-        >
-          Regresar
-        </Button>
-      </NextLink>
-    </Flex>
   </>
 );
 
 const Bids = () => {
   const { auth } = useAuth();
-  console.log(auth);
 
-  const disabled = !auth ?? true;
-
-  console.log(disabled);
   return (
-    <Stack spacing={4}>
+    <Stack
+      spacing={4}
+      overflowY="scroll"
+      maxHeight={{ base: "full", md: "full", lg: "450px" }}
+      h={"450px"}
+    >
       <StatGroup h="100px" color="white" borderRadius={10}>
         <Stat p={2} color="black" bg="green.50">
           <StatLabel>
@@ -184,65 +198,84 @@ const Bids = () => {
           Ofertar
         </Button>
       ) : (
-        <Alert
-          status="info"
-          variant="solid"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          textAlign="center"
-          height="150px"
-          rounded={"md"}
-        >
-          <LockIcon boxSize="40px" />
-          <AlertTitle mt={4} mb={1} fontSize="lg">
-            Inicio de sesión requerido!
-          </AlertTitle>
-          <AlertDescription maxWidth="sm">
-            Necesitas una cuenta?
-          </AlertDescription>
-        </Alert>
+        <RequiredLogin />
       )}
     </Stack>
   );
 };
 
-const Comments = () => (
-  <Stack spacing={{ base: 2, md: 4 }}>
-    <Stack
-      spacing={{ base: 1, sm: 2 }}
-      direction={"column"}
-      divider={
-        <StackDivider borderColor={useColorModeValue("gray.200", "gray.600")} />
-      }
-    >
-      <CardComment
-        user={"Alex Cuenca"}
-        title="Me encanta"
-        description="Tiernosito es muy sabio, es un osito con espíritu de abuelito cuyo
-          corazón está siempre en su lugar. Ya sea al dar un consejo o al
-          ofrecer comprensión, siempre sabe lo que necesita un niño para
-          ayudarle a expresar sus sentimientos."
-      />
-      <CardComment
-        user="Francisco LLinin"
-        title="Quiero un osito!"
-        description="Son tan lindos, y su textura es unica"
-      />
-    </Stack>
-  </Stack>
-);
+const Comments = ({ id }) => {
+  const { auth } = useAuth();
+
+  const { comments } = useGetComments(auth?.token, id);
+  let data = [];
+  console.log([comments]);
+  if (comments) {
+    data.push(comments);
+    data.push(comments);
+    data.push(comments);
+    data.push(comments);
+    data.push(comments);
+    data.push(comments);
+  }
+
+  console.log("Data", data);
+  return (
+    <>
+      {auth ? (
+        <Stack
+          spacing={{ base: 1, md: 2 }}
+          overflowY="scroll"
+          maxHeight={{ base: "full", md: "full", lg: "450px" }}
+          h={"450px"}
+          m={0}
+          p={0}
+        >
+          <Stack
+            spacing={{ base: 1, sm: 2 }}
+            direction={"column"}
+            // divider={
+            //   <StackDivider
+            //     borderColor={useColorModeValue("gray.200", "gray.600")}
+            //   />
+            // }
+          >
+            {size(data) > 0 &&
+              map(data, (x) => (
+                <CardComment
+                  user={x?.users[0]?.username}
+                  title={x.title}
+                  description={x.content}
+                />
+              ))}
+          </Stack>
+        </Stack>
+      ) : (
+        <Stack
+          spacing={{ base: 1, md: 2 }}
+          overflowY="scroll"
+          maxHeight={{ base: "full", md: "full", lg: "450px" }}
+          m={0}
+          p={0}
+          h={"450px"}
+        >
+          <RequiredLogin description="No puedes ver los comentarios de este articulo" />
+        </Stack>
+      )}
+    </>
+  );
+};
 
 const CardComment = ({ user, title, description }) => (
-  <Center py={5}>
+  <Center>
     <Box
       maxW={"500px"}
       w={"full"}
       bg={useColorModeValue("white", "gray.900")}
-      boxShadow={"2xl"}
       rounded={"md"}
-      p={6}
       overflow={"hidden"}
+      m={0}
+      p={0}
     >
       <Stack>
         <Text

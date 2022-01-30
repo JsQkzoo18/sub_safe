@@ -8,12 +8,13 @@ import Slider from "react-slick";
 import { ImageWrapper } from "../Item/ImageWrapper/ImageWrapper";
 import { motion } from "framer-motion";
 import { BASE_PATH } from "../../utils/env";
+import { colorModeSchema } from "../../utils/colorMode";
 
 const MotionBox = motion(Box);
 
 // Settings for the slider
 const settings = {
-  dots: true,
+  dots: false,
   arrows: false,
   fade: true,
   infinite: true,
@@ -61,7 +62,7 @@ function LeftButton({ slider }) {
   return (
     <IconButton
       aria-label="left-arrow"
-      colorScheme="purple"
+      colorScheme={colorModeSchema()}
       borderRadius="full"
       position="absolute"
       left={{ base: "30%", md: "10px" }}
@@ -79,7 +80,7 @@ function RightButton({ slider }) {
   return (
     <IconButton
       aria-label="right-arrow"
-      colorScheme="purple"
+      colorScheme={colorModeSchema()}
       borderRadius="full"
       position="absolute"
       right={{ base: "30%", md: "10px" }}

@@ -23,11 +23,12 @@ export default function Product() {
           <SimpleGrid
             columns={{ base: 1, lg: 2 }}
             spacing={{ base: 8, md: 10 }}
-            m={0}
+            mt={3}
             p={0}
           >
             {size(images) > 0 && <Carousel images={images} />}
             <TabProduct
+              id={query?.id}
               name={product.name}
               description={product.description}
               currentBid={product.current_bid}
