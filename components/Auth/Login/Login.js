@@ -40,12 +40,12 @@ export default function Login() {
           const response = await loginAPI(values);
           const { access } = response;
           login(access);
+          actions.resetForm();
           router.back();
         } catch (error) {
           toast.error(error.message);
         }
         setLoading(false);
-        actions.resetForm();
       }}
     >
       {(formik) => (

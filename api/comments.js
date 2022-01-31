@@ -1,14 +1,9 @@
 import { BASE_PATH } from "../utils/env";
 
-export async function getCommentsByProductAPI(token, id) {
+export async function getCommentsByProductAPI(id) {
   try {
-    const compositeUrl = `${BASE_PATH}/comentarios/${id}`;
-    const params = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await fetch(compositeUrl, params);
+    const compositeUrl = `${BASE_PATH}/comentarios/por-articulo/${id}`;
+    const response = await fetch(compositeUrl);
     const result = await response.json();
     return result;
   } catch (error) {

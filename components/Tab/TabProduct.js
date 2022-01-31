@@ -36,6 +36,8 @@ import { useGetComments } from "../../hooks/useComments";
 import RequiredLogin from "../RequiredLogin/RequiredLogin";
 import { map, size } from "lodash";
 import { colorModeSchema } from "../../utils/colorMode";
+import Loader from "../Loader";
+import NumberField from "../Forms/NumberField/NumberField";
 
 export default function TabProduct({
   name,
@@ -109,37 +111,33 @@ const Description = ({
   date,
   color,
 }) => (
-  <>
+  <Stack
+    spacing={{ base: 6, md: 10 }}
+    overflowY="scroll"
+    maxHeight={{ base: "full", md: "full", lg: "450px" }}
+    h={"450px"}
+  >
     <Stack
-      spacing={{ base: 6, md: 10 }}
-      overflowY="scroll"
-      maxHeight={{ base: "full", md: "full", lg: "450px" }}
-      h={"450px"}
+      spacing={{ base: 4, sm: 6 }}
+      direction={"column"}
+      divider={
+        <StackDivider borderColor={useColorModeValue("gray.200", "gray.600")} />
+      }
     >
-      <Stack
-        spacing={{ base: 4, sm: 6 }}
-        direction={"column"}
-        divider={
-          <StackDivider
-            borderColor={useColorModeValue("gray.200", "gray.600")}
-          />
-        }
-      >
-        <HeaderWrapper
-          name={name}
-          category={category}
-          currentBid={currentBid}
-          color={color}
-        />
-        <DescriptionWrapper description={description} />
+      <HeaderWrapper
+        name={name}
+        category={category}
+        currentBid={currentBid}
+        color={color}
+      />
+      <DescriptionWrapper description={description} />
 
-        <DetailsWrapper seller={seller} date={date} />
-      </Stack>
+      <DetailsWrapper seller={seller} date={date} />
     </Stack>
-  </>
+  </Stack>
 );
 
-const Bids = () => {
+const Bids = ({ currentBid }) => {
   const { auth } = useAuth();
 
   return (
@@ -161,12 +159,14 @@ const Bids = () => {
           <StatLabel>
             <Badge colorScheme="pink">Oferta actual</Badge>
           </StatLabel>
-          <StatNumber>$627.00</StatNumber>
+          <StatNumber>{`$ ${currentBid}`}</StatNumber>
           <StatHelpText>Enero 21 - 2022</StatHelpText>
         </Stat>
       </StatGroup>
 
-      <InputGroup>
+      <NumberField currentBid={currentBid} />
+
+      {/* <InputGroup>
         <InputLeftElement
           pointerEvents="none"
           color="gray.300"
@@ -174,21 +174,24 @@ const Bids = () => {
         >
           $
         </InputLeftElement>
-        <Input placeholder="Toma mi oferta!" isDisabled={!auth ?? true} />
-        <InputRightElement>
-          <CheckIcon color="green.500" />
-        </InputRightElement>
-      </InputGroup>
+        <Input
+          placeholder="Toma mi oferta!"
+          isDisabled={!auth ?? true}
+          colorScheme={colorModeSchema()}
+          variant="filled"
+        />
+      </InputGroup> */}
 
       {auth ? (
         <Button
-          rounded={"none"}
+          rounded={"md"}
           w={"full"}
           mt={8}
           size={"lg"}
           py={"7"}
-          bg={useColorModeValue("gray.900", "gray.50")}
-          color={useColorModeValue("white", "gray.900")}
+          // bg={useColorModeValue("gray.900", "gray.50")}
+          // color={useColorModeValue("white", "gray.900")}
+          colorScheme={useColorModeValue("green", "whatsapp")}
           textTransform={"uppercase"}
           _hover={{
             transform: "translateY(2px)",
@@ -205,24 +208,11 @@ const Bids = () => {
 };
 
 const Comments = ({ id }) => {
-  const { auth } = useAuth();
-
-  const { comments } = useGetComments(auth?.token, id);
-  let data = [];
-  console.log([comments]);
-  if (comments) {
-    data.push(comments);
-    data.push(comments);
-    data.push(comments);
-    data.push(comments);
-    data.push(comments);
-    data.push(comments);
-  }
-
-  console.log("Data", data);
+  const { comments, loading } = useGetComments(id);
+  if (loading) return <Loader />;
   return (
     <>
-      {auth ? (
+      {size(comments) > 0 ? (
         <Stack
           spacing={{ base: 1, md: 2 }}
           overflowY="scroll"
@@ -234,33 +224,24 @@ const Comments = ({ id }) => {
           <Stack
             spacing={{ base: 1, sm: 2 }}
             direction={"column"}
-            // divider={
-            //   <StackDivider
-            //     borderColor={useColorModeValue("gray.200", "gray.600")}
-            //   />
-            // }
+            divider={
+              <StackDivider
+                borderColor={useColorModeValue("gray.200", "gray.600")}
+              />
+            }
           >
-            {size(data) > 0 &&
-              map(data, (x) => (
-                <CardComment
-                  user={x?.users[0]?.username}
-                  title={x.title}
-                  description={x.content}
-                />
-              ))}
+            {map(comments, (x) => (
+              <CardComment
+                key={x.id}
+                user={x.user[0]?.username}
+                title={x.title}
+                description={x.content}
+              />
+            ))}
           </Stack>
         </Stack>
       ) : (
-        <Stack
-          spacing={{ base: 1, md: 2 }}
-          overflowY="scroll"
-          maxHeight={{ base: "full", md: "full", lg: "450px" }}
-          m={0}
-          p={0}
-          h={"450px"}
-        >
-          <RequiredLogin description="No puedes ver los comentarios de este articulo" />
-        </Stack>
+        "No hay comentarios"
       )}
     </>
   );

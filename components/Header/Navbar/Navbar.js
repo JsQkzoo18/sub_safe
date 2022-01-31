@@ -14,7 +14,6 @@ import {
   useColorModeValue,
   useDisclosure,
   Image,
-  WrapItem,
   MenuButton,
   MenuList,
   Menu,
@@ -35,12 +34,9 @@ import { useGetCategories } from "../../../hooks/useCategories";
 import { capitalize } from "lodash";
 import { useAuth } from "../../../hooks";
 
-export default function Navbar(props) {
+export default function Navbar({ auth, logout }) {
   const { isOpen, onToggle } = useDisclosure();
-  const { path } = props;
   const { categories } = useGetCategories();
-
-  const { auth, logout } = useAuth();
 
   const NAV_ITEMS = [
     {
@@ -58,7 +54,7 @@ export default function Navbar(props) {
   ];
 
   return (
-    <Box {...props}>
+    <Box>
       <Flex
         as={"header"}
         bg={useColorModeValue("white", "black_s")}
@@ -137,80 +133,47 @@ export default function Navbar(props) {
 
           {!auth ? (
             <>
-              <Button
-                fontSize={"md"}
-                fontWeight={500}
-                variant={"ghost"}
-                color={useColorModeValue("primaryLight", "primaryDark")}
-                display={{ base: "none", md: "inline-flex" }}
-                _focus={{
-                  textDecoration: "none",
-                  outline: "none",
-                }}
-              >
-                <NextLink href="/login" passHref>
+              <NextLink href="/login" passHref>
+                <Button
+                  fontSize={"md"}
+                  fontWeight={500}
+                  variant={"ghost"}
+                  m={0}
+                  color={useColorModeValue("primaryLight", "primaryDark")}
+                  display={{ base: "none", md: "inline-flex" }}
+                  _focus={{
+                    textDecoration: "none",
+                    outline: "none",
+                  }}
+                >
                   Iniciar Sesión
-                </NextLink>
-              </Button>
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={600}
-                color={"white"}
-                bg={useColorModeValue("primaryLight", "primaryDark")}
-                _hover={{
-                  bg: "grayLight",
-                }}
-                _focus={{
-                  textDecoration: "none",
-                  outline: "none",
-                }}
-              >
-                <NextLink href="/register" passHref>
+                </Button>
+              </NextLink>
+
+              <NextLink href="/register" passHref>
+                <Button
+                  display={{ base: "none", md: "inline-flex" }}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color={"white"}
+                  bg={useColorModeValue("primaryLight", "primaryDark")}
+                  _hover={{
+                    bg: "grayLight",
+                  }}
+                  _focus={{
+                    textDecoration: "none",
+                    outline: "none",
+                  }}
+                >
                   Registrarse
-                </NextLink>
-              </Button>
+                </Button>
+              </NextLink>
             </>
           ) : (
-            <Menu>
-              <MenuButton
-                as={Button}
-                rightIcon={<ChevronDownIcon />}
-                bg={"transparent"}
-                _focus={{
-                  outline: "0",
-                }}
-                display={{ base: "none", md: "flex" }}
-              >
-                <Text>
-                  {`${auth.userData.first_name} ${auth.userData.last_name}`}
-                </Text>
-              </MenuButton>
-              <MenuList>
-                <MenuItem display={{ base: "block", md: "none" }}>
-                  <Text>
-                    {`${auth.userData.first_name} ${auth.userData.last_name}`}
-                  </Text>
-                </MenuItem>
-                <MenuItem h="40px">
-                  <Button
-                    rightIcon={<ArrowForwardIcon />}
-                    onClick={logout}
-                    variant="ghost"
-                    w="full"
-                    h={"40px"}
-                    m={0}
-                    p={0}
-                    _hover={{
-                      bg: useColorModeValue("primaryLight", "primaryDark"),
-                      color: "white",
-                    }}
-                  >
-                    Cerrar Sesión
-                  </Button>
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <LoginMenu
+              user={`${auth.userData.first_name} ${auth.userData.last_name}`}
+              logout={logout}
+            />
           )}
           <ThemeToggleButton />
         </Stack>
@@ -228,7 +191,7 @@ export default function Navbar(props) {
   );
 }
 
-const DesktopNav = ({ categories, NAV_ITEMS }) => {
+const DesktopNav = ({ NAV_ITEMS }) => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
@@ -330,7 +293,6 @@ const MobileNav = ({ NAV_ITEMS, auth, logout }) => {
       p={4}
       paddingTop={{ base: "30px", sm: "30px", md: "20px" }}
       display={{ md: "block" }}
-      className="loflsdfsd"
     >
       {NAV_ITEMS.map((x) => (
         <MobileNavItem
@@ -343,38 +305,38 @@ const MobileNav = ({ NAV_ITEMS, auth, logout }) => {
       <Stack flex={{ base: 1, md: 0 }} direction={"column"} spacing={6}>
         {!auth ? (
           <>
-            <Button
-              fontSize={"sm"}
-              fontWeight={400}
-              variant={"link"}
-              display={{ base: "block", md: "inline-flex" }}
-              _focus={{
-                textDecoration: "none",
-                outline: "none",
-              }}
-            >
-              <NextLink href="/login" passHref>
-                <Link>Iniciar Sesión</Link>
-              </NextLink>
-            </Button>
-            <Button
-              display={{ base: "block", md: "inline-flex" }}
-              fontSize={"sm"}
-              fontWeight={600}
-              color={"white"}
-              bg={"purpleDark"}
-              _hover={{
-                bg: "grayLight",
-              }}
-              _focus={{
-                textDecoration: "none",
-                outline: "none",
-              }}
-            >
-              <NextLink href="/register" passHref>
+            <NextLink href="/login" passHref>
+              <Button
+                fontSize={"sm"}
+                fontWeight={400}
+                variant={"link"}
+                display={{ base: "block", md: "inline-flex" }}
+                _focus={{
+                  textDecoration: "none",
+                  outline: "none",
+                }}
+              >
+                Iniciar Sesión
+              </Button>
+            </NextLink>
+            <NextLink href="/register" passHref>
+              <Button
+                display={{ base: "block", md: "inline-flex" }}
+                fontSize={"sm"}
+                fontWeight={600}
+                color={"white"}
+                bg={"purpleDark"}
+                _hover={{
+                  bg: "grayLight",
+                }}
+                _focus={{
+                  textDecoration: "none",
+                  outline: "none",
+                }}
+              >
                 Registrarse
-              </NextLink>
-            </Button>
+              </Button>
+            </NextLink>
           </>
         ) : (
           <Menu>
@@ -392,22 +354,19 @@ const MobileNav = ({ NAV_ITEMS, auth, logout }) => {
               </Text>
             </MenuButton>
             <MenuList>
-              <MenuItem h="40px">
-                <Button
-                  rightIcon={<ArrowForwardIcon />}
-                  onClick={logout}
-                  variant="ghost"
-                  w="full"
-                  h={"40px"}
-                  m={0}
-                  p={0}
-                  _hover={{
-                    bg: useColorModeValue("primaryLight", "primaryDark"),
-                    color: "white",
-                  }}
-                >
-                  Cerrar Sesión
-                </Button>
+              <MenuItem
+                h="40px"
+                onClick={logout}
+                variant="ghost"
+                w="full"
+                h={"40px"}
+                _hover={{
+                  bg: useColorModeValue("primaryLight", "primaryDark"),
+                  color: "white",
+                }}
+              >
+                Cerrar Sesión
+                <ArrowForwardIcon />
               </MenuItem>
             </MenuList>
           </Menu>
@@ -467,5 +426,43 @@ const MobileNavItem = ({ label, children, href }) => {
         </Stack>
       </Collapse>
     </Stack>
+  );
+};
+
+const LoginMenu = ({ user, logout }) => {
+  return (
+    <Menu>
+      <MenuButton
+        as={Button}
+        rightIcon={<ChevronDownIcon />}
+        bg={"transparent"}
+        _focus={{
+          outline: "0",
+        }}
+        display={{ base: "none", md: "flex" }}
+      >
+        <Text>{user}</Text>
+      </MenuButton>
+      <MenuList>
+        <MenuItem display={{ base: "block", md: "none" }}>
+          <Text>{user}</Text>
+        </MenuItem>
+        <MenuItem
+          as={Button}
+          rightIcon={<ArrowForwardIcon />}
+          onClick={logout}
+          variant="ghost"
+          w="full"
+          p={5}
+          _hover={{
+            bg: useColorModeValue("primaryLight", "primaryDark"),
+            color: "white",
+            outline: "none",
+          }}
+        >
+          Cerrar Sesión
+        </MenuItem>
+      </MenuList>
+    </Menu>
   );
 };

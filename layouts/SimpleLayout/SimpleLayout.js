@@ -4,9 +4,10 @@ import Navbar from "../../components/Header/Navbar";
 import { useAuth } from "../../hooks";
 
 export default function SimpleLayout({ children }) {
+  const { auth, logout } = useAuth();
   return (
     <div className="simple-layout">
-      <Navbar />
+      <Navbar auth={auth} logout={logout} />
       <Container
         maxW="full"
         minH={{ base: "100%", lg: "100vh" }}

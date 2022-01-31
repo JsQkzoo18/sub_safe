@@ -16,15 +16,15 @@ export default function Loader({ loadingText = "Cargando" }) {
           thickness="5px"
           speed="0.85s"
           emptyColor="gray.500"
-          color={useColorModeValue("purpleDark", "white")}
+          color={useColorModeValue("primaryLight", "primaryDark")}
         />
         <Text
           mt={5}
-          color={useColorModeValue("purpleDark", "white")}
+          color={useColorModeValue("primaryLight", "primaryDark")}
           fontSize={20}
           fontWeight={"500"}
         >
-          cargando
+          {loadingText}
         </Text>
       </Flex>
     </SimpleLayout>

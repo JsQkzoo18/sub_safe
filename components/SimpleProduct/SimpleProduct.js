@@ -27,11 +27,6 @@ export default function SimpleProduct({
   category,
   mainImage,
 }) {
-  let color = useColorModeValue("pink", "red");
-  const lol = `10px 10px 0 ${color}`;
-
-  console.log(lol);
-
   return (
     <Link href={`/products/${id}`}>
       <Center>

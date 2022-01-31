@@ -29,6 +29,7 @@ export function AuthProvider({ children }) {
     setToken(token);
     const userData = await getMe(token);
     setAuth({ token, userData });
+    console.log(userData);
   };
 
   const logout = () => {
