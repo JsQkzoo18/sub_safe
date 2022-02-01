@@ -18,6 +18,8 @@ import {
   MenuList,
   Menu,
   MenuItem,
+  MenuGroup,
+  MenuDivider,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -32,7 +34,7 @@ import ThemeToggleButton from "../../Theme/ThemeToggleButton";
 import SearchButton from "../SearchButton/SearchButton";
 import { useGetCategories } from "../../../hooks/useCategories";
 import { capitalize } from "lodash";
-import { useAuth } from "../../../hooks";
+import { colorModeSchema } from "../../../utils/colorMode";
 
 export default function Navbar({ auth, logout }) {
   const { isOpen, onToggle } = useDisclosure();
@@ -122,61 +124,7 @@ export default function Navbar({ auth, logout }) {
           </Flex>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-          alignItems={"center"}
-        >
-          <SearchButton />
-
-          {!auth ? (
-            <>
-              <NextLink href="/login" passHref>
-                <Button
-                  fontSize={"md"}
-                  fontWeight={500}
-                  variant={"ghost"}
-                  m={0}
-                  color={useColorModeValue("primaryLight", "primaryDark")}
-                  display={{ base: "none", md: "inline-flex" }}
-                  _focus={{
-                    textDecoration: "none",
-                    outline: "none",
-                  }}
-                >
-                  Iniciar Sesión
-                </Button>
-              </NextLink>
-
-              <NextLink href="/register" passHref>
-                <Button
-                  display={{ base: "none", md: "inline-flex" }}
-                  fontSize={"sm"}
-                  fontWeight={600}
-                  color={"white"}
-                  bg={useColorModeValue("primaryLight", "primaryDark")}
-                  _hover={{
-                    bg: "grayLight",
-                  }}
-                  _focus={{
-                    textDecoration: "none",
-                    outline: "none",
-                  }}
-                >
-                  Registrarse
-                </Button>
-              </NextLink>
-            </>
-          ) : (
-            <LoginMenu
-              user={`${auth.userData.first_name} ${auth.userData.last_name}`}
-              logout={logout}
-            />
-          )}
-          <ThemeToggleButton />
-        </Stack>
+        <RigtMenuItems auth={auth} logout={logout} />
       </Flex>
 
       <Box
@@ -248,7 +196,7 @@ const DesktopNav = ({ NAV_ITEMS }) => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }) => {
+const DesktopSubNav = ({ label, href }) => {
   return (
     <NextLink href={href} passHref>
       <Link
@@ -256,6 +204,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
         display={"block"}
         p={2}
         rounded={"md"}
+        w={"full"}
         _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
       >
         <Stack direction={"row"} align={"center"}>
@@ -267,7 +216,6 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
             >
               {label}
             </Text>
-            <Text fontSize={"sm"}>{subLabel}</Text>
           </Box>
           <Flex
             transition={"all .3s ease"}
@@ -435,7 +383,8 @@ const LoginMenu = ({ user, logout }) => {
       <MenuButton
         as={Button}
         rightIcon={<ChevronDownIcon />}
-        bg={"transparent"}
+        colorScheme={colorModeSchema()}
+        variant={"ghost"}
         _focus={{
           outline: "0",
         }}
@@ -444,25 +393,120 @@ const LoginMenu = ({ user, logout }) => {
         <Text>{user}</Text>
       </MenuButton>
       <MenuList>
+        <MenuItem _hover={{ bg: "transparent" }}>
+          <DesktopSubNav label={"Mis productos"} href={"/user/my-products"} />
+        </MenuItem>
+
+        <MenuItem _hover={{ bg: "transparent" }}>
+          <DesktopSubNav label={"Mis compras"} href={"/user/my-shopping"} />
+        </MenuItem>
+
+        <MenuDivider color={colorModeSchema()} />
+
         <MenuItem display={{ base: "block", md: "none" }}>
           <Text>{user}</Text>
         </MenuItem>
-        <MenuItem
-          as={Button}
-          rightIcon={<ArrowForwardIcon />}
-          onClick={logout}
-          variant="ghost"
-          w="full"
-          p={5}
-          _hover={{
-            bg: useColorModeValue("primaryLight", "primaryDark"),
-            color: "white",
-            outline: "none",
-          }}
-        >
-          Cerrar Sesión
+        <MenuItem _hover={{ bg: "transparent" }}>
+          <SubMenu label={"Cerrar Sesión"} logout={logout} />
         </MenuItem>
       </MenuList>
     </Menu>
+  );
+};
+
+const RigtMenuItems = ({ auth, logout }) => {
+  return (
+    <Stack
+      flex={{ base: 1, md: 0 }}
+      justify={"flex-end"}
+      direction={"row"}
+      spacing={6}
+      alignItems={"center"}
+    >
+      <SearchButton />
+
+      {!auth ? (
+        <>
+          <NextLink href="/login" passHref>
+            <Button
+              fontSize={"md"}
+              fontWeight={500}
+              variant={"ghost"}
+              m={0}
+              color={useColorModeValue("primaryLight", "primaryDark")}
+              display={{ base: "none", md: "inline-flex" }}
+              _focus={{
+                textDecoration: "none",
+                outline: "none",
+              }}
+            >
+              Iniciar Sesión
+            </Button>
+          </NextLink>
+
+          <NextLink href="/register" passHref>
+            <Button
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              fontWeight={600}
+              color={"white"}
+              bg={useColorModeValue("primaryLight", "primaryDark")}
+              _hover={{
+                bg: "grayLight",
+              }}
+              _focus={{
+                textDecoration: "none",
+                outline: "none",
+              }}
+            >
+              Registrarse
+            </Button>
+          </NextLink>
+        </>
+      ) : (
+        <LoginMenu
+          user={`${auth.userData.first_name} ${auth.userData.last_name}`}
+          logout={logout}
+        />
+      )}
+      <ThemeToggleButton />
+    </Stack>
+  );
+};
+
+const SubMenu = ({ label, logout }) => {
+  return (
+    <Link
+      role={"group"}
+      display={"block"}
+      p={2}
+      rounded={"md"}
+      w={"full"}
+      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+      onClick={logout}
+    >
+      <Stack direction={"row"} align={"center"}>
+        <Box>
+          <Text
+            transition={"all .3s ease"}
+            _groupHover={{ color: "pink.400" }}
+            fontWeight={500}
+          >
+            {label}
+          </Text>
+        </Box>
+        <Flex
+          transition={"all .3s ease"}
+          transform={"translateX(-10px)"}
+          opacity={0}
+          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
+          justify={"flex-end"}
+          align={"center"}
+          flex={1}
+        >
+          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
+    </Link>
   );
 };

@@ -1,19 +1,41 @@
-import { Center, Code, Container, Heading, Stack } from "@chakra-ui/react";
+import {
+  Center,
+  Code,
+  Container,
+  Heading,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
-import Carousel from "../components/Carousel/Carousel";
-import CustomAutoCompleteInput from "../components/Forms/AutoComplete/CustomAutoCompleteInput";
-import SuccessResult from "../components/Results/SuccessResult/SuccessResult";
 import { useGetCategories } from "../hooks/useCategories";
-import { useGetProducts } from "../hooks/useProduct";
-import Loader from "../components/Loader";
+import { useGetProductByUser, useGetProducts } from "../hooks/useProduct";
+import { useAuth } from "../hooks";
+import { map, size } from "lodash";
+import { getProductImages } from "../utils/extractImages";
 
 export default function hooks_tst() {
-  const { products } = useGetProducts();
+  const { auth } = useAuth();
+  const { products, loading } = useGetProductByUser(auth?.token);
   const { categories } = useGetCategories();
+
+  if (loading) return "Cargando";
 
   return (
     <>
-      <Loader />
+      {size(products) > 0 && (
+        <Stack>
+          <Heading>User Products</Heading>
+          {map(products, (product, index) => (
+            <Stack key={index}>
+              <Text>{product.id}</Text>
+              <Text>{product.name}</Text>
+              <Image src={getProductImages(product)[index]} />
+            </Stack>
+          ))}
+        </Stack>
+      )}
+
       <Stack>
         <Heading>Products</Heading>
         {products && (

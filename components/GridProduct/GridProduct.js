@@ -4,10 +4,11 @@ import SimpleProduct from "../SimpleProduct/SimpleProduct";
 import { motion } from "framer-motion";
 import { map } from "lodash";
 import { BASE_PATH } from "../../utils/env";
+import Loader from "../Loader";
 
 const MotionBox = motion(Box);
 
-export default function GridProduct({ products }) {
+export default function GridProduct({ products, loading }) {
   return (
     <MotionBox initial="initial" animate="animate">
       <Grid

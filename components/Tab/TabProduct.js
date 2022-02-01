@@ -39,6 +39,10 @@ import { colorModeSchema } from "../../utils/colorMode";
 import Loader from "../Loader";
 import NumberField from "../Forms/NumberField/NumberField";
 
+import { useRouter } from "next/router";
+import AddComments from "../AddComments/AddComments";
+import { useState } from "react";
+
 export default function TabProduct({
   name,
   description,
@@ -48,21 +52,36 @@ export default function TabProduct({
   date,
   id,
 }) {
+  const router = useRouter();
+
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const [reloadComments, setReloadComments] = useState(false);
+
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+  };
+
   return (
-    <Tabs variant={"solid-rounded"} colorScheme="green" isFitted>
+    <Tabs
+      variant={"solid-rounded"}
+      colorScheme="green"
+      isFitted
+      index={tabIndex}
+      onChange={handleTabsChange}
+    >
       <Flex justify={"flex-start"} mt={-8}>
-        <NextLink href="/" passHref>
-          <Button
-            variant="ghost"
-            colorScheme={colorModeSchema()}
-            leftIcon={<ChevronLeftIcon />}
-            _focus={{
-              outline: "none",
-            }}
-          >
-            Regresar
-          </Button>
-        </NextLink>
+        <Button
+          variant="ghost"
+          colorScheme={colorModeSchema()}
+          leftIcon={<ChevronLeftIcon />}
+          _focus={{
+            outline: "none",
+          }}
+          onClick={router.back}
+        >
+          Regresar
+        </Button>
       </Flex>
       <TabList
         bg={useColorModeValue("white", "gray.900")}
@@ -77,8 +96,6 @@ export default function TabProduct({
       <TabPanels
         bg={useColorModeValue("white", "gray.900")}
         rounded={"md"}
-        px={5}
-        py={7}
         mt={5}
       >
         <TabPanel>
@@ -95,7 +112,11 @@ export default function TabProduct({
           <Bids currentBid={currentBid} />
         </TabPanel>
         <TabPanel>
-          <Comments id={id} />
+          <Comments
+            id={id}
+            reloadComments={reloadComments}
+            setReloadComments={setReloadComments}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>
@@ -114,8 +135,10 @@ const Description = ({
   <Stack
     spacing={{ base: 6, md: 10 }}
     overflowY="scroll"
-    maxHeight={{ base: "full", md: "full", lg: "450px" }}
-    h={"450px"}
+    maxHeight={{ base: "full", md: "full", lg: "510px" }}
+    h={"505px"}
+    px={5}
+    py={7}
   >
     <Stack
       spacing={{ base: 4, sm: 6 }}
@@ -144,8 +167,10 @@ const Bids = ({ currentBid }) => {
     <Stack
       spacing={4}
       overflowY="scroll"
-      maxHeight={{ base: "full", md: "full", lg: "450px" }}
-      h={"450px"}
+      maxHeight={{ base: "full", md: "full", lg: "510px" }}
+      h={"505px"}
+      px={5}
+      py={7}
     >
       <StatGroup h="100px" color="white" borderRadius={10}>
         <Stat p={2} color="black" bg="green.50">
@@ -207,17 +232,22 @@ const Bids = ({ currentBid }) => {
   );
 };
 
-const Comments = ({ id }) => {
-  const { comments, loading } = useGetComments(id);
+const Comments = ({ id, reloadComments, setReloadComments }) => {
+  const { comments, loading } = useGetComments(
+    id,
+    reloadComments,
+    setReloadComments
+  );
   if (loading) return <Loader />;
   return (
     <>
+      <AddComments id={id} setReloadComments={setReloadComments} />
       {size(comments) > 0 ? (
         <Stack
           spacing={{ base: 1, md: 2 }}
           overflowY="scroll"
-          maxHeight={{ base: "full", md: "full", lg: "450px" }}
-          h={"450px"}
+          maxHeight={{ base: "full", md: "full", lg: "510px" }}
+          h={"505px"}
           m={0}
           p={0}
         >
@@ -241,7 +271,9 @@ const Comments = ({ id }) => {
           </Stack>
         </Stack>
       ) : (
-        "No hay comentarios"
+        <Box display={"flex"} justifyContent={"center"}>
+          <Text>No hay comentarios</Text>
+        </Box>
       )}
     </>
   );

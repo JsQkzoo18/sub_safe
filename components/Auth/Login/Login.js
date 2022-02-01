@@ -71,7 +71,10 @@ export default function Login() {
                 <Heading fontSize={"4xl"}>Inicia Sesión en tu cuenta</Heading>
                 <Text fontSize={"lg"} color={"gray.600"}>
                   para disfrutar todas las&nbsp;
-                  <Text as="span" color={"red"}>
+                  <Text
+                    as="span"
+                    color={useColorModeValue("primaryLight", "primary")}
+                  >
                     características
                   </Text>
                   ✌️
@@ -80,7 +83,7 @@ export default function Login() {
               <Box
                 rounded={"lg"}
                 bg={useColorModeValue("white", "black_s")}
-                boxShadow={"lg"}
+                boxShadow={"xl"}
                 p={8}
               >
                 <Stack spacing={4}>
@@ -104,15 +107,18 @@ export default function Login() {
                     type="submit"
                     isLoading={loading}
                     loadingText="Iniciando Sesión"
-                    bg={useColorModeValue("pink", "red")}
+                    bg={useColorModeValue("primaryLight", "black_p")}
+                    border={"2px"}
+                    borderColor={useColorModeValue(
+                      "primaryLight",
+                      "primaryDark"
+                    )}
                     color="white"
                     transition={"0.2s transform ease-in-out"}
                     willChange={"transform"}
                     _hover={{
-                      bg: useColorModeValue("silver_p", "black_p"),
-                      color: "white",
-                      border: "2px",
-                      borderColor: useColorModeValue("silver_p", "red"),
+                      bg: useColorModeValue("pink", "primaryDark"),
+                      color: useColorModeValue("primaryLight", "white"),
                       transform: "scale(1.01)",
                       willChange: "transform",
                     }}
@@ -138,13 +144,18 @@ function AditionalLinks() {
         justify={"space-between"}
       >
         <NextLink href="/register" passHref>
-          <Link color={useColorModeValue("black_s", "gray.400")}>
+          <Link
+            color={useColorModeValue("black_s", "gray.400")}
+            fontWeight={400}
+          >
             No tienes una cuenta?
           </Link>
         </NextLink>
 
         <NextLink href="/forgot-password" passHref>
-          <Link color={"red"}>Olvidaste la contraseña?</Link>
+          <Link color={useColorModeValue("primaryLight", "primary")}>
+            Olvidaste la contraseña?
+          </Link>
         </NextLink>
       </Stack>
     </Stack>

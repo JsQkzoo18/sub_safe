@@ -1,4 +1,4 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Text } from "@chakra-ui/react";
 import SEO_C from "../../components/SEO_C";
 import TabProduct from "../../components/Tab/TabProduct";
 import SimpleLayout from "../../layouts/SimpleLayout";
@@ -17,7 +17,7 @@ export default function Product() {
 
   return (
     <SimpleLayout>
-      {product && images ? (
+      {product && images && !loading && (
         <>
           <SEO_C title={product?.name} description={product?.description} />
           <SimpleGrid
@@ -37,8 +37,6 @@ export default function Product() {
             />
           </SimpleGrid>
         </>
-      ) : (
-        <Text> No hay nada que mostrar mmvrg</Text>
       )}
     </SimpleLayout>
   );

@@ -110,11 +110,12 @@ export default function TopBar(props) {
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
-            border={"1px"}
-            borderColor={useColorModeValue("white", "red")}
-            bg={useColorModeValue("pink", "black_p")}
+            border={"2px"}
+            borderColor={useColorModeValue("primaryLight", "primaryDark")}
+            bg={useColorModeValue("primaryLight", "black_p")}
             _hover={{
-              bg: useColorModeValue("pink  ", "red"),
+              bg: useColorModeValue("pink  ", "primaryDark"),
+              color: useColorModeValue("primaryLight", "white"),
             }}
           >
             <NextLink href="/" passHref>

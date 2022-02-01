@@ -79,3 +79,20 @@ export function registerValidationSchema() {
       .required("Confirma tu contraseña por favor!"),
   };
 }
+
+export function commentInitialValues() {
+  return {
+    title: "",
+    content: "",
+  };
+}
+
+export function commentValidationSchema() {
+  return {
+    title: Yup.string().strict(true).required("Ingresa el titulo por favor!"),
+    content: Yup.string()
+      .strict(true)
+      .required("Ingresa la descripción por favor!")
+      .max(100, "La descripción debe tener menos de 100 carácteres"),
+  };
+}

@@ -6,10 +6,12 @@ export const AuthContext = createContext({
   auth: undefined,
   login: () => null,
   logout: () => null,
+  setReloadUser: () => null,
 });
 
 export function AuthProvider({ children }) {
   const [auth, setAuth] = useState(undefined);
+  const [reloadUser, setReloadUser] = useState(false);
   const { getMe } = useUser();
 
   useEffect(() => {
@@ -22,14 +24,14 @@ export function AuthProvider({ children }) {
       } else {
         setAuth(null);
       }
+      setReloadUser(false);
     })();
-  }, []);
+  }, [reloadUser]);
 
   const login = async (token) => {
     setToken(token);
     const userData = await getMe(token);
     setAuth({ token, userData });
-    console.log(userData);
   };
 
   const logout = () => {
@@ -44,6 +46,7 @@ export function AuthProvider({ children }) {
     auth,
     login,
     logout,
+    setReloadUser,
   };
 
   if (auth === undefined) return null;

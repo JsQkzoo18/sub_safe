@@ -12,24 +12,42 @@ export async function getAllProductsAPI() {
   }
 }
 
-export async function getProductsByIDAPI(id) {
+export async function getProductByIDAPI(id) {
   try {
-    let imagesArray = [];
     const compositeUrl = `${BASE_PATH}/articulos/${id}`;
     const response = await fetch(compositeUrl);
     const data = await response.json();
-    const { images } = data;
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
 
-    if (size(images) > 0) {
-      if (images.main_image)
-        imagesArray.push(`${BASE_PATH}${images.main_image}`);
-      if (images.image_1) imagesArray.push(`${BASE_PATH}${images.image_1}`);
-      if (images.image_2) imagesArray.push(`${BASE_PATH}${images.image_2}`);
-      if (images.image_3) imagesArray.push(`${BASE_PATH}${images.image_3}`);
-      if (images.image_4) imagesArray.push(`${BASE_PATH}${images.image_4}`);
-    }
+export async function getProductsByUserAPI(token) {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/por-usuario`;
 
-    return { data, imagesArray };
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(compositeUrl, params);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getProductsByCategoryAPI(id) {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/por-categoria/${id}`;
+
+    const response = await fetch(compositeUrl);
+    const data = await response.json();
+    return data;
   } catch (error) {
     return null;
   }

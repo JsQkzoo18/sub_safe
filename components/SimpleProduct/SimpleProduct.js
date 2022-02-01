@@ -79,7 +79,6 @@ export default function SimpleProduct({
               initial={{ y: 60, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
-              fallback={<Skeleton />}
             />
           </Box>
           <Stack pt={10} align={"center"}>
