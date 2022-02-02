@@ -6,11 +6,13 @@ export function useGetCategories() {
   const [categories, setCategories] = useState(null);
 
   useEffect(() => {
+    const ac = new AbortController();
     (async () => {
       const response = await getCategoriesAPI();
       if (size(response) > 0) setCategories(response);
       else setCategories([]);
     })();
+    return () => ac.abort();
   }, []);
   return { categories };
 }

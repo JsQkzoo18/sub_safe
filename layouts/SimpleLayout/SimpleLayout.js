@@ -1,13 +1,11 @@
 import React from "react";
 import { Container } from "@chakra-ui/react";
 import Navbar from "../../components/Header/Navbar";
-import { useAuth } from "../../hooks";
 
 export default function SimpleLayout({ children }) {
-  const { auth, logout } = useAuth();
   return (
     <div className="simple-layout">
-      <Navbar auth={auth} logout={logout} />
+      <Navbar />
       <Container
         maxW="full"
         minH={{ base: "100%", lg: "100vh" }}

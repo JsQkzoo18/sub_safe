@@ -35,9 +35,12 @@ import SearchButton from "../SearchButton/SearchButton";
 import { useGetCategories } from "../../../hooks/useCategories";
 import { capitalize } from "lodash";
 import { colorModeSchema } from "../../../utils/colorMode";
+import { useAuth } from "../../../hooks";
 
-export default function Navbar({ auth, logout }) {
+export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const { auth, logout } = useAuth();
+
   const { categories } = useGetCategories();
 
   const NAV_ITEMS = [

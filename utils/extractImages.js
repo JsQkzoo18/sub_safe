@@ -14,7 +14,5 @@ export const getProductImages = (product) => {
     if (images.image_4) imagesArray.push(`${BASE_PATH}${images.image_4}`);
   }
 
-  console.log("Images", imagesArray);
-
   return imagesArray;
 };

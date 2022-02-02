@@ -32,6 +32,7 @@ export default function Product() {
               name={product.name}
               description={product.description}
               currentBid={product.current_bid}
+              startedBid={product.starting_bid}
               category={product?.category?.name}
               seller={`${product?.seller?.first_name} ${product?.seller?.last_name}`}
             />

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { EditIcon } from "@chakra-ui/icons";
 import {
+  Alert,
+  AlertIcon,
   Button,
+  Collapse,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   IconButton,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -16,10 +19,13 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
+  Text,
   Textarea,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Formik, Field, useField } from "formik";
+
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import { addCommentAPI } from "../../api/comments";
 import { useAuth } from "../../hooks";
@@ -29,6 +35,7 @@ import {
   commentValidationSchema,
 } from "../../utils/formValidation";
 import toast from "react-hot-toast";
+import TextField from "../Forms/TextField/TextField";
 
 export default function AddComments({ id, setReloadComments }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,7 +43,9 @@ export default function AddComments({ id, setReloadComments }) {
 
   const { auth } = useAuth();
 
-  const initialRef = React.useRef();
+  const initialRef = useRef();
+
+  if (!id) return null;
 
   return (
     <Formik
@@ -86,31 +95,66 @@ export default function AddComments({ id, setReloadComments }) {
                 <ModalHeader>Escribir un comentario</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
-                  <FormControl id="title">
-                    <FormLabel ref={initialRef}>Título</FormLabel>
-                    <Field
-                      as={Input}
-                      placeholder="Título del comentario"
-                      type="text"
-                      name="title"
-                    />
-                  </FormControl>
+                  <TextField
+                    type="text"
+                    name="title"
+                    label="Título"
+                    placeholder="Título del comentario"
+                    isRequired
+                    initialRef={initialRef}
+                  />
 
-                  <FormControl id="content" mt={4}>
+                  <FormControl
+                    id="content"
+                    mt={4}
+                    isInvalid={
+                      (formik.errors.content &&
+                        formik.values.content?.length > 0) ||
+                      (formik.errors.content && formik.touched)
+                    }
+                    isRequired
+                  >
                     <FormLabel>Descripción</FormLabel>
                     <Field
                       as={Textarea}
                       placeholder="Escribe la descripción"
                       name="content"
                     />
+                    <Collapse
+                      in={
+                        (formik.errors.content &&
+                          formik.values.content?.length > 0) ||
+                        (formik.errors.content && formik.touched)
+                      }
+                      animateOpacity
+                    >
+                      <FormErrorMessage>
+                        <Alert
+                          status="warning"
+                          variant="subtle"
+                          rounded={"md"}
+                          fontWeight={"500"}
+                        >
+                          <AlertIcon />
+                          <Text
+                            color={useColorModeValue(
+                              "yellow.600",
+                              "yellow.400"
+                            )}
+                          >
+                            {formik.errors.content}
+                          </Text>
+                        </Alert>
+                      </FormErrorMessage>
+                    </Collapse>
                   </FormControl>
                 </ModalBody>
 
                 <ModalFooter>
                   <Button type="submit" colorScheme={colorModeSchema()} mr={3}>
-                    Save
+                    Comentar
                   </Button>
-                  <Button onClick={onClose}>Cancel</Button>
+                  <Button onClick={onClose}>Cancelar</Button>
                 </ModalFooter>
               </ModalContent>
             </Stack>

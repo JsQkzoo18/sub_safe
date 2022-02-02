@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps, router }) {
       <Theme cookies={pageProps.cookies}>
         <ThemeEditorProvider>
           <Fonts />
-          <AnimatePresence exitBeforeEnter initial={true}>
+          <AnimatePresence>
             <Component {...pageProps} key={router.route} />
             <Toaster />
           </AnimatePresence>

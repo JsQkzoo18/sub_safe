@@ -14,6 +14,7 @@ export async function getAllProductsAPI() {
 
 export async function getProductByIDAPI(id) {
   try {
+    if (!id) return null;
     const compositeUrl = `${BASE_PATH}/articulos/${id}`;
     const response = await fetch(compositeUrl);
     const data = await response.json();

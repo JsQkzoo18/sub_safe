@@ -1,24 +1,21 @@
 import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+} from "@chakra-ui/form-control";
+import { Textarea } from "@chakra-ui/textarea";
+import {
   Alert,
   AlertIcon,
   Collapse,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
+  InputGroup,
   Text,
+  FormHelperText,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Field, useField } from "formik";
-import React, { useState } from "react";
 
-export default function NumberField({
-  currentBid = "0",
+const TextAreaField = ({
   label,
   helper = "",
   ispass = false,
@@ -27,11 +24,7 @@ export default function NumberField({
   isDisabled,
   initialRef,
   ...props
-}) {
-  const format = (val) => `$ ${val}`;
-  const parse = (val) => val.replace(/^\$/, "");
-
-  const [value, setValue] = useState(currentBid);
+}) => {
   const [field, meta] = useField(props);
 
   return (
@@ -42,20 +35,13 @@ export default function NumberField({
       isRequired={isRequired}
     >
       <FormLabel ref={initialRef}>{label}</FormLabel>
-
-      <NumberInput
-        onChange={(valueString) => setValue(parse(valueString))}
-        value={value}
-        max={50_000_000}
-        min={currentBid}
-      >
-        <Field as={NumberInputField} isTruncated {...field} {...props} />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
-
+      <Field
+        as={Textarea}
+        isReadOnly={isReadOnly}
+        isDisabled={isDisabled}
+        {...field}
+        {...props}
+      />
       {helper.length > 0 && (
         <FormHelperText
           color={useColorModeValue("primaryLight", "primaryDark")}
@@ -86,4 +72,6 @@ export default function NumberField({
       </Collapse>
     </FormControl>
   );
-}
+};
+
+export default TextAreaField;

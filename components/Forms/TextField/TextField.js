@@ -28,6 +28,7 @@ const TextField = ({
   isRequired,
   isReadOnly,
   isDisabled,
+  initialRef,
   ...props
 }) => {
   const [field, meta] = useField(props);
@@ -41,7 +42,7 @@ const TextField = ({
         }
         isRequired={isRequired}
       >
-        <FormLabel>{label}</FormLabel>
+        <FormLabel ref={initialRef}>{label}</FormLabel>
         <InputGroup>
           {props.type === "password" ? (
             <>

@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 import { getToken, setToken, deleteToken } from "../api/token";
+import Loader from "../components/Loader";
 import { useUser } from "../hooks";
 
 export const AuthContext = createContext({
@@ -11,11 +12,14 @@ export const AuthContext = createContext({
 
 export function AuthProvider({ children }) {
   const [auth, setAuth] = useState(undefined);
-  const [reloadUser, setReloadUser] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { getMe } = useUser();
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
+
       const token = getToken();
 
       if (token) {
@@ -24,9 +28,9 @@ export function AuthProvider({ children }) {
       } else {
         setAuth(null);
       }
-      setReloadUser(false);
     })();
-  }, [reloadUser]);
+    setLoading(false);
+  }, []);
 
   const login = async (token) => {
     setToken(token);
@@ -46,9 +50,9 @@ export function AuthProvider({ children }) {
     auth,
     login,
     logout,
-    setReloadUser,
   };
 
+  if (loading) return null;
   if (auth === undefined) return null;
   return (
     <AuthContext.Provider value={valueContext}>{children}</AuthContext.Provider>

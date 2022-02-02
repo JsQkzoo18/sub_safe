@@ -89,10 +89,37 @@ export function commentInitialValues() {
 
 export function commentValidationSchema() {
   return {
-    title: Yup.string().strict(true).required("Ingresa el titulo por favor!"),
+    title: Yup.string()
+      .strict(true)
+      .required("Ingresa el titulo por favor!")
+      .max(60, "El titulo debe tener menos de 60 carácteres"),
     content: Yup.string()
       .strict(true)
       .required("Ingresa la descripción por favor!")
       .max(100, "La descripción debe tener menos de 100 carácteres"),
+  };
+}
+
+export function productInitialValues() {
+  return {
+    name: "",
+    description: "",
+    starting_bid: "",
+  };
+}
+
+export function productValidationSchema() {
+  return {
+    name: Yup.string()
+      .strict(true)
+      .required("Ingresa el nombre por favor!")
+      .max(30, "El nombre debe tener menos de 30 carácteres"),
+    description: Yup.string()
+      .strict(true)
+      .required("Ingresa la descripción por favor!")
+      .max(100, "La descripción debe tener menos de 100 carácteres"),
+    starting_bid: Yup.string()
+      .strict(true)
+      .required("Ingresa la oferta inicial por favor!"),
   };
 }

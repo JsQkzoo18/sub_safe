@@ -1,4 +1,6 @@
-import NextLink from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { map, size } from "lodash";
 
 import {
   Tabs,
@@ -10,11 +12,6 @@ import {
   Button,
   StackDivider,
   useColorModeValue,
-  useColorMode,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  InputRightElement,
   Stat,
   StatLabel,
   StatNumber,
@@ -27,26 +24,26 @@ import {
   Heading,
   Flex,
 } from "@chakra-ui/react";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
+
 import { HeaderWrapper } from "../Item/HeaderWrapper/HeaderWrapper";
 import { DescriptionWrapper } from "../Item/DescriptionWrapper/DescriptionWrapper";
 import { DetailsWrapper } from "../Item/DetailsWrapper/DetailsWrapper";
-import { CheckIcon, ChevronLeftIcon, LockIcon } from "@chakra-ui/icons";
+import NumberField from "../Forms/NumberField/NumberField";
+import Loader from "../Loader";
+import RequiredLogin from "../RequiredLogin/RequiredLogin";
+import AddComments from "../AddComments/AddComments";
+
 import { useAuth } from "../../hooks";
 import { useGetComments } from "../../hooks/useComments";
-import RequiredLogin from "../RequiredLogin/RequiredLogin";
-import { map, size } from "lodash";
-import { colorModeSchema } from "../../utils/colorMode";
-import Loader from "../Loader";
-import NumberField from "../Forms/NumberField/NumberField";
 
-import { useRouter } from "next/router";
-import AddComments from "../AddComments/AddComments";
-import { useState } from "react";
+import { colorModeSchema } from "../../utils/colorMode";
 
 export default function TabProduct({
   name,
   description,
   currentBid,
+  startedBid,
   category,
   seller,
   date,
@@ -55,7 +52,6 @@ export default function TabProduct({
   const router = useRouter();
 
   const [tabIndex, setTabIndex] = useState(0);
-
   const [reloadComments, setReloadComments] = useState(false);
 
   const handleTabsChange = (index) => {
@@ -109,7 +105,7 @@ export default function TabProduct({
           />
         </TabPanel>
         <TabPanel>
-          <Bids currentBid={currentBid} />
+          <Bids currentBid={currentBid} startedBid={startedBid} />
         </TabPanel>
         <TabPanel>
           <Comments
@@ -160,9 +156,8 @@ const Description = ({
   </Stack>
 );
 
-const Bids = ({ currentBid }) => {
+const Bids = ({ currentBid, startedBid }) => {
   const { auth } = useAuth();
-
   return (
     <Stack
       spacing={4}
@@ -177,7 +172,7 @@ const Bids = ({ currentBid }) => {
           <StatLabel>
             <Badge colorScheme="green">Oferta inicial</Badge>
           </StatLabel>
-          <StatNumber>$126.00</StatNumber>
+          <StatNumber>{`$ ${startedBid}`}</StatNumber>
           <StatHelpText>Enero 12 - 2022</StatHelpText>
         </Stat>
         <Stat p={2} ml={1} color="black" bg="orange.100">
@@ -189,7 +184,7 @@ const Bids = ({ currentBid }) => {
         </Stat>
       </StatGroup>
 
-      <NumberField currentBid={currentBid} />
+      {/* <NumberField currentBid={currentBid} /> */}
 
       {/* <InputGroup>
         <InputLeftElement
@@ -233,6 +228,8 @@ const Bids = ({ currentBid }) => {
 };
 
 const Comments = ({ id, reloadComments, setReloadComments }) => {
+  if (id === undefined) return null;
+
   const { comments, loading } = useGetComments(
     id,
     reloadComments,
