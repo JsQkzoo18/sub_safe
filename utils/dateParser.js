@@ -1,4 +1,3 @@
-// Creamos array con los meses del año
 const months = [
   "Enero",
   "Febrero",
@@ -13,7 +12,7 @@ const months = [
   "Noviembre",
   "Diciembre",
 ];
-// Creamos array con los días de la semana
+
 const day = [
   "Domingo",
   "Lunes",
@@ -24,9 +23,11 @@ const day = [
   "Sábado",
 ];
 
+/**
+ * It parses a date string into a human readable format.
+ * @returns The date is being parsed into a string that is readable by humans.
+ */
 export const dateParser = (date) => {
-  // Creamos el objeto fecha instanciándolo con la clase Date
-
   if (!date) return null;
 
   const tempDate = new Date(date);

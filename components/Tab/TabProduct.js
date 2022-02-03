@@ -69,6 +69,9 @@ export default function TabProduct({
   const [tabIndex, setTabIndex] = useState(parseInt(getTIndex()));
   const [reloadComments, setReloadComments] = useState(false);
 
+  /**
+   * It changes the tab index and the tIndex.
+   */
   const handleTabsChange = (index) => {
     setTabIndex(index);
     setTIndex(index);

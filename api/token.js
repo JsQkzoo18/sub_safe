@@ -1,5 +1,8 @@
 import { TOKEN } from "../utils/env";
 
+/**
+ * It sets the token in local storage and retrieves it.
+ */
 export function setToken(token) {
   localStorage.setItem(TOKEN, token);
 }

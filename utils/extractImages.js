@@ -1,6 +1,10 @@
 import { size } from "lodash";
 import { BASE_PATH } from "./env";
 
+/**
+ * It takes in a product object and returns an array of image urls.
+ * @returns An array of image URLs.
+ */
 export const getProductImages = (product) => {
   let imagesArray = [];
 

@@ -1,5 +1,9 @@
 import { BASE_PATH } from "../utils/env";
 
+/**
+ * It gets the bid by ID.
+ * @returns The result of the API call.
+ */
 export async function getBidByIDAPI(id) {
   try {
     const compositeUrl = `${BASE_PATH}/subastas/${id}`;
@@ -11,6 +15,10 @@ export async function getBidByIDAPI(id) {
   }
 }
 
+/**
+ * It creates a bid for a given auction.
+ * @returns The result of the API call.
+ */
 export async function addBidAPI(token, formData) {
   try {
     const compositeUrl = `${BASE_PATH}/subastas/`;

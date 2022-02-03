@@ -1,5 +1,9 @@
 import { BASE_PATH } from "../utils/env";
 
+/**
+ * It gets the comments of a product.
+ * @returns The comments for the product.
+ */
 export async function getCommentsByProductAPI(id) {
   try {
     const compositeUrl = `${BASE_PATH}/comentarios/por-articulo/${id}`;
@@ -11,6 +15,10 @@ export async function getCommentsByProductAPI(id) {
   }
 }
 
+/**
+ * It creates a new comment.
+ * @returns The result of the request.
+ */
 export async function addCommentAPI(token, formData) {
   try {
     const compositeUrl = `${BASE_PATH}/comentarios/`;

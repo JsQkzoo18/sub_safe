@@ -1,12 +1,20 @@
 import * as Yup from "yup";
 import { formatPrice } from "./formatPrice";
 
+/* The code above is a JavaScript function that takes in a string and returns a boolean value. 
+The function checks if the string contains at least one lowercase letter, one uppercase letter, one
+number, and one special character. 
+If the string passes all of these checks, the function returns true. Otherwise, it returns false. */
 const lowercaseRegex = /(?=.*[a-x])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
 const numericRegex = /(?=.*[0-9])/;
 const specialRegex = /[!@#$%^&*()]+/;
 const onlyLetters = /^[a-z]+$/gi;
 const onlyNumbers = /^([0-9])*$/;
+/**
+ * The function returns an object with two properties, email and password, both set to an empty string
+ * @returns an object with the email and password fields set to empty strings.
+ */
 
 export function loginInitialValues() {
   return {
@@ -15,6 +23,10 @@ export function loginInitialValues() {
   };
 }
 
+/**
+ * It validates the login form.
+ * @returns A Yup schema object.
+ */
 export function loginValidationSchema() {
   return {
     email: Yup.string()

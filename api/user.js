@@ -1,5 +1,10 @@
 import { BASE_PATH } from "../utils/env";
 
+/**
+ * It makes a request to the API to get the current user's information.
+ * @returns The result of the `getMeAPI` function is a promise. The promise resolves to the result of
+ * the `fetch` call.
+ */
 export async function getMeAPI(token) {
   try {
     const compositeUrl = `${BASE_PATH}/api/auth/me/`;
@@ -16,6 +21,10 @@ export async function getMeAPI(token) {
   }
 }
 
+/**
+ * It logs in a user.
+ * @returns The login API returns a token.
+ */
 export async function loginAPI(formData) {
   try {
     const compositeUrl = `${BASE_PATH}/api/auth/login/`;
@@ -39,6 +48,10 @@ export async function loginAPI(formData) {
   }
 }
 
+/**
+ * It registers a user.
+ * @returns The result of the API call.
+ */
 export async function registerAPI(formData) {
   try {
     const compositeUrl = `${BASE_PATH}/api/auth/register/`;

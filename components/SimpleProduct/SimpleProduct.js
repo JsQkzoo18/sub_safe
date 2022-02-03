@@ -48,7 +48,6 @@ export default function SimpleProduct({
             scale: 1.025,
           }}
           whileTap={{ scale: 0.95 }}
-          variants={fadeInUp}
         >
           <Box
             rounded={"lg"}

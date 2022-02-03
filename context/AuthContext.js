@@ -3,6 +3,8 @@ import { getToken, setToken, deleteToken } from "../api/token";
 import Loader from "../components/Loader";
 import { useUser } from "../hooks";
 
+/* The AuthContext is a React Context that holds the authentication state of the user.
+ */
 export const AuthContext = createContext({
   auth: undefined,
   login: () => null,
@@ -10,6 +12,12 @@ export const AuthContext = createContext({
   setReloadUser: () => null,
 });
 
+/**
+ * The AuthProvider component is a React context provider that wraps around the entire application.
+ * It's responsible for setting the auth state and providing methods to login and logout.
+ * It also passes the auth state and methods to all child components
+ * @returns The AuthProvider is returning a context provider that will wrap the children.
+ */
 export function AuthProvider({ children }) {
   const [auth, setAuth] = useState(undefined);
   const [loading, setLoading] = useState(false);

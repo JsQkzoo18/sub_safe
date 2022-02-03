@@ -1,3 +1,6 @@
+/**
+ * It sets the tab index in local storage.
+ */
 const TABINDEX = "t_index";
 
 export function setTIndex(index) {

@@ -20,6 +20,10 @@ import {
 } from "@hypertheme-editor/chakra-ui";
 import React from "react";
 
+/**
+ * It creates a toggle button that opens a drawer with a list of colors.
+ * @returns The `ThemeEditorToggle` component returns a `ThemeEditor`.
+ */
 export default function ThemeEditorToggle(props) {
   return (
     <ThemeEditor>
@@ -69,6 +73,9 @@ function headerTheme() {
   );
 }
 
+/**
+ * It creates a button group with two buttons. One button is for undoing and the other is for redoing.
+ */
 function UndoRedoButtons() {
   const { canUndo, undo, canRedo, redo } = useThemeEditor();
 

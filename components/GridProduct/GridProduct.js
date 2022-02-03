@@ -7,6 +7,7 @@ import { BASE_PATH } from "../../utils/env";
 import Loader from "../Loader";
 import { setTIndex } from "../../utils/tabIndex";
 import { dateParser } from "../../utils/dateParser";
+import { fadeInUp } from "../../lib/animations";
 
 const MotionBox = motion(Box);
 
@@ -14,7 +15,13 @@ export default function GridProduct({ products, loading }) {
   setTIndex(0);
 
   return (
-    <MotionBox initial="initial" animate="animate" m={0} p={0}>
+    <MotionBox
+      initial="initial"
+      animate="animate"
+      m={0}
+      p={0}
+      // variants={fadeInUp}
+    >
       <Grid
         templateColumns={{
           base: "repeat(1, 1fr)",

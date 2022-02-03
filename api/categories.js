@@ -1,5 +1,9 @@
 import { BASE_PATH } from "../utils/env";
 
+/**
+ * It gets the categories from the API.
+ * @returns An array of objects.
+ */
 export async function getCategoriesAPI() {
   try {
     const compositeUrl = `${BASE_PATH}/categorias`;
@@ -11,6 +15,10 @@ export async function getCategoriesAPI() {
   }
 }
 
+/**
+ * It gets a category by ID.
+ * @returns The result of the API call.
+ */
 export async function getCategortByIDAPI(id) {
   try {
     const compositeUrl = `${BASE_PATH}/categorias/${id}`;

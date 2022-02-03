@@ -1,14 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  IconButton,
-  useColorMode,
-  useColorModeValue,
-  Wrap,
-} from "@chakra-ui/react";
+import { IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import ThemeEditorToggle from "./ThemeEditorToggle";
 import { useHotkeys } from "react-hotkeys-hook";
-import { useEffect } from "react";
 import { colorModeSchema } from "../../utils/colorMode";
 
 const ThemeToggleButton = () => {

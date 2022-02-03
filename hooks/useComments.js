@@ -2,6 +2,10 @@ import { size } from "lodash";
 import { useEffect, useState } from "react";
 import { getCommentsByProductAPI } from "../api/comments";
 
+/**
+ * It gets the comments for a product.
+ * @returns The comments and the loading state.
+ */
 export function useGetComments(id, reload, setReloadComments) {
   const [comments, setComments] = useState(null);
   const [loading, setLoading] = useState(false);

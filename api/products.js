@@ -1,6 +1,11 @@
 import { size } from "lodash";
 import { BASE_PATH } from "../utils/env";
 
+/**
+ * It gets all the products from the API.
+ * @returns An array of objects.
+ */
+
 export async function getAllProductsAPI() {
   try {
     const compositeUrl = `${BASE_PATH}/articulos`;
@@ -11,6 +16,11 @@ export async function getAllProductsAPI() {
     return null;
   }
 }
+
+/**
+ * It gets a product by ID.
+ * @returns The product data.
+ */
 
 export async function getProductByIDAPI(id) {
   try {
@@ -24,6 +34,10 @@ export async function getProductByIDAPI(id) {
   }
 }
 
+/**
+ * It gets all the products by user.
+ * @returns an array of products.
+ */
 export async function getProductsByUserAPI(token) {
   try {
     const compositeUrl = `${BASE_PATH}/articulos/por-usuario`;
@@ -42,6 +56,11 @@ export async function getProductsByUserAPI(token) {
   }
 }
 
+/**
+ * It gets the products by category.
+ *
+ * @return An array of objects.
+ */
 export async function getProductsByCategoryAPI(id) {
   try {
     const compositeUrl = `${BASE_PATH}/articulos/por-categoria/${id}`;
@@ -53,6 +72,11 @@ export async function getProductsByCategoryAPI(id) {
     return null;
   }
 }
+
+/**
+ * It creates a new product.
+ * @returns The result of the API call.
+ */
 
 export async function addProductAPI(token, formData) {
   try {
