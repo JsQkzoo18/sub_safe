@@ -7,11 +7,19 @@ import { useRouter } from "next/router";
 import { useGetProductByID } from "../../hooks/useProduct";
 import Loader from "../../components/Loader/Loader";
 import { size } from "lodash";
+import { useState } from "react";
+import { setTIndex } from "../../utils/tabIndex";
 
 export default function Product() {
   const { query } = useRouter();
 
-  const { product, images, loading } = useGetProductByID(query?.id);
+  const [reloadProduct, setReloadProduct] = useState(false);
+
+  const { product, images, loading } = useGetProductByID(
+    query?.id,
+    reloadProduct,
+    setReloadProduct
+  );
 
   if (loading) return <Loader />;
 
@@ -35,6 +43,9 @@ export default function Product() {
               startedBid={product.starting_bid}
               category={product?.category?.name}
               seller={`${product?.seller?.first_name} ${product?.seller?.last_name}`}
+              setReloadProduct={setReloadProduct}
+              created={product?.created}
+              modified={product?.modified}
             />
           </SimpleGrid>
         </>

@@ -48,6 +48,8 @@ import {
 import { addAuctionAPI } from "../../api/auctions";
 import toast from "react-hot-toast";
 import { formatPrice } from "../../utils/formatPrice";
+import { getTIndex, setTIndex } from "../../utils/tabIndex";
+import { dateParser } from "../../utils/dateParser";
 
 export default function TabProduct({
   name,
@@ -58,14 +60,18 @@ export default function TabProduct({
   seller,
   date,
   id,
+  setReloadProduct,
+  created,
+  modified,
 }) {
   const router = useRouter();
 
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(parseInt(getTIndex()));
   const [reloadComments, setReloadComments] = useState(false);
 
   const handleTabsChange = (index) => {
     setTabIndex(index);
+    setTIndex(index);
   };
 
   return (
@@ -112,11 +118,20 @@ export default function TabProduct({
             currentBid={currentBid}
             category={category}
             seller={seller}
-            date={date}
+            date={created && dateParser(created).parserDate}
           />
         </TabPanel>
         <TabPanel>
-          <Bids currentBid={currentBid} startedBid={startedBid} id={id} />
+          <Bids
+            currentBid={currentBid}
+            startedBid={startedBid}
+            id={id}
+            createdDate={created && dateParser(created).parserDate}
+            createdTime={created && dateParser(created).time}
+            modifiedDate={modified && dateParser(modified).parserDate}
+            modifiedTime={modified && dateParser(modified).time}
+            setReloadProduct={setReloadProduct}
+          />
         </TabPanel>
         <TabPanel>
           <Comments
@@ -169,7 +184,16 @@ const Description = ({
   </Stack>
 );
 
-const Bids = ({ currentBid, startedBid, id }) => {
+const Bids = ({
+  currentBid,
+  startedBid,
+  id,
+  setReloadProduct,
+  createdTime,
+  createdDate,
+  modifiedTime,
+  modifiedDate,
+}) => {
   const { auth } = useAuth();
   return (
     <Formik
@@ -186,6 +210,7 @@ const Bids = ({ currentBid, startedBid, id }) => {
 
         try {
           const response = await addAuctionAPI(auth?.token, formData);
+          setReloadProduct(true);
           toast.success("Oferta realizada con exito");
 
           // actions.resetForm();
@@ -211,14 +236,16 @@ const Bids = ({ currentBid, startedBid, id }) => {
                 <Badge colorScheme="green">Oferta inicial</Badge>
               </StatLabel>
               <StatNumber>{formatPrice(startedBid)}</StatNumber>
-              <StatHelpText>Enero 12 - 2022</StatHelpText>
+              <StatHelpText>{createdDate}</StatHelpText>
+              <StatHelpText>{createdTime}</StatHelpText>
             </Stat>
             <Stat p={2} ml={1} color="black" bg="orange.100">
               <StatLabel>
                 <Badge colorScheme="pink">Oferta actual</Badge>
               </StatLabel>
               <StatNumber>{formatPrice(currentBid ?? startedBid)}</StatNumber>
-              <StatHelpText>Enero 21 - 2022</StatHelpText>
+              <StatHelpText>{modifiedDate}</StatHelpText>
+              <StatHelpText>{modifiedTime}</StatHelpText>
             </Stat>
           </StatGroup>
 

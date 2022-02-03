@@ -5,12 +5,16 @@ import { motion } from "framer-motion";
 import { map } from "lodash";
 import { BASE_PATH } from "../../utils/env";
 import Loader from "../Loader";
+import { setTIndex } from "../../utils/tabIndex";
+import { dateParser } from "../../utils/dateParser";
 
 const MotionBox = motion(Box);
 
 export default function GridProduct({ products, loading }) {
+  setTIndex(0);
+
   return (
-    <MotionBox initial="initial" animate="animate">
+    <MotionBox initial="initial" animate="animate" m={0} p={0}>
       <Grid
         templateColumns={{
           base: "repeat(1, 1fr)",
@@ -28,7 +32,7 @@ export default function GridProduct({ products, loading }) {
             startingBid={x.starting_bid}
             currentBid={x.current_bid}
             description={x.description}
-            date={x.date}
+            date={x.modified && dateParser(x.modified).parserDate}
             category={x.category.name}
             mainImage={` ${BASE_PATH}${x.images.main_image}`}
           />

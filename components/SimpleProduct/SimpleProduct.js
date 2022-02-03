@@ -9,6 +9,7 @@ import {
   Skeleton,
   Tag,
   Flex,
+  Divider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -81,33 +82,49 @@ export default function SimpleProduct({
               initial={{ y: 60, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
+              position={"relative"}
             />
+            <Flex justify={"flex-start"} alignItems={"flex-start"} mt={3}>
+              <Tag colorScheme={colorModeSchema()}>{category}</Tag>
+            </Flex>
           </Box>
-          <Stack pt={10} align={"center"}>
+          <Stack pt={10} align={"left"} mt={2}>
             <Text
-              color={"gray.500"}
+              color={useColorModeValue("gray.700", "gray.300")}
               fontSize={"md"}
+              fontWeight={"600"}
               textTransform={"uppercase"}
             >
               {name}
             </Text>
             <Text
+              color={useColorModeValue("gray.700", "gray.200")}
+              fontSize={"xl"}
+              fontWeight={"800"}
+              textTransform={"uppercase"}
+            >
+              {formatPrice(currentBid ?? startingBid)}
+            </Text>
+            <Text
               fontSize={"sm"}
-              fontFamily={"body"}
               fontWeight={500}
+              color={useColorModeValue("gray.500", "gray.400")}
               isTruncated
               maxW={"260px"}
             >
               {description}
             </Text>
-
-            <Text fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
-              {formatPrice(currentBid ?? startingBid)}
+            <Divider />
+            <Text
+              fontSize={"sm"}
+              fontWeight={400}
+              color={useColorModeValue("gray.600", "gray.500")}
+              isTruncated
+              maxW={"260px"}
+            >
+              {date}
             </Text>
           </Stack>
-          <Flex justify={"flex-start"} alignItems={"flex-start"} mt={2}>
-            <Tag colorScheme={colorModeSchema()}>{category}</Tag>
-          </Flex>
         </MotionBox>
       </Center>
     </Link>

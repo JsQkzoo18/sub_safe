@@ -41,7 +41,7 @@ export function useGetProductsByCategory(id) {
   return { products, loading };
 }
 
-export function useGetProductByID(id) {
+export function useGetProductByID(id, reload, setProductReload) {
   const [product, setProduct] = useState(null);
   const [images, setImages] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -58,8 +58,9 @@ export function useGetProductByID(id) {
         setImages([]);
       }
       setLoading(false);
+      setProductReload(false);
     })();
-  }, [id]);
+  }, [id, reload]);
 
   return { product, images, loading };
 }
