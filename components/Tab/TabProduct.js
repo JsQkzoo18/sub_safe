@@ -38,6 +38,16 @@ import { useAuth } from "../../hooks";
 import { useGetComments } from "../../hooks/useComments";
 
 import { colorModeSchema } from "../../utils/colorMode";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+import {
+  bidInitialValues,
+  bidValidationSchema,
+} from "../../utils/formValidation";
+import { addAuctionAPI } from "../../api/auctions";
+import toast from "react-hot-toast";
+import { formatPrice } from "../../utils/formatPrice";
 
 export default function TabProduct({
   name,
@@ -98,6 +108,7 @@ export default function TabProduct({
           <Description
             name={name}
             description={description}
+            startingBid={startedBid}
             currentBid={currentBid}
             category={category}
             seller={seller}
@@ -105,7 +116,7 @@ export default function TabProduct({
           />
         </TabPanel>
         <TabPanel>
-          <Bids currentBid={currentBid} startedBid={startedBid} />
+          <Bids currentBid={currentBid} startedBid={startedBid} id={id} />
         </TabPanel>
         <TabPanel>
           <Comments
@@ -122,6 +133,7 @@ export default function TabProduct({
 const Description = ({
   name,
   description,
+  startingBid,
   currentBid,
   category,
   seller,
@@ -146,6 +158,7 @@ const Description = ({
       <HeaderWrapper
         name={name}
         category={category}
+        startingBid={startingBid}
         currentBid={currentBid}
         color={color}
       />
@@ -156,37 +169,67 @@ const Description = ({
   </Stack>
 );
 
-const Bids = ({ currentBid, startedBid }) => {
+const Bids = ({ currentBid, startedBid, id }) => {
   const { auth } = useAuth();
   return (
-    <Stack
-      spacing={4}
-      overflowY="scroll"
-      maxHeight={{ base: "full", md: "full", lg: "510px" }}
-      h={"505px"}
-      px={5}
-      py={7}
+    <Formik
+      initialValues={bidInitialValues(currentBid ?? startedBid)}
+      validationSchema={Yup.object(
+        bidValidationSchema(currentBid ?? startedBid)
+      )}
+      onSubmit={async (values, actions) => {
+        const { offer } = values;
+        const formData = {
+          article: id,
+          offer,
+        };
+
+        try {
+          const response = await addAuctionAPI(auth?.token, formData);
+          toast.success("Oferta realizada con exito");
+
+          // actions.resetForm();
+        } catch (error) {
+          toast.error(error.message);
+        }
+      }}
     >
-      <StatGroup h="100px" color="white" borderRadius={10}>
-        <Stat p={2} color="black" bg="green.50">
-          <StatLabel>
-            <Badge colorScheme="green">Oferta inicial</Badge>
-          </StatLabel>
-          <StatNumber>{`$ ${startedBid}`}</StatNumber>
-          <StatHelpText>Enero 12 - 2022</StatHelpText>
-        </Stat>
-        <Stat p={2} ml={1} color="black" bg="orange.100">
-          <StatLabel>
-            <Badge colorScheme="pink">Oferta actual</Badge>
-          </StatLabel>
-          <StatNumber>{`$ ${currentBid}`}</StatNumber>
-          <StatHelpText>Enero 21 - 2022</StatHelpText>
-        </Stat>
-      </StatGroup>
+      {(formik) => (
+        <Stack
+          spacing={4}
+          overflowY="scroll"
+          maxHeight={{ base: "full", md: "full", lg: "510px" }}
+          h={"505px"}
+          px={5}
+          py={7}
+          as="form"
+          onSubmit={formik.handleSubmit}
+        >
+          <StatGroup h="100px" color="white" borderRadius={10}>
+            <Stat p={2} color="black" bg="green.50">
+              <StatLabel>
+                <Badge colorScheme="green">Oferta inicial</Badge>
+              </StatLabel>
+              <StatNumber>{formatPrice(startedBid)}</StatNumber>
+              <StatHelpText>Enero 12 - 2022</StatHelpText>
+            </Stat>
+            <Stat p={2} ml={1} color="black" bg="orange.100">
+              <StatLabel>
+                <Badge colorScheme="pink">Oferta actual</Badge>
+              </StatLabel>
+              <StatNumber>{formatPrice(currentBid ?? startedBid)}</StatNumber>
+              <StatHelpText>Enero 21 - 2022</StatHelpText>
+            </Stat>
+          </StatGroup>
 
-      {/* <NumberField currentBid={currentBid} /> */}
+          <NumberField
+            name="offer"
+            label="Oferta"
+            currentBid={currentBid}
+            startedBid={startedBid}
+          />
 
-      {/* <InputGroup>
+          {/* <InputGroup>
         <InputLeftElement
           pointerEvents="none"
           color="gray.300"
@@ -202,28 +245,31 @@ const Bids = ({ currentBid, startedBid }) => {
         />
       </InputGroup> */}
 
-      {auth ? (
-        <Button
-          rounded={"md"}
-          w={"full"}
-          mt={8}
-          size={"lg"}
-          py={"7"}
-          // bg={useColorModeValue("gray.900", "gray.50")}
-          // color={useColorModeValue("white", "gray.900")}
-          colorScheme={useColorModeValue("green", "whatsapp")}
-          textTransform={"uppercase"}
-          _hover={{
-            transform: "translateY(2px)",
-            boxShadow: "lg",
-          }}
-        >
-          Ofertar
-        </Button>
-      ) : (
-        <RequiredLogin />
+          {auth ? (
+            <Button
+              rounded={"md"}
+              type="submit"
+              w={"full"}
+              mt={8}
+              size={"lg"}
+              py={"7"}
+              // bg={useColorModeValue("gray.900", "gray.50")}
+              // color={useColorModeValue("white", "gray.900")}
+              colorScheme={useColorModeValue("green", "whatsapp")}
+              textTransform={"uppercase"}
+              _hover={{
+                transform: "translateY(2px)",
+                boxShadow: "lg",
+              }}
+            >
+              Ofertar
+            </Button>
+          ) : (
+            <RequiredLogin />
+          )}
+        </Stack>
       )}
-    </Stack>
+    </Formik>
   );
 };
 

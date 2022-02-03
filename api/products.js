@@ -53,3 +53,25 @@ export async function getProductsByCategoryAPI(id) {
     return null;
   }
 }
+
+export async function addProductAPI(token, formData) {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/`;
+    const params = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    };
+
+    const response = await fetch(compositeUrl, params);
+    const result = await response.json();
+
+    console.log(result);
+    return result;
+  } catch (error) {
+    return null;
+  }
+}

@@ -14,6 +14,7 @@ import { useAuth } from "../hooks";
 import { map, size } from "lodash";
 import { getProductImages } from "../utils/extractImages";
 import AddProduct from "../components/AddProduct/AddProduct";
+import FileInput from "../components/Forms/FileInput";
 
 export default function hooks_tst() {
   return (

@@ -64,7 +64,7 @@ export function useGetProductByID(id) {
   return { product, images, loading };
 }
 
-export function useGetProductByUser(token) {
+export function useGetProductByUser(token, reload, setReloadProducts) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -78,7 +78,8 @@ export function useGetProductByUser(token) {
         setProducts([]);
       }
       setLoading(false);
+      setReloadProducts(false);
     })();
-  }, []);
+  }, [reload]);
   return { products, loading };
 }

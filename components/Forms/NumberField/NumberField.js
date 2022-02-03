@@ -15,44 +15,51 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Field, useField } from "formik";
+import { toInteger } from "lodash";
 import React, { useState } from "react";
 
 export default function NumberField({
-  currentBid = "0",
+  currentBid = 0.0,
+  startedBid,
   label,
   helper = "",
   ispass = false,
   isRequired,
   isReadOnly,
   isDisabled,
-  initialRef,
   ...props
 }) {
-  const format = (val) => `$ ${val}`;
   const parse = (val) => val.replace(/^\$/, "");
 
-  const [value, setValue] = useState(currentBid);
+  const current_bid = parseFloat(currentBid ?? startedBid).toFixed(2);
+
+  const [bid, setBid] = useState(current_bid);
   const [field, meta] = useField(props);
 
   return (
-    <FormControl
-      isInvalid={
-        (meta.error && meta.value?.length > 0) || (meta.error && meta.touched)
-      }
-      isRequired={isRequired}
-    >
-      <FormLabel ref={initialRef}>{label}</FormLabel>
+    <FormControl isInvalid={meta.error && meta.touched} isRequired={isRequired}>
+      <FormLabel>{label}</FormLabel>
 
       <NumberInput
-        onChange={(valueString) => setValue(parse(valueString))}
-        value={value}
-        max={50_000_000}
-        min={currentBid}
+        onChange={(valueString) => setBid(parseFloat(valueString).toFixed(2))}
+        max={100_000}
+        min={currentBid ?? startedBid}
+        precision={2}
+        step={10}
+        value={bid}
       >
         <Field as={NumberInputField} isTruncated {...field} {...props} />
         <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
+          <NumberIncrementStepper
+            onChange={(valueString) =>
+              setBid(parseFloat(valueString).toFixed(2))
+            }
+          />
+          <NumberDecrementStepper
+            onChange={(valueString) =>
+              setBid(parseFloat(valueString).toFixed(2))
+            }
+          />
         </NumberInputStepper>
       </NumberInput>
 

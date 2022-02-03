@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { formatPrice } from "./formatPrice";
 
 const lowercaseRegex = /(?=.*[a-x])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
@@ -105,6 +106,11 @@ export function productInitialValues() {
     name: "",
     description: "",
     starting_bid: "",
+    main_image: "",
+    image_1: "",
+    image_2: "",
+    image_3: "",
+    image_4: "",
   };
 }
 
@@ -121,5 +127,23 @@ export function productValidationSchema() {
     starting_bid: Yup.string()
       .strict(true)
       .required("Ingresa la oferta inicial por favor!"),
+    main_image: Yup.string().required("La imagen principal es necesaria"),
+  };
+}
+
+export function bidInitialValues(currentBid) {
+  return {
+    offer: currentBid,
+  };
+}
+
+export function bidValidationSchema(currentBid) {
+  const min = parseFloat(currentBid) + 0.1;
+  const max = 100_000;
+  return {
+    offer: Yup.number()
+      .required("Debes ingresar tu oferta!")
+      .min(min, "El valor no puede ser menor o igual a la oferta actual")
+      .max(max, `El valor maximo es ${formatPrice(max)}`),
   };
 }

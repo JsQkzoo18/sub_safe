@@ -14,12 +14,14 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../../lib/animations";
 import { colorModeSchema } from "../../utils/colorMode";
+import { formatPrice } from "../../utils/formatPrice";
 
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
 
 export default function SimpleProduct({
   name,
+  startingBid,
   currentBid,
   id = "oso1",
   description = "",
@@ -100,7 +102,7 @@ export default function SimpleProduct({
             </Text>
 
             <Text fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
-              $ {currentBid}
+              {formatPrice(currentBid ?? startingBid)}
             </Text>
           </Stack>
           <Flex justify={"flex-start"} alignItems={"flex-start"} mt={2}>

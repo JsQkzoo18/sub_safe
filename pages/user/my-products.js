@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import SimpleLayout from "../../layouts/SimpleLayout/SimpleLayout";
 import SEO_C from "../../components/SEO_C";
@@ -13,7 +13,13 @@ import AddProduct from "../../components/AddProduct/AddProduct";
 
 export default function UserProducts() {
   const { auth } = useAuth();
-  const { products, loading } = useGetProductByUser(auth?.token);
+  const [reloadProducts, setReloadProducts] = useState(false);
+
+  const { products, loading } = useGetProductByUser(
+    auth?.token,
+    reloadProducts,
+    setReloadProducts
+  );
 
   const router = useRouter();
 
@@ -25,7 +31,7 @@ export default function UserProducts() {
       <SEO_C />
       <Flex justify={"space-between"} direction={{ base: "column", md: "row" }}>
         <BreadCrumb page={"Mis productos"} />
-        <AddProduct />
+        <AddProduct setReloadProducts={setReloadProducts} />
       </Flex>
       {size(products) > 0 && <GridProduct products={products} />}
     </SimpleLayout>

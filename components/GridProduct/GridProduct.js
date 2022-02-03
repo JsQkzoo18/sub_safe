@@ -25,6 +25,7 @@ export default function GridProduct({ products, loading }) {
             key={index}
             id={x.id}
             name={x.name}
+            startingBid={x.starting_bid}
             currentBid={x.current_bid}
             description={x.description}
             date={x.date}

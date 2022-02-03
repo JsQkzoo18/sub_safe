@@ -9,6 +9,7 @@ import {
 import { motion } from "framer-motion";
 import { fadeInUp } from "../../../lib/animations";
 import { colorModeSchema } from "../../../utils/colorMode";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const HeadingMotion = motion(Heading);
 const MotionText = motion(Text);
@@ -16,6 +17,7 @@ const MotionText = motion(Text);
 export const HeaderWrapper = ({
   name = " Ositos Cariñosos",
   category = "Articulos",
+  startingBid,
   currentBid = 126,
 }) => {
   return (
@@ -54,7 +56,7 @@ export const HeaderWrapper = ({
           Oferta
         </Badge>
         <Badge ml="1" fontSize="1em" bg="transparent">
-          $ {currentBid}
+          {formatPrice(currentBid ?? startingBid)}
         </Badge>
       </MotionText>
     </Box>
