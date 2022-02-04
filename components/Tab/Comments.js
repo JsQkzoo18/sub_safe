@@ -10,12 +10,11 @@ import {
 import Loader from "../Loader";
 import { useGetComments } from "../../hooks/useComments";
 import { CardComment } from "./CardComment";
-import AddComments from "../AddComments";
-import { Blob } from "../Results/SuccessResult/SuccessResult";
 import commentAnimation from "../../public/lotties/comment.json";
 import Lottie from "react-lottie";
 import { defaultOptions } from "../../utils/lottie-config";
 import { useAuth } from "../../hooks";
+import AddComments from "../AddComments";
 
 export const Comments = ({ id, reloadComments, setReloadComments }) => {
   if (id === undefined) return null;
