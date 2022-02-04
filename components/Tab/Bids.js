@@ -11,7 +11,7 @@ import {
   Center,
   Box,
 } from "@chakra-ui/react";
-import NumberField from "../Forms/NumberField/NumberField";
+import NumberField from "../Forms/BidField/BidField";
 import RequiredLogin from "../RequiredLogin/RequiredLogin";
 import { useAuth } from "../../hooks";
 import { Formik } from "formik";
@@ -23,6 +23,7 @@ import {
 import { addAuctionAPI } from "../../api/auctions";
 import toast from "react-hot-toast";
 import { formatPrice } from "../../utils/formatPrice";
+import BidField from "../Forms/BidField/BidField";
 
 export const Bids = ({
   currentBid,
@@ -126,7 +127,7 @@ export const Bids = ({
             overflow={"hidden"}
           >
             <Center display={"flex"} flexDirection={"column"}>
-              <NumberField
+              <BidField
                 name="offer"
                 label="Oferta"
                 currentBid={currentBid}

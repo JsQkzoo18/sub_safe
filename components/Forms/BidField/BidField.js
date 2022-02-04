@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Alert,
   AlertIcon,
@@ -15,9 +16,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Field, useField } from "formik";
-import React, { useState } from "react";
 
-export default function NumberField({
+export default function BidField({
   currentBid = 0.0,
   startedBid,
   label,
@@ -48,8 +48,8 @@ export default function NumberField({
 
       <NumberInput
         onChange={(valueString) => {
-          setBid(parseFloat(parse(valueString)));
-          formik.setFieldValue(`${field.name}`, bid);
+          setBid(parseFloat(valueString));
+          formik.setFieldValue("offer", bid);
         }}
         max={1_000_000}
         min={current_bid}

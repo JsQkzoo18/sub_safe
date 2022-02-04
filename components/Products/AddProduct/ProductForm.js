@@ -7,13 +7,13 @@ import {
 } from "../../../utils/formValidation";
 import TextField from "../../Forms/TextField/TextField";
 import TextAreaField from "../../Forms/TextAreaField/TextAreaField";
-import NumberField from "../../Forms/NumberField/NumberField";
 import FileInput from "../../Forms/FileInput";
 import { RemoveExtension } from "../../../utils/removeExtension";
 import { useAuth } from "../../../hooks";
 import { addProductAPI } from "../../../api/products";
 import toast from "react-hot-toast";
 import Loader from "../../Loader";
+import NumberField from "../../Forms/NumberField/NumberField";
 
 export function ProductForm({ firstField, onClose, setReloadProducts }) {
   const { auth } = useAuth();
@@ -111,6 +111,7 @@ export function ProductForm({ firstField, onClose, setReloadProducts }) {
               label="Oferta inicial"
               placeholder="Ingrese la oferta inicial"
               isRequired
+              formik={formik}
             />
 
             <FileInput

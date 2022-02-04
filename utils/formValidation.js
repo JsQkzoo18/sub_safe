@@ -117,7 +117,7 @@ export function productInitialValues() {
   return {
     name: "",
     description: "",
-    starting_bid: "",
+    starting_bid: 0,
     main_image: "",
     image_1: "",
     image_2: "",
@@ -136,7 +136,7 @@ export function productValidationSchema() {
       .strict(true)
       .required("Ingresa la descripción por favor!")
       .max(100, "La descripción debe tener menos de 100 carácteres"),
-    starting_bid: Yup.string()
+    starting_bid: Yup.number()
       .strict(true)
       .required("Ingresa la oferta inicial por favor!"),
     main_image: Yup.string().required("La imagen principal es necesaria"),
