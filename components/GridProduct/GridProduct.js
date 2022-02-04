@@ -1,13 +1,11 @@
 import { Box, Grid } from "@chakra-ui/react";
 import Footer from "../Footer";
-import SimpleProduct from "../SimpleProduct/SimpleProduct";
 import { motion } from "framer-motion";
 import { map } from "lodash";
 import { BASE_PATH } from "../../utils/env";
-import Loader from "../Loader";
 import { setTIndex } from "../../utils/tabIndex";
 import { dateParser } from "../../utils/dateParser";
-import { fadeInUp } from "../../lib/animations";
+import SimpleProduct from "../Products/SimpleProduct/SimpleProduct";
 
 const MotionBox = motion(Box);
 

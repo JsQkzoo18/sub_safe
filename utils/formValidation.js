@@ -150,12 +150,11 @@ export function bidInitialValues(currentBid) {
 }
 
 export function bidValidationSchema(currentBid) {
-  const min = parseFloat(currentBid) + 0.1;
-  const max = 100_000;
+  const min = parseFloat(currentBid).toFixed(2);
+  const max = 1_000_000;
   return {
     offer: Yup.number()
       .required("Debes ingresar tu oferta!")
-      .min(min, "El valor no puede ser menor o igual a la oferta actual")
       .max(max, `El valor maximo es ${formatPrice(max)}`),
   };
 }

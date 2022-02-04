@@ -1,7 +1,9 @@
 import { size } from "lodash";
 import { useEffect, useState } from "react";
 import {
+  getActiveProductsAPI,
   getAllProductsAPI,
+  getInactiveProductsAPI,
   getProductByIDAPI,
   getProductsByCategoryAPI,
   getProductsByUserAPI,
@@ -29,6 +31,37 @@ export function useGetProducts() {
   return { products, loading };
 }
 
+export function useGetActiveProducts() {
+  const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const response = await getActiveProductsAPI();
+      if (size(response) > 0) setProducts(response);
+      else setProducts([]);
+    })();
+    setLoading(false);
+  }, []);
+  return { products, loading };
+}
+
+export function useGetInactiveProducts() {
+  const [products, setProducts] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const response = await getInactiveProductsAPI();
+      if (size(response) > 0) setProducts(response);
+      else setProducts([]);
+    })();
+    setLoading(false);
+  }, []);
+  return { products, loading };
+}
 /**
  * It fetches the products by category.
  * @returns The `useGetProductsByCategory` hook returns an object with two properties: `products` and

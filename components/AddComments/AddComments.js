@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { EditIcon } from "@chakra-ui/icons";
+import { EditIcon, NotAllowedIcon } from "@chakra-ui/icons";
 import {
   Alert,
   AlertIcon,
@@ -21,21 +21,23 @@ import {
   Stack,
   Text,
   Textarea,
+  Tooltip,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { addCommentAPI } from "../../api/comments";
+
+import toast from "react-hot-toast";
 import { useAuth } from "../../hooks";
-import { colorModeSchema } from "../../utils/colorMode";
 import {
   commentInitialValues,
   commentValidationSchema,
 } from "../../utils/formValidation";
-import toast from "react-hot-toast";
+import { addCommentAPI } from "../../api/comments";
 import TextField from "../Forms/TextField/TextField";
+import { colorModeSchema } from "../../utils/colorMode";
 
 export default function AddComments({ id, setReloadComments }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -79,19 +81,37 @@ export default function AddComments({ id, setReloadComments }) {
       {(formik) => (
         <>
           <Flex justifyContent={"flex-end"}>
-            <IconButton
-              colorScheme={colorModeSchema()}
-              aria-label="Add comment"
-              icon={<EditIcon />}
-              onClick={onOpen}
-              position={"absolute"}
-              ml={-1}
-            />
+            <Tooltip
+              label={
+                auth ? "Escribir comentario" : "Inicia Sesión para comentar"
+              }
+              closeDelay={500}
+              placement="left"
+              rounded={"md"}
+              p={2}
+              hasArrow
+            >
+              <IconButton
+                colorScheme={colorModeSchema()}
+                aria-label="Add comment"
+                icon={<EditIcon />}
+                onClick={auth ? onOpen : null}
+                position={"absolute"}
+                ml={-1}
+                isOpen={auth ? false : true}
+              />
+            </Tooltip>
           </Flex>
-          <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
+
+          <Modal
+            initialFocusRef={initialRef}
+            isOpen={isOpen}
+            onClose={onClose}
+            motionPreset="slideInBottom"
+          >
             <ModalOverlay />
             <Stack as="form" onSubmit={formik.handleSubmit}>
-              <ModalContent>
+              <ModalContent m={{ base: 2 }}>
                 <ModalHeader>Escribir un comentario</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>

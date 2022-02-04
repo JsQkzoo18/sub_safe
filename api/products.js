@@ -18,6 +18,36 @@ export async function getAllProductsAPI() {
 }
 
 /**
+ * It gets the active products from the API.
+ * @returns An array of objects.
+ */
+export async function getActiveProductsAPI() {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/activos`;
+    const response = await fetch(compositeUrl);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * It gets the inactive products from the API.
+ * @returns An array of objects.
+ */
+export async function getInactiveProductsAPI() {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/inactivos`;
+    const response = await fetch(compositeUrl);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
  * It gets a product by ID.
  * @returns The product data.
  */

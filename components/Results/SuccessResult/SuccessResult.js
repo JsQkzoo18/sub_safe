@@ -74,10 +74,10 @@ export default function SuccessResult({
                 px={6}
                 colorScheme={"red"}
                 border={"2px"}
-                borderColor={useColorModeValue("white","red")}
-                color={useColorModeValue("black","white")}
-                bg={useColorModeValue("white","black_p")}
-                _hover={{ bg: useColorModeValue("white","red") }}
+                borderColor={useColorModeValue("white", "red")}
+                color={useColorModeValue("black", "white")}
+                bg={useColorModeValue("white", "black_p")}
+                _hover={{ bg: useColorModeValue("white", "red") }}
               >
                 {buttonTxt}
               </Button>

@@ -1,12 +1,12 @@
 import GridProduct from "../components/GridProduct/GridProduct";
 import SimpleLayout from "../layouts/SimpleLayout/SimpleLayout";
 import SEO_C from "../components/SEO_C";
-import { useGetProducts } from "../hooks/useProduct";
+import { useGetActiveProducts, useGetProducts } from "../hooks/useProduct";
 import { size } from "lodash";
 
 export default function Home() {
   /* Using the useGetProducts hook to get the products from the API. */
-  const { products, loading } = useGetProducts();
+  const { products, loading } = useGetActiveProducts();
 
   return (
     <SimpleLayout>

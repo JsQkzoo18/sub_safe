@@ -9,7 +9,7 @@ import { size } from "lodash";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
 import Loader from "../../components/Loader";
 import Router, { useRouter } from "next/router";
-import AddProduct from "../../components/AddProduct/AddProduct";
+import AddProduct from "../../components/Products/AddProduct/AddProduct";
 
 export default function UserProducts() {
   const { auth } = useAuth();

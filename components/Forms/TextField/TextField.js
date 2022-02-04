@@ -16,6 +16,7 @@ import {
   Text,
   FormHelperText,
   useColorModeValue,
+  Tooltip,
 } from "@chakra-ui/react";
 import { Field, useField } from "formik";
 import { useState } from "react";
@@ -53,22 +54,32 @@ const TextField = ({
                 type={showPassword ? "text" : "password"}
               />
               <InputRightElement h={"full"}>
-                <Button
-                  variant={"ghost"}
-                  onClick={() =>
-                    setShowPassword((showPassword) => !showPassword)
+                <Tooltip
+                  label={
+                    showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
                   }
+                  placement="right"
+                  rounded={"md"}
+                  p={2}
+                  hasArrow
                 >
-                  {showPassword ? (
-                    <ViewIcon
-                      color={useColorModeValue("primaryLight", "primaryDark")}
-                    />
-                  ) : (
-                    <ViewOffIcon
-                      color={useColorModeValue("primaryLight", "primaryDark")}
-                    />
-                  )}
-                </Button>
+                  <Button
+                    variant={"ghost"}
+                    onClick={() =>
+                      setShowPassword((showPassword) => !showPassword)
+                    }
+                  >
+                    {showPassword ? (
+                      <ViewIcon
+                        color={useColorModeValue("primaryLight", "primaryDark")}
+                      />
+                    ) : (
+                      <ViewOffIcon
+                        color={useColorModeValue("primaryLight", "primaryDark")}
+                      />
+                    )}
+                  </Button>
+                </Tooltip>
               </InputRightElement>
             </>
           ) : props.type === "tel" ? (

@@ -17,6 +17,7 @@ import {
 import { Field, useField } from "formik";
 import { toInteger } from "lodash";
 import React, { useState } from "react";
+import { formatPrice } from "../../../utils/formatPrice";
 
 export default function NumberField({
   currentBid = 0.0,
@@ -26,40 +27,46 @@ export default function NumberField({
   ispass = false,
   isRequired,
   isReadOnly,
+  formik,
   isDisabled,
+  value,
   ...props
 }) {
   const parse = (val) => val.replace(/^\$/, "");
+  const format = (val) => `$` + val;
+  function localStringToNumber(s) {
+    return Number(String(s).replace(/[^0-9.-]+/g, ""));
+  }
 
-  const current_bid = parseFloat(currentBid ?? startedBid).toFixed(2);
+  const current_bid = parseFloat(currentBid ?? startedBid);
 
   const [bid, setBid] = useState(current_bid);
   const [field, meta] = useField(props);
 
+  console.log(bid);
+
   return (
-    <FormControl isInvalid={meta.error && meta.touched} isRequired={isRequired}>
+    <FormControl
+      isInvalid={meta.error && meta.touched}
+      isRequired={isRequired}
+      isDisabled={isDisabled}
+    >
       <FormLabel>{label}</FormLabel>
 
       <NumberInput
-        onChange={(valueString) => setBid(parseFloat(valueString).toFixed(2))}
-        max={100_000}
-        min={currentBid ?? startedBid}
-        precision={2}
+        onChange={(valueString) => {
+          setBid(parseFloat(valueString));
+          formik.setFieldValue("offer", bid);
+        }}
+        max={1_000_000}
+        min={current_bid}
         step={10}
-        value={bid}
+        value={format(bid)}
       >
-        <Field as={NumberInputField} isTruncated {...field} {...props} />
+        <Field as={NumberInputField} {...field} {...props} />
         <NumberInputStepper>
-          <NumberIncrementStepper
-            onChange={(valueString) =>
-              setBid(parseFloat(valueString).toFixed(2))
-            }
-          />
-          <NumberDecrementStepper
-            onChange={(valueString) =>
-              setBid(parseFloat(valueString).toFixed(2))
-            }
-          />
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
 

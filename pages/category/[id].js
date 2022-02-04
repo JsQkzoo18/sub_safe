@@ -13,6 +13,8 @@ import SimpleLayout from "../../layouts/SimpleLayout";
 export default function Category() {
   const { query } = useRouter();
 
+  if (!query.id) return null;
+
   const { products, loading } = useGetProductsByCategory(query?.id);
   const { category } = useGetCategoryByID(query?.id);
 

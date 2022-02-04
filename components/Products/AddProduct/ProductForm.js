@@ -1,122 +1,21 @@
-import { AddIcon } from "@chakra-ui/icons";
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Collapse,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
-  Select,
-  Stack,
-  Text,
-  Textarea,
-  useColorModeValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useRef } from "react";
-import { colorModeSchema } from "../../utils/colorMode";
 import {
   productInitialValues,
   productValidationSchema,
-} from "../../utils/formValidation";
-import TextField from "../Forms/TextField/TextField";
-import TextAreaField from "../Forms/TextAreaField/TextAreaField";
-import NumberField from "../Forms/NumberField/NumberField";
-import FileInput from "../Forms/FileInput";
-import { RemoveExtension } from "../../utils/removeExtension";
-import { useAuth } from "../../hooks";
-import { addProductAPI } from "../../api/products";
+} from "../../../utils/formValidation";
+import TextField from "../../Forms/TextField/TextField";
+import TextAreaField from "../../Forms/TextAreaField/TextAreaField";
+import NumberField from "../../Forms/NumberField/NumberField";
+import FileInput from "../../Forms/FileInput";
+import { RemoveExtension } from "../../../utils/removeExtension";
+import { useAuth } from "../../../hooks";
+import { addProductAPI } from "../../../api/products";
 import toast from "react-hot-toast";
-import Loader from "../Loader";
-import { addBidAPI } from "../../api/bidding";
+import Loader from "../../Loader";
 
-export default function AddProduct({ setReloadProducts }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = useRef();
-
-  return (
-    <>
-      <Button
-        leftIcon={<AddIcon />}
-        colorScheme={colorModeSchema()}
-        onClick={onOpen}
-      >
-        Agregar Producto
-      </Button>
-      <CustomDrawer
-        isOpen={isOpen}
-        firstField={firstField}
-        onClose={onClose}
-        header="Agrega un producto"
-      >
-        <ProductForm
-          firstField={firstField}
-          onClose={onClose}
-          setReloadProducts={setReloadProducts}
-        />
-      </CustomDrawer>
-    </>
-  );
-}
-
-function CustomDrawer({
-  isOpen,
-  firstField,
-  onClose,
-  header = "",
-  size = "md",
-  children,
-}) {
-  return (
-    <Drawer
-      isOpen={isOpen}
-      placement="right"
-      initialFocusRef={firstField}
-      onClose={onClose}
-      size={size}
-    >
-      <DrawerOverlay />
-      <DrawerContent>
-        <DrawerCloseButton />
-        <DrawerHeader borderBottomWidth="1px">{header}</DrawerHeader>
-
-        <DrawerBody>{children}</DrawerBody>
-
-        <DrawerFooter borderTopWidth="1px">
-          <Button variant="outline" mr={3} onClick={onClose}>
-            Cancelar
-          </Button>
-          <SubmitButton />
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-function SubmitButton() {
-  return (
-    <Button type="submit" form="my-form" colorScheme={colorModeSchema()}>
-      Agregar
-    </Button>
-  );
-}
-
-function ProductForm({ firstField, onClose, setReloadProducts }) {
+export function ProductForm({ firstField, onClose, setReloadProducts }) {
   const { auth } = useAuth();
 
   let productData = new FormData();
@@ -171,7 +70,6 @@ function ProductForm({ firstField, onClose, setReloadProducts }) {
 
           console.log("Respuesta creacion", response);
           // const respon2 = await addBidAPI(auth?.token, bidData);
-
           if (response) {
             setReloadProducts(true);
             toast.success("Se ha agregado el producto");

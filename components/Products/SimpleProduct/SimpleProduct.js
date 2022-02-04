@@ -2,20 +2,17 @@ import {
   Box,
   Center,
   useColorModeValue,
-  Heading,
   Text,
   Stack,
   Image,
-  Skeleton,
   Tag,
   Flex,
   Divider,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { fadeInUp } from "../../lib/animations";
-import { colorModeSchema } from "../../utils/colorMode";
-import { formatPrice } from "../../utils/formatPrice";
+import { formatPrice } from "../../../utils/formatPrice";
+import { colorModeSchema } from "../../../utils/colorMode";
 
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
@@ -54,18 +51,6 @@ export default function SimpleProduct({
             pos={"relative"}
             height={"230px"}
             w={"full"}
-            // _after={{
-            //   transition: "all .3s ease",
-            //   content: '""',
-            //   w: "full",
-            //   h: "full",
-            //   pos: "absolute",
-            //   top: 0,
-            //   left: 0,
-            //   backgroundImage: `url(${IMAGE})`,
-            //   filter: "blur(3px)",
-            //   zIndex: -1,
-            // }}
             _groupHover={{
               _after: {
                 filter: "blur(10px)",

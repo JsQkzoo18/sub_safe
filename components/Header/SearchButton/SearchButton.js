@@ -1,6 +1,7 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import {
   IconButton,
+  Tooltip,
   useColorMode,
   useDisclosure,
   WrapItem,
@@ -11,7 +12,6 @@ import { useHotkeys } from "react-hotkeys-hook";
 
 export default function SearchButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { toggleColorMode } = useColorMode();
 
   const initialRef = useRef();
   const finalRef = useRef();
@@ -19,11 +19,20 @@ export default function SearchButton() {
 
   return (
     <WrapItem>
-      <IconButton
-        aria-label="Search database"
-        onClick={onOpen}
-        icon={<SearchIcon />}
-      />
+      <Tooltip
+        label={"Busca un producto"}
+        placement="left"
+        rounded={"md"}
+        p={2}
+        hasArrow
+      >
+        <IconButton
+          aria-label="Search database"
+          onClick={onOpen}
+          icon={<SearchIcon />}
+        />
+      </Tooltip>
+
       <SearchBar
         isOpen={isOpen}
         onClose={onClose}

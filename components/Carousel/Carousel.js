@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { forEach, size } from "lodash";
-import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
-// Here we have used react-icons package for the icons
+import React, { useState } from "react";
+import { size } from "lodash";
+import { Box, IconButton } from "@chakra-ui/react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-// And react-slick as our Carousel Lib
 import Slider from "react-slick";
 import { ImageWrapper } from "../Item/ImageWrapper/ImageWrapper";
 import { motion } from "framer-motion";
-import { BASE_PATH } from "../../utils/env";
 import { colorModeSchema } from "../../utils/colorMode";
 
 const MotionBox = motion(Box);
@@ -29,8 +26,6 @@ const settings = {
 };
 
 export default function Carousel({ images = [] }) {
-  // As we have used custom buttons, we need a reference variable to
-  // change the state
   const [slider, setSlider] = useState(null);
 
   return (
@@ -44,8 +39,12 @@ export default function Carousel({ images = [] }) {
           transition={{ delay: 0.1 }}
         >
           <CSS />
-          <LeftButton slider={slider} />
-          <RightButton slider={slider} />
+          {size(images) > 1 && (
+            <>
+              <LeftButton slider={slider} />
+              <RightButton slider={slider} />
+            </>
+          )}
 
           <Slider {...settings} ref={(slider) => setSlider(slider)}>
             {images.map((url, index) => (
