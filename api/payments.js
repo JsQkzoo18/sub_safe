@@ -1,11 +1,12 @@
 import { BASE_PATH } from "../utils/env";
 
 /**
- * It creates a new bid.
+ * It creates a new payment.
+ * @returns The result of the API call.
  */
-export async function addBidAPI(token, formData) {
+export async function addPaymentAPI(token, formData) {
   try {
-    const compositeUrl = `${BASE_PATH}/ofertas/`;
+    const compositeUrl = `${BASE_PATH}/pagos/`;
     const params = {
       method: "POST",
       headers: {

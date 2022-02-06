@@ -23,6 +23,8 @@ export default function Product() {
 
   if (loading) return <Loader />;
 
+  console.log(product);
+
   return (
     <SimpleLayout>
       {product && images && !loading && (

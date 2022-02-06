@@ -90,7 +90,7 @@ export function useGetProductsByCategory(id) {
  * @returns The `useGetProductByID` hook returns a `product` and `images` object. The `product` object
  * contains the product data and the `images` object contains the product images.
  */
-export function useGetProductByID(id, reload, setProductReload) {
+export function useGetProductByID(id, reload = null, setProductReload = null) {
   const [product, setProduct] = useState(null);
   const [images, setImages] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -107,7 +107,7 @@ export function useGetProductByID(id, reload, setProductReload) {
         setImages([]);
       }
       setLoading(false);
-      setProductReload(false);
+      setProductReload && setProductReload(false);
     })();
   }, [id, reload]);
 

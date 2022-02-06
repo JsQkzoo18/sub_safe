@@ -20,8 +20,6 @@ export function ProductForm({ firstField, onClose, setReloadProducts }) {
 
   let productData = new FormData();
 
-  console.log(auth);
-
   if (!auth) return <Loader />;
   return (
     <Formik

@@ -24,6 +24,8 @@ import { addAuctionAPI } from "../../api/auctions";
 import toast from "react-hot-toast";
 import { formatPrice } from "../../utils/formatPrice";
 import BidField from "../Forms/BidField/BidField";
+import NextLink from "next/link";
+import { addBidAPI } from "../../api/bidding";
 
 export const Bids = ({
   currentBid,
@@ -51,7 +53,7 @@ export const Bids = ({
         };
 
         try {
-          const response = await addAuctionAPI(auth?.token, formData);
+          const response = await addBidAPI(auth?.token, formData);
           console.log(response);
           setReloadProduct(true);
           toast.success("Oferta realizada con exito");
@@ -160,6 +162,27 @@ export const Bids = ({
                 <RequiredLogin />
               )}
             </Center>
+            <NextLink href={`/products/payment/${id}`} passHref>
+              <Button
+                rounded={"md"}
+                type="submit"
+                w={"50%"}
+                my={5}
+                size={"lg"}
+                boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+                py={"7"}
+                // bg={useColorModeValue("gray.900", "gray.50")}
+                // color={useColorModeValue("white", "gray.900")}
+                colorScheme={useColorModeValue("green", "whatsapp")}
+                textTransform={"uppercase"}
+                _hover={{
+                  transform: "translateY(2px)",
+                  boxShadow: "lg",
+                }}
+              >
+                Pagar
+              </Button>
+            </NextLink>
           </Box>
         </Stack>
       )}

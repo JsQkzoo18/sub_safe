@@ -40,6 +40,7 @@ export default function GridProduct({ products, loading }) {
             date={x.modified && dateParser(x.modified).parserDate}
             category={x.category.name}
             mainImage={` ${BASE_PATH}${x.images.main_image}`}
+            isActive={x.is_active}
           />
         ))}
       </Grid>
