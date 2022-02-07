@@ -43,6 +43,7 @@ export default function NumberField({
       isInvalid={meta.error && meta.touched}
       isRequired={isRequired}
       isDisabled={isDisabled}
+      isReadOnly={isReadOnly}
     >
       <FormLabel>{label}</FormLabel>
 

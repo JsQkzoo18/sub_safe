@@ -9,7 +9,12 @@ import SimpleProduct from "../Products/SimpleProduct/SimpleProduct";
 
 const MotionBox = motion(Box);
 
-export default function GridProduct({ products, loading }) {
+export default function GridProduct({
+  products,
+  loading,
+  activeFooter = false,
+  setReloadProducts,
+}) {
   setTIndex(0);
 
   return (
@@ -41,10 +46,13 @@ export default function GridProduct({ products, loading }) {
             category={x.category.name}
             mainImage={` ${BASE_PATH}${x.images.main_image}`}
             isActive={x.is_active}
+            isSold={x.buyer !== null}
+            setReloadProducts={setReloadProducts}
+            product={x}
           />
         ))}
       </Grid>
-      <Footer />
+      {activeFooter && <Footer />}
     </MotionBox>
   );
 }

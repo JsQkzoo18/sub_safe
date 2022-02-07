@@ -23,7 +23,7 @@ export async function getAllProductsAPI() {
  */
 export async function getActiveProductsAPI() {
   try {
-    const compositeUrl = `${BASE_PATH}/articulos/activos`;
+    const compositeUrl = `${BASE_PATH}/articulos/activos/`;
     const response = await fetch(compositeUrl);
     const result = await response.json();
     return result;
@@ -38,7 +38,7 @@ export async function getActiveProductsAPI() {
  */
 export async function getInactiveProductsAPI() {
   try {
-    const compositeUrl = `${BASE_PATH}/articulos/inactivos`;
+    const compositeUrl = `${BASE_PATH}/articulos/inactivos/`;
     const response = await fetch(compositeUrl);
     const result = await response.json();
     return result;
@@ -71,6 +71,50 @@ export async function getProductByIDAPI(id) {
 export async function getProductsByUserAPI(token) {
   try {
     const compositeUrl = `${BASE_PATH}/articulos/por-usuario`;
+
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(compositeUrl, params);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * It gets all active products by user.
+ * @returns an array of products.
+ */
+export async function getActiveProductsByUserAPI(token) {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/activos/usuarios/`;
+
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(compositeUrl, params);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * It gets all inactive products by user.
+ * @returns an array of products.
+ */
+export async function getInactiveProductsByUserAPI(token) {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/inactivos/usuarios/`;
 
     const params = {
       headers: {
@@ -129,3 +173,53 @@ export async function addProductAPI(token, formData) {
     return null;
   }
 }
+
+export async function deleteProductApi(id, token) {
+  try {
+    /* Fetching the product by ID from the API. 
+    If data found, delete the product
+  */
+    const dataFound = await getProductByIDAPI(id);
+
+    if (dataFound.id) {
+      const url = `${BASE_PATH}/articulos/${id}`;
+      const params = {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const result = await fetch(url, params);
+      return result;
+    }
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * It creates a new product.
+ * @returns The result of the API call.
+ */
+
+// export async function editProductAPI(token, formData, id) {
+//   try {
+//     console.log(id);
+//     const compositeUrl = `${BASE_PATH}/articulos/${id}/`;
+//     const params = {
+//       method: "PUT",
+//       headers: {
+//         Accept: "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: formData,
+//     };
+//     const response = await fetch(compositeUrl, params);
+//     const result = await response.json();
+//     console.log(result);
+//     return result;
+//   } catch (error) {
+//     return null;
+//   }
+// }

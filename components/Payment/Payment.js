@@ -13,13 +13,17 @@ import {
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { useState } from "react";
 import { fadeInUp } from "../../lib/animations";
 import { CartItem } from "./CartItem";
 import { CartOrderSummary } from "./CartOrderSummary";
+import PaymentComplete from "./PaymentComplete";
 
 export const Payment = ({ product, images }) => {
   const router = useRouter();
   const MotionBox = motion(Box);
+
+  const [showPaymentComplete, setShowPaymentComplete] = useState(false);
 
   return (
     <MotionBox
@@ -45,65 +49,73 @@ export const Payment = ({ product, images }) => {
         lg: "12",
       }}
     >
-      <Stack
-        direction={{
-          base: "column",
-          lg: "row",
-        }}
-        align={{
-          lg: "flex-start",
-        }}
-        spacing={{
-          base: "8",
-          md: "16",
-        }}
-      >
+      {!showPaymentComplete && (
         <Stack
+          direction={{
+            base: "column",
+            lg: "row",
+          }}
+          align={{
+            lg: "flex-start",
+          }}
           spacing={{
             base: "8",
-            md: "10",
+            md: "16",
           }}
-          flex="2"
         >
-          <Heading fontSize="2xl" fontWeight="extrabold">
-            Detalles del artículo
-          </Heading>
+          <Stack
+            spacing={{
+              base: "8",
+              md: "10",
+            }}
+            flex="2"
+          >
+            <Heading fontSize="2xl" fontWeight="extrabold">
+              Detalles del artículo
+            </Heading>
 
-          <Stack spacing="6">
-            <CartItem product={product} images={images} />
+            <Stack spacing="6">
+              <CartItem product={product} images={images} />
+            </Stack>
+            <Divider />
+
+            <Heading fontSize="2xl" fontWeight="extrabold">
+              Detalles del pago
+            </Heading>
+
+            <Stack spacing="6">
+              <CartItem product={product} images={images} />
+            </Stack>
           </Stack>
-          <Divider />
 
-          <Heading fontSize="2xl" fontWeight="extrabold">
-            Detalles del pago
-          </Heading>
-
-          <Stack spacing="6">
-            <CartItem product={product} images={images} />
-          </Stack>
+          <Flex
+            direction="column"
+            align="center"
+            justifyContent="center"
+            flex="1"
+            h="400px"
+          >
+            <CartOrderSummary
+              currentBid={product.current_bid ?? product.starting_bid}
+              showPaymentComplete={showPaymentComplete}
+              setShowPaymentComplete={setShowPaymentComplete}
+            />
+            <HStack mt="6" fontWeight="semibold">
+              <p>o</p>
+              <Text
+                cursor={"pointer"}
+                color={mode("primaryLight", "primaryDark")}
+                onClick={router.back}
+                fontSize={"lg"}
+              >
+                Regresar
+              </Text>
+            </HStack>
+          </Flex>
         </Stack>
+      )}
 
-        <Flex
-          direction="column"
-          align="center"
-          justifyContent="center"
-          flex="1"
-          h="400px"
-        >
-          <CartOrderSummary currentBid={product.current_bid} />
-          <HStack mt="6" fontWeight="semibold">
-            <p>o</p>
-            <Text
-              cursor={"pointer"}
-              color={mode("primaryLight", "primaryDark")}
-              onClick={router.back}
-              fontSize={"lg"}
-            >
-              Regresar
-            </Text>
-          </HStack>
-        </Flex>
-      </Stack>
+      {showPaymentComplete && <PaymentComplete name={product.name} />}
     </MotionBox>
   );
 };

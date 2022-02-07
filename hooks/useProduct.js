@@ -2,8 +2,10 @@ import { size } from "lodash";
 import { useEffect, useState } from "react";
 import {
   getActiveProductsAPI,
+  getActiveProductsByUserAPI,
   getAllProductsAPI,
   getInactiveProductsAPI,
+  getInactiveProductsByUserAPI,
   getProductByIDAPI,
   getProductsByCategoryAPI,
   getProductsByUserAPI,
@@ -33,34 +35,34 @@ export function useGetProducts() {
 
 export function useGetActiveProducts() {
   const [products, setProducts] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [activeLoading, setActiveLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
+      setActiveLoading(true);
       const response = await getActiveProductsAPI();
       if (size(response) > 0) setProducts(response);
       else setProducts([]);
     })();
-    setLoading(false);
+    setActiveLoading(false);
   }, []);
-  return { products, loading };
+  return { products, activeLoading };
 }
 
 export function useGetInactiveProducts() {
   const [products, setProducts] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [inactiveLoading, setInactiveLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
+      setInactiveLoading(true);
       const response = await getInactiveProductsAPI();
       if (size(response) > 0) setProducts(response);
       else setProducts([]);
     })();
-    setLoading(false);
+    setInactiveLoading(false);
   }, []);
-  return { products, loading };
+  return { products, inactiveLoading };
 }
 /**
  * It fetches the products by category.
@@ -137,4 +139,53 @@ export function useGetProductByUser(token, reload, setReloadProducts) {
     })();
   }, [reload]);
   return { products, loading };
+}
+/**
+ * This function is used to get the active products by user
+ * @returns an object with two properties: activeProducts and loading.
+ */
+
+export function useGetActiveProductByUser(token, reload, setReloadProducts) {
+  const [activeProducts, setActiveProducts] = useState([]);
+  const [activeLoading, setActiveLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setActiveLoading(true);
+      const response = await getActiveProductsByUserAPI(token);
+      if (size(response) > 0) {
+        setActiveProducts(response);
+      } else {
+        setActiveProducts([]);
+      }
+      setActiveLoading(false);
+      setReloadProducts(false);
+    })();
+  }, [reload]);
+  return { activeProducts, activeLoading };
+}
+
+/**
+ * It gets the inactive products by user.
+ * @returns The `useGetInactiveProductByUser` hook returns an object with two properties:
+ * `inactiveProducts` and `loading`.
+ */
+export function useGetInactiveProductByUser(token, reload, setReloadProducts) {
+  const [inactiveProducts, setInactiveProducts] = useState([]);
+  const [inactiveLoading, setInactiveLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setInactiveLoading(true);
+      const response = await getInactiveProductsByUserAPI(token);
+      if (size(response) > 0) {
+        setInactiveProducts(response);
+      } else {
+        setInactiveProducts([]);
+      }
+      setInactiveLoading(false);
+      setReloadProducts(false);
+    })();
+  }, [reload]);
+  return { inactiveProducts, inactiveLoading };
 }

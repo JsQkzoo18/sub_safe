@@ -10,6 +10,10 @@ import {
   Divider,
   IconButton,
   Wrap,
+  Button,
+  Tooltip,
+  AspectRatio,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -17,10 +21,16 @@ import { formatPrice } from "../../../utils/formatPrice";
 import { colorModeSchema } from "../../../utils/colorMode";
 import { useRouter } from "next/router";
 import { CgToggleOn, CgToggleOff } from "react-icons/cg";
+import { MdDelete, MdEdit } from "react-icons/md";
 import { useState } from "react";
 import { addAuctionAPI } from "../../../api/auctions";
 import { useAuth } from "../../../hooks";
 import { current_time } from "../../../utils/currentTime";
+import CustomAlertDialog from "../../CustomAlertDialog";
+import { deleteProductApi, editProductAPI } from "../../../api/products";
+import toast from "react-hot-toast";
+import EditProduct from "../EditProduct/EditProduct";
+import { getProductImages } from "../../../utils/extractImages";
 
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
@@ -35,11 +45,14 @@ export default function SimpleProduct({
   category,
   mainImage,
   isActive = false,
+  isSold = false,
+  setReloadProducts,
+  product,
 }) {
   const router = useRouter();
   const { auth } = useAuth();
-
-  const [active, setActive] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [images, setImages] = useState(getProductImages(product));
 
   const data = {
     current_time,
@@ -47,11 +60,29 @@ export default function SimpleProduct({
     payment: null,
   };
 
-  // console.log(data);
-
   const activeAuction = async (token, data) => {
     const response = await addAuctionAPI(token, data);
-    console.log(response);
+    if (response) {
+      setReloadProducts(true);
+      console.log(response);
+      toast.success(response.messages);
+    }
+  };
+
+  const dlProduct = async (id, token) => {
+    const response = await deleteProductApi(id, token);
+
+    if (response) {
+      toast.success(`Se elimino: ${name}`);
+      setReloadProducts(true);
+    } else toast.error("No se elimino el producto");
+  };
+
+  const edProduct = async (id, token, data) => {
+    const response = await editProductAPI(token, data, id);
+    if (response) {
+      toast.success(`Se editp: ${id}`);
+    } else toast.error("No se elimino el producto");
   };
 
   return (
@@ -96,8 +127,14 @@ export default function SimpleProduct({
                 transition={{ delay: 0.1 }}
                 position={"relative"}
               />
-              <Flex justify={"flex-start"} alignItems={"flex-start"} mt={3}>
+
+              <Flex justify={"space-between"} alignItems={"center"} mt={3}>
                 <Tag colorScheme={colorModeSchema()}>{category}</Tag>
+                {router.pathname === "/user/my-products" && (
+                  <Tag colorScheme={isSold ? "pink" : "green"}>
+                    {isSold ? "Vendido" : "Disponible"}
+                  </Tag>
+                )}
               </Flex>
             </Box>
             <Stack pt={10} align={"left"} mt={2}>
@@ -140,20 +177,55 @@ export default function SimpleProduct({
           </MotionBox>
         </Link>
         {router.pathname === "/user/my-products" && (
-          <Flex justify="flex-start" align="center">
-            <IconButton
-              onClick={() => activeAuction(auth?.token, data)}
-              icon={
-                !isActive ? (
-                  <CgToggleOff color="red" />
-                ) : (
-                  <CgToggleOn color="green" />
-                )
-              }
+          <Flex justify="flex-start" align="center" mt={4}>
+            <Tooltip
+              hasArrow
+              label={isActive ? "Desactivar Subasta" : "Activar Subastasna"}
+              bg={isActive ? "green.600" : "red.600"}
+              color={"white"}
+              placement="bottom"
+              rounded={"md"}
+            >
+              <IconButton
+                variant={"solid"}
+                onClick={() => activeAuction(auth?.token, data)}
+                colorScheme={isActive ? "green" : "orange"}
+                isDisabled={isSold ?? true}
+                icon={
+                  !isActive ? (
+                    <CgToggleOff color="white" />
+                  ) : (
+                    <CgToggleOn color="white" />
+                  )
+                }
+              />
+            </Tooltip>
+
+            <Tooltip
+              hasArrow
+              rounded={"md"}
+              label={"Eliminar producto"}
+              bg={"red.600"}
+              color={"white"}
+              placement="bottom"
+            >
+              <IconButton
+                variant={"solid"}
+                ml={2}
+                onClick={onOpen}
+                colorScheme={"red"}
+                icon={<MdDelete color="white" />}
+                isDisabled={isSold ?? true}
+              />
+            </Tooltip>
+
+            <CustomAlertDialog
+              isOpen={isOpen}
+              onClose={onClose}
+              onClickAction={() => dlProduct(id, auth?.token)}
+              header={`Eliminar ${name}`}
+              body="Esta acción no se puede deshacer. ¿Estás seguro?"
             />
-            <Text ml={5}>
-              {!isActive ? "Subasta Inactiva" : "Subasta Activa"}
-            </Text>
           </Flex>
         )}
       </Box>

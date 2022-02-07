@@ -12,7 +12,9 @@ import {
   Img,
   Flex,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { size } from "lodash";
+import { useEffect, useState } from "react";
+import { onImageEdit, urlImageToFile } from "../../../utils/imagetoFile";
 
 export default function FileInput({
   name,
@@ -21,11 +23,19 @@ export default function FileInput({
   isRequired,
   formik,
   evaluation,
+  isDisabled,
+  isReadOnly,
+  img,
 }) {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(img ?? null);
 
   return (
-    <FormControl isRequired={isRequired} isInvalid={error}>
+    <FormControl
+      isRequired={isRequired}
+      isInvalid={error}
+      isDisabled={isDisabled}
+      isReadOnly={isReadOnly}
+    >
       <FormLabel>{label}</FormLabel>
 
       <Box

@@ -17,6 +17,7 @@ export function CustomDrawer({
   header = "",
   size = "md",
   children,
+  form,
 }) {
   return (
     <Drawer
@@ -37,7 +38,7 @@ export function CustomDrawer({
           <Button variant="outline" mr={3} onClick={onClose}>
             Cancelar
           </Button>
-          <SubmitButton />
+          <SubmitButton form={form} />
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

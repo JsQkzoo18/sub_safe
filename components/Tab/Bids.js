@@ -10,6 +10,9 @@ import {
   Badge,
   Center,
   Box,
+  Text,
+  Flex,
+  Divider,
 } from "@chakra-ui/react";
 import NumberField from "../Forms/BidField/BidField";
 import RequiredLogin from "../RequiredLogin/RequiredLogin";
@@ -26,6 +29,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import BidField from "../Forms/BidField/BidField";
 import NextLink from "next/link";
 import { addBidAPI } from "../../api/bidding";
+import { colorModeSchema } from "../../utils/colorMode";
 
 export const Bids = ({
   currentBid,
@@ -121,7 +125,7 @@ export const Bids = ({
 
           <Box
             px={10}
-            py={5}
+            py={3}
             rounded={"md"}
             w={"full"}
             bg={useColorModeValue("white", "gray.800")}
@@ -162,27 +166,43 @@ export const Bids = ({
                 <RequiredLogin />
               )}
             </Center>
-            <NextLink href={`/products/payment/${id}`} passHref>
-              <Button
-                rounded={"md"}
-                type="submit"
-                w={"50%"}
-                my={5}
-                size={"lg"}
-                boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-                py={"7"}
-                // bg={useColorModeValue("gray.900", "gray.50")}
-                // color={useColorModeValue("white", "gray.900")}
-                colorScheme={useColorModeValue("green", "whatsapp")}
-                textTransform={"uppercase"}
-                _hover={{
-                  transform: "translateY(2px)",
-                  boxShadow: "lg",
-                }}
+            <Divider />
+            <Flex
+              justifyContent="space-around"
+              alignItems="center"
+              direction={"column"}
+            >
+              <Text
+                w={"full"}
+                align={"center"}
+                fontWeight="bold"
+                fontSize={"lg"}
+                color={useColorModeValue("primaryLight", "primaryDark")}
               >
-                Pagar
-              </Button>
-            </NextLink>
+                Obtener el articulo?
+              </Text>
+
+              <NextLink href={`/products/payment/${id}`} passHref>
+                <Button
+                  rounded={"md"}
+                  w={"50%"}
+                  my={2}
+                  size={"lg"}
+                  boxShadow={"0 5px 20px 0px rgb(184 52 129 / 43%)"}
+                  py={"7"}
+                  // bg={useColorModeValue("gray.900", "gray.50")}
+                  // color={useColorModeValue("white", "gray.900")}
+                  colorScheme={colorModeSchema()}
+                  textTransform={"uppercase"}
+                  _hover={{
+                    transform: "translateY(2px)",
+                    boxShadow: "lg",
+                  }}
+                >
+                  Pagar
+                </Button>
+              </NextLink>
+            </Flex>
           </Box>
         </Stack>
       )}

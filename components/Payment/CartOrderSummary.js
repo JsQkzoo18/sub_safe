@@ -28,7 +28,11 @@ const OrderSummaryItem = (props) => {
   );
 };
 
-export const CartOrderSummary = ({ currentBid }) => {
+export const CartOrderSummary = ({
+  currentBid,
+  showPaymentComplete,
+  setShowPaymentComplete,
+}) => {
   const { auth } = useAuth();
 
   const { query } = useRouter();
@@ -45,8 +49,8 @@ export const CartOrderSummary = ({ currentBid }) => {
   };
   const addPayment = async () => {
     const result = await addPaymentAPI(auth.token, data);
-    router.back();
     console.log(result);
+    setShowPaymentComplete(true);
   };
 
   return (

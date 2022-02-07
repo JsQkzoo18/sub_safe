@@ -1,7 +1,11 @@
 import GridProduct from "../components/GridProduct/GridProduct";
 import SimpleLayout from "../layouts/SimpleLayout/SimpleLayout";
 import SEO_C from "../components/SEO_C";
-import { useGetActiveProducts, useGetProducts } from "../hooks/useProduct";
+import {
+  useGetActiveProducts,
+  useGetInactiveProducts,
+  useGetProducts,
+} from "../hooks/useProduct";
 import { size } from "lodash";
 
 export default function Home() {
@@ -11,7 +15,9 @@ export default function Home() {
   return (
     <SimpleLayout>
       <SEO_C />
-      {size(products) > 0 && !loading && <GridProduct products={products} />}
+      {size(products) > 0 && !loading && (
+        <GridProduct products={products} activeFooter />
+      )}
     </SimpleLayout>
   );
 }

@@ -158,3 +158,44 @@ export function bidValidationSchema(currentBid) {
       .max(max, `El valor maximo es ${formatPrice(max)}`),
   };
 }
+
+export function productEditInitialValues(
+  name,
+  description,
+  main_image,
+  image_1,
+  image_2,
+  image_3,
+  image_4,
+  startingBid,
+  currentBid
+) {
+  return {
+    name: name || "",
+    description: description || "",
+    current_bid: currentBid || 0,
+    starting_bid: startingBid,
+    main_image: main_image || "",
+    image_1: image_1 || "",
+    image_2: image_2 || "",
+    image_3: image_3 || "",
+    image_4: image_4 || "",
+  };
+}
+
+export function productEditValidationSchema() {
+  return {
+    name: Yup.string()
+      .strict(true)
+      .required("Ingresa el nombre por favor!")
+      .max(30, "El nombre debe tener menos de 30 carácteres"),
+    description: Yup.string()
+      .strict(true)
+      .required("Ingresa la descripción por favor!")
+      .max(100, "La descripción debe tener menos de 100 carácteres"),
+    current_bid: Yup.number(),
+    starting_bid: Yup.number(),
+
+    // main_image: Yup.string().required("La imagen principal es necesaria"),
+  };
+}
