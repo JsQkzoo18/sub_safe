@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Alert,
   AlertIcon,
@@ -12,9 +13,6 @@ import {
   Img,
   Flex,
 } from "@chakra-ui/react";
-import { size } from "lodash";
-import { useEffect, useState } from "react";
-import { onImageEdit, urlImageToFile } from "../../../utils/imagetoFile";
 
 export default function FileInput({
   name,

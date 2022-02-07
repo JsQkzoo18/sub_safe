@@ -47,6 +47,7 @@ export default function Register() {
           email,
           password,
         } = values;
+
         const dataForm = {
           first_name,
           last_name,
