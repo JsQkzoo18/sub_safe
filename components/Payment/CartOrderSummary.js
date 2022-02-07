@@ -28,16 +28,10 @@ const OrderSummaryItem = (props) => {
   );
 };
 
-export const CartOrderSummary = ({
-  currentBid,
-  showPaymentComplete,
-  setShowPaymentComplete,
-}) => {
+export const CartOrderSummary = ({ currentBid, setShowPaymentComplete }) => {
   const { auth } = useAuth();
 
   const { query } = useRouter();
-
-  console.log(query.payment);
 
   const router = useRouter();
 

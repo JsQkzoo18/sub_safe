@@ -25,6 +25,8 @@ export const Payment = ({ product, images }) => {
 
   const [showPaymentComplete, setShowPaymentComplete] = useState(false);
 
+  console.log(product.seller);
+
   return (
     <MotionBox
       initial={{ x: -100, opacity: 0 }}
@@ -115,7 +117,14 @@ export const Payment = ({ product, images }) => {
         </Stack>
       )}
 
-      {showPaymentComplete && <PaymentComplete name={product.name} />}
+      {showPaymentComplete && (
+        <PaymentComplete
+          seller={`${product?.seller?.first_name} ${product?.seller?.last_name} `}
+          city={product?.seller?.city}
+          mail={product?.seller?.email}
+          phone={product?.seller?.phone}
+        />
+      )}
     </MotionBox>
   );
 };

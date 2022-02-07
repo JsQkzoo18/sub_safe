@@ -25,10 +25,13 @@ import {
 } from "@chakra-ui/icons";
 
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import ThemeToggleButton from "../../Theme/ThemeToggleButton";
 
 export default function TopBar(props) {
   const { isOpen, onToggle } = useDisclosure();
+
+  const router = useRouter();
 
   return (
     <Box {...props}>
@@ -110,6 +113,7 @@ export default function TopBar(props) {
             fontSize={"sm"}
             fontWeight={600}
             color={"white"}
+            onClick={router.back}
             border={"2px"}
             borderColor={useColorModeValue("primaryLight", "primaryDark")}
             bg={useColorModeValue("primaryLight", "black_p")}
@@ -118,9 +122,7 @@ export default function TopBar(props) {
               color: useColorModeValue("primaryLight", "white"),
             }}
           >
-            <NextLink href="/" passHref>
-              Ir a Inicio
-            </NextLink>
+            Regresar
           </Button>
           <ThemeToggleButton />
         </Stack>

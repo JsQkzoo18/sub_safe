@@ -15,6 +15,7 @@ export default function RequiredLogin({
       textAlign="center"
       height="150px"
       rounded={"md"}
+      mt={5}
     >
       <LockIcon boxSize="40px" />
       <AlertTitle mt={4} mb={1} fontSize="lg">

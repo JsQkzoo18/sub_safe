@@ -223,3 +223,21 @@ export async function deleteProductApi(id, token) {
 //     return null;
 //   }
 // }
+
+export async function getPurchasedProductsByUserAPI(token) {
+  try {
+    const compositeUrl = `${BASE_PATH}/articulos/comprados-por-usuario/`;
+
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(compositeUrl, params);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}

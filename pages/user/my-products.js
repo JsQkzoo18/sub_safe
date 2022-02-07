@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import { Center, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import SimpleLayout from "../../layouts/SimpleLayout/SimpleLayout";
 import SEO_C from "../../components/SEO_C";
 import GridProduct from "../../components/GridProduct/GridProduct";
@@ -49,10 +49,16 @@ export default function UserProducts() {
         <BreadCrumb page={"Mis productos"} />
         <AddProduct setReloadProducts={setReloadProducts} />
       </Flex>
-
+      {size(activeProducts) === 0 && size(inactiveProducts) === 0 && (
+        <>
+          <Center mt={10}>
+            <Heading>Aún no tienes productos creados</Heading>
+          </Center>
+        </>
+      )}
       {size(activeProducts) > 0 && (
         <>
-          <Heading m={3}>Productos Activos</Heading>
+          <Heading my={3}>Productos Activos</Heading>
           <GridProduct
             products={activeProducts}
             setReloadProducts={setReloadProducts}
@@ -62,7 +68,7 @@ export default function UserProducts() {
 
       {size(inactiveProducts) > 0 && (
         <>
-          <Heading m={3}>Productos Inactivos</Heading>
+          <Heading my={10}>Productos Inactivos</Heading>
           <GridProduct
             products={inactiveProducts}
             setReloadProducts={setReloadProducts}

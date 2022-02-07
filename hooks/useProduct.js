@@ -9,6 +9,7 @@ import {
   getProductByIDAPI,
   getProductsByCategoryAPI,
   getProductsByUserAPI,
+  getPurchasedProductsByUserAPI,
 } from "../api/products";
 import { getProductImages } from "../utils/extractImages";
 
@@ -188,4 +189,27 @@ export function useGetInactiveProductByUser(token, reload, setReloadProducts) {
     })();
   }, [reload]);
   return { inactiveProducts, inactiveLoading };
+}
+
+/**
+ * It gets the purchased products by the user.
+ * @returns an object with two keys: purchasedProducts and purchasedLoading.
+ */
+export function useGetPurchasedProductsByUser(token) {
+  const [purchasedProducts, setPurchasedProducts] = useState([]);
+  const [purchasedLoading, setPurchasedLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setPurchasedLoading(true);
+      const response = await getPurchasedProductsByUserAPI(token);
+      if (size(response) > 0) {
+        setPurchasedProducts(response);
+      } else {
+        setPurchasedProducts([]);
+      }
+      setPurchasedLoading(false);
+    })();
+  }, []);
+  return { purchasedProducts, purchasedLoading };
 }

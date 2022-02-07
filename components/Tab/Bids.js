@@ -40,6 +40,9 @@ export const Bids = ({
   createdDate,
   modifiedTime,
   modifiedDate,
+  isSold,
+  isMyProduct,
+  imBuyer,
 }) => {
   const { auth } = useAuth();
 
@@ -114,7 +117,7 @@ export const Bids = ({
                   shadow={"lg"}
                   p={1}
                 >
-                  Oferta actual
+                  {isSold ? "Oferta Final" : "Oferta actual"}
                 </Badge>
               </StatLabel>
               <StatNumber>{formatPrice(currentBid ?? startedBid)}</StatNumber>
@@ -123,87 +126,113 @@ export const Bids = ({
             </Stat>
           </StatGroup>
 
-          <Box
-            px={10}
-            py={3}
-            rounded={"md"}
-            w={"full"}
-            bg={useColorModeValue("white", "gray.800")}
-            boxShadow={"xl"}
-            overflow={"hidden"}
-          >
-            <Center display={"flex"} flexDirection={"column"}>
-              <BidField
-                name="offer"
-                label="Oferta"
-                currentBid={currentBid}
-                startedBid={startedBid}
-                isDisabled={auth ? false : true}
-                formik={formik}
-              />
-
-              {auth ? (
-                <Button
-                  rounded={"md"}
-                  type="submit"
-                  w={"50%"}
-                  my={5}
-                  size={"lg"}
-                  boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
-                  py={"7"}
-                  // bg={useColorModeValue("gray.900", "gray.50")}
-                  // color={useColorModeValue("white", "gray.900")}
-                  colorScheme={useColorModeValue("green", "whatsapp")}
-                  textTransform={"uppercase"}
-                  _hover={{
-                    transform: "translateY(2px)",
-                    boxShadow: "lg",
-                  }}
-                >
-                  Ofertar
-                </Button>
-              ) : (
-                <RequiredLogin />
-              )}
-            </Center>
-            <Divider />
-            <Flex
-              justifyContent="space-around"
-              alignItems="center"
-              direction={"column"}
+          {!isSold && !isMyProduct && (
+            <Box
+              px={10}
+              py={3}
+              rounded={"md"}
+              w={"full"}
+              bg={useColorModeValue("white", "gray.800")}
+              boxShadow={"xl"}
+              overflow={"hidden"}
             >
-              <Text
-                w={"full"}
-                align={"center"}
-                fontWeight="bold"
-                fontSize={"lg"}
-                color={useColorModeValue("primaryLight", "primaryDark")}
-              >
-                Obtener el articulo?
-              </Text>
+              <Center display={"flex"} flexDirection={"column"}>
+                <BidField
+                  name="offer"
+                  label="Oferta"
+                  currentBid={currentBid}
+                  startedBid={startedBid}
+                  isDisabled={auth ? false : true}
+                  formik={formik}
+                />
 
-              <NextLink href={`/products/payment/${id}`} passHref>
-                <Button
-                  rounded={"md"}
-                  w={"50%"}
-                  my={2}
-                  size={"lg"}
-                  boxShadow={"0 5px 20px 0px rgb(184 52 129 / 43%)"}
-                  py={"7"}
-                  // bg={useColorModeValue("gray.900", "gray.50")}
-                  // color={useColorModeValue("white", "gray.900")}
-                  colorScheme={colorModeSchema()}
-                  textTransform={"uppercase"}
-                  _hover={{
-                    transform: "translateY(2px)",
-                    boxShadow: "lg",
-                  }}
-                >
-                  Pagar
-                </Button>
-              </NextLink>
+                {auth ? (
+                  <Button
+                    rounded={"md"}
+                    type="submit"
+                    w={"50%"}
+                    my={5}
+                    size={"lg"}
+                    boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+                    py={"7"}
+                    // bg={useColorModeValue("gray.900", "gray.50")}
+                    // color={useColorModeValue("white", "gray.900")}
+                    colorScheme={useColorModeValue("green", "whatsapp")}
+                    textTransform={"uppercase"}
+                    _hover={{
+                      transform: "translateY(2px)",
+                      boxShadow: "lg",
+                    }}
+                  >
+                    Ofertar
+                  </Button>
+                ) : (
+                  <RequiredLogin />
+                )}
+              </Center>
+              {auth && (
+                <>
+                  <Divider />
+                  <Flex
+                    justifyContent="space-around"
+                    alignItems="center"
+                    direction={"column"}
+                    mt={2}
+                  >
+                    <Text
+                      w={"full"}
+                      align={"center"}
+                      fontWeight="bold"
+                      fontSize={"lg"}
+                      color={useColorModeValue("primaryLight", "primaryDark")}
+                    >
+                      Obtener el articulo?
+                    </Text>
+
+                    <NextLink href={`/products/payment/${id}`} passHref>
+                      <Button
+                        rounded={"md"}
+                        w={"50%"}
+                        my={2}
+                        size={"lg"}
+                        boxShadow={"0 5px 20px 0px rgb(184 52 129 / 43%)"}
+                        py={"7"}
+                        // bg={useColorModeValue("gray.900", "gray.50")}
+                        // color={useColorModeValue("white", "gray.900")}
+                        colorScheme={colorModeSchema()}
+                        textTransform={"uppercase"}
+                        _hover={{
+                          transform: "translateY(2px)",
+                          boxShadow: "lg",
+                        }}
+                      >
+                        Pagar
+                      </Button>
+                    </NextLink>
+                  </Flex>
+                </>
+              )}
+            </Box>
+          )}
+
+          {isSold && (
+            <Flex
+              px={10}
+              rounded={"md"}
+              w={"full"}
+              h={100}
+              bg={useColorModeValue("white", "gray.800")}
+              boxShadow={"xl"}
+              justify="center"
+              align={"center"}
+            >
+              <Text fontSize={"2xl"} fontWeight="extrabold">
+                {imBuyer
+                  ? "Compraste este artículo"
+                  : "Este artículo ya se encuentra vendido"}
+              </Text>
             </Flex>
-          </Box>
+          )}
         </Stack>
       )}
     </Formik>

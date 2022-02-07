@@ -11,13 +11,23 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
+  List,
+  ListItem,
+  ListIcon,
 } from "@chakra-ui/react";
 import Lottie from "react-lottie";
 import mailCheck from "../../public/lotties/ok-simple.json";
 import { defaultOptions } from "../../utils/lottie-config";
 import { useRouter } from "next/router";
+import {
+  MdCheckCircle,
+  MdEmail,
+  MdLocationOn,
+  MdSettings,
+} from "react-icons/md";
+import { RiPhoneFill, RiUserFill, RiUserLocationFill } from "react-icons/ri";
 
-export default function PaymentComplete({ name }) {
+export default function PaymentComplete({ seller, city, mail, phone }) {
   const router = useRouter();
   return (
     <Container maxW={"7xl"}>
@@ -55,8 +65,44 @@ export default function PaymentComplete({ name }) {
             </Text>
           </Heading>
           <Text color={"gray.600"} fontWeight={"500"}>
-            {`Revisa tu correo electronico con los detalles de la transaccion`}
+            {`Revisa tu correo electrónico con los detalles de la transacción, y ponte en contacto con el vendedor.`}
           </Text>
+          <Box>
+            <Text color={"gray.600"} fontWeight={"500"}>
+              Datos de Contacto
+            </Text>
+            <List spacing={3} mt={3}>
+              <ListItem>
+                <ListIcon
+                  as={RiUserFill}
+                  color={useColorModeValue("primaryLight", "primaryDark")}
+                />
+                {seller}
+              </ListItem>
+              {/* <ListItem>
+                <ListIcon
+                  as={MdLocationOn}
+                  color={useColorModeValue("primaryLight", "primaryDark")}
+                />
+                {city}
+              </ListItem> */}
+              <ListItem>
+                <ListIcon
+                  as={MdEmail}
+                  color={useColorModeValue("primaryLight", "primaryDark")}
+                />
+                {mail}
+              </ListItem>
+              {/* You can also use custom icons from react-icons */}
+              <ListItem>
+                <ListIcon
+                  as={RiPhoneFill}
+                  color={useColorModeValue("primaryLight", "primaryDark")}
+                />
+                {`+${phone}`}
+              </ListItem>
+            </List>
+          </Box>
 
           <Stack
             spacing={{ base: 2, sm: 4 }}
@@ -80,6 +126,26 @@ export default function PaymentComplete({ name }) {
               }}
             >
               Regresar
+            </Button>
+
+            <Button
+              rounded={"full"}
+              size={"lg"}
+              variant={"solid"}
+              fontWeight={"normal"}
+              px={6}
+              colorScheme={"red"}
+              border={"2px"}
+              onClick={router.push("/user/my-shopping")}
+              borderColor={useColorModeValue("red.400", "red")}
+              color={useColorModeValue("black", "white")}
+              bg={useColorModeValue("white", "black_p")}
+              _hover={{
+                bg: useColorModeValue("red.400", "red"),
+                color: useColorModeValue("white", "white"),
+              }}
+            >
+              Ver mis productos
             </Button>
           </Stack>
         </Stack>

@@ -171,12 +171,19 @@ export default function Register() {
                       type="submit"
                       size="lg"
                       border={"2px"}
-                      borderColor={useColorModeValue("white", "red")}
-                      bg={useColorModeValue("silver_p", "black_p")}
-                      color={useColorModeValue("black_s", "white")}
+                      borderColor={useColorModeValue(
+                        "primaryLight",
+                        "primaryDark"
+                      )}
+                      bg={useColorModeValue("primaryLight", "black_p")}
+                      color="white"
+                      transition={"0.2s transform ease-in-out"}
+                      willChange={"transform"}
                       _hover={{
-                        bg: useColorModeValue("pink", "red"),
-                        color: "white",
+                        bg: useColorModeValue("pink", "primaryDark"),
+                        color: useColorModeValue("primaryLight", "white"),
+                        transform: "scale(1.01)",
+                        willChange: "transform",
                       }}
                     >
                       Regístrate

@@ -9,6 +9,7 @@ import Loader from "../../components/Loader/Loader";
 import { size } from "lodash";
 import { useState } from "react";
 import { setTIndex } from "../../utils/tabIndex";
+import { useAuth } from "../../hooks";
 
 export default function Product() {
   const { query } = useRouter();
@@ -21,9 +22,9 @@ export default function Product() {
     setReloadProduct
   );
 
-  if (loading) return <Loader />;
+  const { auth } = useAuth();
 
-  console.log(product);
+  if (loading) return <Loader />;
 
   return (
     <SimpleLayout>
@@ -48,6 +49,10 @@ export default function Product() {
               setReloadProduct={setReloadProduct}
               created={product?.created}
               modified={product?.modified}
+              isSold={product?.buyer !== null}
+              idAuth={auth?.userData?.id}
+              idSeller={product?.seller?.id}
+              idBuyer={product?.buyer?.id}
             />
           </SimpleGrid>
         </>

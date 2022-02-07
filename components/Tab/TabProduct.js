@@ -33,6 +33,10 @@ export default function TabProduct({
   setReloadProduct,
   created,
   modified,
+  isSold = false,
+  idAuth,
+  idSeller,
+  idBuyer,
 }) {
   const router = useRouter();
 
@@ -104,6 +108,9 @@ export default function TabProduct({
             modifiedDate={modified && dateParser(modified).parserDate}
             modifiedTime={modified && dateParser(modified).time}
             setReloadProduct={setReloadProduct}
+            isSold={isSold}
+            isMyProduct={idAuth === idSeller}
+            imBuyer={idAuth === idBuyer}
           />
         </TabPanel>
         <TabPanel>

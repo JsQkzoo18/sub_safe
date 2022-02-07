@@ -6,6 +6,7 @@ import { BASE_PATH } from "../../utils/env";
 import { setTIndex } from "../../utils/tabIndex";
 import { dateParser } from "../../utils/dateParser";
 import SimpleProduct from "../Products/SimpleProduct/SimpleProduct";
+import { useAuth } from "../../hooks";
 
 const MotionBox = motion(Box);
 
@@ -16,6 +17,8 @@ export default function GridProduct({
   setReloadProducts,
 }) {
   setTIndex(0);
+
+  const { auth } = useAuth();
 
   return (
     <MotionBox
@@ -49,6 +52,9 @@ export default function GridProduct({
             isSold={x.buyer !== null}
             setReloadProducts={setReloadProducts}
             product={x}
+            seller={x.seller.username}
+            idAuth={auth?.userData?.id}
+            idSeller={x.seller?.id}
           />
         ))}
       </Grid>

@@ -42,7 +42,8 @@ export const RigtMenuItems = ({ auth, logout }) => {
               color={"white"}
               bg={useColorModeValue("primaryLight", "primaryDark")}
               _hover={{
-                bg: "grayLight",
+                bg: useColorModeValue("pink.300", "orange.100"),
+                color: useColorModeValue("white", "black"),
               }}
               _focus={{
                 textDecoration: "none",

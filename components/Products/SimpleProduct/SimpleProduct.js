@@ -48,11 +48,13 @@ export default function SimpleProduct({
   isSold = false,
   setReloadProducts,
   product,
+  seller,
+  idSeller,
+  idAuth,
 }) {
   const router = useRouter();
   const { auth } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [images, setImages] = useState(getProductImages(product));
 
   const data = {
     current_time,
@@ -75,13 +77,6 @@ export default function SimpleProduct({
     if (response) {
       toast.success(`Se elimino: ${name}`);
       setReloadProducts(true);
-    } else toast.error("No se elimino el producto");
-  };
-
-  const edProduct = async (id, token, data) => {
-    const response = await editProductAPI(token, data, id);
-    if (response) {
-      toast.success(`Se editp: ${id}`);
     } else toast.error("No se elimino el producto");
   };
 
@@ -135,6 +130,9 @@ export default function SimpleProduct({
                     {isSold ? "Vendido" : "Disponible"}
                   </Tag>
                 )}
+                {router.pathname === "/" && idAuth === idSeller && (
+                  <Tag colorScheme={"teal"}>Vendedor</Tag>
+                )}
               </Flex>
             </Box>
             <Stack pt={10} align={"left"} mt={2}>
@@ -163,7 +161,6 @@ export default function SimpleProduct({
               >
                 {description}
               </Text>
-              <Divider />
               <Text
                 fontSize={"sm"}
                 fontWeight={400}
@@ -173,6 +170,28 @@ export default function SimpleProduct({
               >
                 {date}
               </Text>
+              <Divider />
+
+              <Flex justify={"space-between"}>
+                <Text
+                  fontSize={"sm"}
+                  fontWeight={300}
+                  color={useColorModeValue("gray.500", "gray.400")}
+                  isTruncated
+                  maxW={"260px"}
+                >
+                  {`Propietario`}
+                </Text>
+                <Text
+                  fontSize={"sm"}
+                  fontWeight={500}
+                  color={useColorModeValue("gray.500", "gray.400")}
+                  isTruncated
+                  maxW={"260px"}
+                >
+                  {seller}
+                </Text>
+              </Flex>
             </Stack>
           </MotionBox>
         </Link>
@@ -180,16 +199,18 @@ export default function SimpleProduct({
           <Flex justify="flex-start" align="center" mt={4}>
             <Tooltip
               hasArrow
-              label={isActive ? "Desactivar Subasta" : "Activar Subastasna"}
-              bg={isActive ? "green.600" : "red.600"}
+              label={isActive ? "Subasta activa" : "Activar Subastasna"}
+              bg={isActive ? "green.600" : "blue.600"}
               color={"white"}
               placement="bottom"
               rounded={"md"}
             >
               <IconButton
                 variant={"solid"}
-                onClick={() => activeAuction(auth?.token, data)}
-                colorScheme={isActive ? "green" : "orange"}
+                onClick={
+                  isActive ? null : () => activeAuction(auth?.token, data)
+                }
+                colorScheme={isActive ? "green" : "blue"}
                 isDisabled={isSold ?? true}
                 icon={
                   !isActive ? (
@@ -215,7 +236,7 @@ export default function SimpleProduct({
                 onClick={onOpen}
                 colorScheme={"red"}
                 icon={<MdDelete color="white" />}
-                isDisabled={isSold ?? true}
+                isDisabled={isSold || isActive}
               />
             </Tooltip>
 
