@@ -1,4 +1,4 @@
-import { Stack } from "@chakra-ui/react";
+import { FormControl, FormLabel, Select, Stack } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -14,9 +14,12 @@ import { addProductAPI } from "../../../api/products";
 import toast from "react-hot-toast";
 import Loader from "../../Loader";
 import NumberField from "../../Forms/NumberField/NumberField";
+import { useGetCategories } from "../../../hooks/useCategories";
+import { map } from "lodash";
 
 export function ProductForm({ firstField, onClose, setReloadProducts }) {
   const { auth } = useAuth();
+  const { categories } = useGetCategories();
 
   let productData = new FormData();
 
@@ -31,17 +34,20 @@ export function ProductForm({ firstField, onClose, setReloadProducts }) {
           description,
           starting_bid,
           main_image,
+          category,
           image_1,
           image_2,
           image_3,
           image_4,
         } = values;
 
+        console.log(category, name);
+
         productData.append("name", name);
         productData.append("description", description);
         productData.append("starting_bid", starting_bid);
         productData.append("current_bid", starting_bid);
-        productData.append("category", 1);
+        productData.append("category", category);
         productData.append("main_image", main_image);
         productData.append(
           "main_image_opt_text",
@@ -77,7 +83,7 @@ export function ProductForm({ firstField, onClose, setReloadProducts }) {
         } catch (error) {
           toast.error(error.message);
         }
-        //actions.resetForm();
+        actions.resetForm();
       }}
     >
       {(formik) => (
@@ -103,6 +109,27 @@ export function ProductForm({ firstField, onClose, setReloadProducts }) {
               placeholder="Descripcion del producto"
               isRequired
             />
+            <FormControl isInvalid={formik.errors.category}>
+              <FormLabel htmlFor="country">Categoria</FormLabel>
+              <Select
+                placeholder="Selecciona una categoría"
+                id="category"
+                name="category"
+                value={formik.values.category}
+                onChange={(event) =>
+                  formik.setFieldValue(
+                    "category",
+                    event.target.selectedOptions[0].value
+                  )
+                }
+              >
+                {map(categories, (x) => (
+                  <option key={x.id} value={x.id}>
+                    {x.name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
 
             <NumberField
               name="starting_bid"

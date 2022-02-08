@@ -41,7 +41,7 @@ export default function Login() {
           const { access } = response;
           login(access);
           actions.resetForm();
-          router.back();
+          router.push("/");
         } catch (error) {
           toast.error(error.message);
         }

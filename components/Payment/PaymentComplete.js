@@ -127,7 +127,7 @@ export default function PaymentComplete({
               px={6}
               colorScheme={"red"}
               border={"2px"}
-              onClick={router.back}
+              onClick={() => goBack()}
               borderColor={useColorModeValue("red.400", "red")}
               color={useColorModeValue("black", "white")}
               bg={useColorModeValue("white", "black_p")}
@@ -147,7 +147,7 @@ export default function PaymentComplete({
               px={6}
               colorScheme={"red"}
               border={"2px"}
-              onClick={() => goBack()}
+              onClick={router.push("/user/my-shopping")}
               borderColor={useColorModeValue("red.400", "red")}
               color={useColorModeValue("black", "white")}
               bg={useColorModeValue("white", "black_p")}

@@ -46,7 +46,6 @@ export function registerInitialValues() {
     last_name: "",
     username: "",
     phone: "",
-    // city: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -64,7 +63,6 @@ export function registerValidationSchema() {
       .min(3, "El apellido es demasiado corto")
       .matches(onlyLetters, "Solo se permiten letras"),
     username: Yup.string(),
-    // city: Yup.string().required("Debe seleccionar una ciudad"),
     phone: Yup.string()
       .max(9, "El numero maximo es 9")
       .matches(onlyNumbers, "Solo se permiten numeros"),
@@ -117,6 +115,7 @@ export function productInitialValues() {
   return {
     name: "",
     description: "",
+    category: "",
     starting_bid: 0,
     main_image: "",
     image_1: "",
@@ -136,6 +135,9 @@ export function productValidationSchema() {
       .strict(true)
       .required("Ingresa la descripción por favor!")
       .max(100, "La descripción debe tener menos de 100 carácteres"),
+    // category: Yup.string()
+    //   .strict(true)
+    //   .required("Ingresa la categoria por favor!"),
     starting_bid: Yup.number()
       .strict(true)
       .required("Ingresa la oferta inicial por favor!"),

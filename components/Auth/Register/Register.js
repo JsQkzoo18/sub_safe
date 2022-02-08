@@ -26,17 +26,20 @@ import {
 import { registerAPI } from "../../../api/user";
 
 import { random } from "../../../utils/random";
+import { useRouter } from "next/router";
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
 
   const randomNumber = random(1, 10);
+  const router = useRouter();
 
   return (
     <Formik
       initialValues={registerInitialValues()}
       validationSchema={Yup.object(registerValidationSchema())}
       onSubmit={async (values, actions) => {
+        setLoading(true);
         const { first_name, last_name, username, phone, email, password } =
           values;
 
@@ -46,18 +49,18 @@ export default function Register() {
           username,
           email,
           password,
-          phone: `+593${phone}`,
+          phone: `593${phone}`,
           city: 1,
           gender: "M",
         };
 
-        console.log("Data Form", dataForm);
         try {
           const response = await registerAPI(dataForm);
-          console.log("Register Responde", response);
+          router.push("/registration-complete");
         } catch (error) {
           toast.error(error.message);
         }
+        setLoading(false);
       }}
     >
       {(formik) => (
@@ -134,10 +137,7 @@ export default function Register() {
                     value={formik.values.phone}
                   />
 
-                  <CustomAutoCompleteInput
-                    helper="Escribe el nombre de tú ciudad"
-                    formik={formik}
-                  />
+                  <CustomAutoCompleteInput helper="Escribe el nombre de tú ciudad" />
                   <TextField
                     name="email"
                     placeholder="Ingresa tú email"
@@ -173,6 +173,8 @@ export default function Register() {
                         "primaryLight",
                         "primaryDark"
                       )}
+                      isLoading={loading}
+                      loadingText={"Registrando"}
                       bg={useColorModeValue("primaryLight", "black_p")}
                       color="white"
                       transition={"0.2s transform ease-in-out"}
