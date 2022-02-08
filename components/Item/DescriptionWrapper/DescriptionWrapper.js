@@ -14,6 +14,7 @@ export const DescriptionWrapper = ({
       fontSize={"2xl"}
       fontWeight={"350"}
       alignItems={"flex-start"}
+      noOfLines={2}
     >
       {description}
     </Text>

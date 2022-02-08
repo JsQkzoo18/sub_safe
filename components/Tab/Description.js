@@ -16,6 +16,7 @@ export const Description = ({
   <Stack
     spacing={{ base: 6, md: 10 }}
     overflowY="scroll"
+    overflowX={"hidden"}
     maxHeight={{ base: "full", md: "full", lg: "510px" }}
     h={"505px"}
     px={5}
