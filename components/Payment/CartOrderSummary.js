@@ -43,7 +43,6 @@ export const CartOrderSummary = ({ currentBid, setShowPaymentComplete }) => {
   };
   const addPayment = async () => {
     const result = await addPaymentAPI(auth.token, data);
-    console.log(result);
     setShowPaymentComplete(true);
   };
 

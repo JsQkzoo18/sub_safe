@@ -27,8 +27,19 @@ import {
 } from "react-icons/md";
 import { RiPhoneFill, RiUserFill, RiUserLocationFill } from "react-icons/ri";
 
-export default function PaymentComplete({ seller, city, mail, phone }) {
+export default function PaymentComplete({
+  seller,
+  city,
+  mail,
+  phone,
+  setShowPaymentComplete,
+}) {
   const router = useRouter();
+
+  const goBack = () => {
+    setShowPaymentComplete(false);
+    router.back;
+  };
   return (
     <Container maxW={"7xl"}>
       <Stack
@@ -136,7 +147,7 @@ export default function PaymentComplete({ seller, city, mail, phone }) {
               px={6}
               colorScheme={"red"}
               border={"2px"}
-              onClick={router.push("/user/my-shopping")}
+              onClick={() => goBack()}
               borderColor={useColorModeValue("red.400", "red")}
               color={useColorModeValue("black", "white")}
               bg={useColorModeValue("white", "black_p")}

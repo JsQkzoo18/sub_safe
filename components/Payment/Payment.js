@@ -25,8 +25,6 @@ export const Payment = ({ product, images }) => {
 
   const [showPaymentComplete, setShowPaymentComplete] = useState(false);
 
-  console.log(product.seller);
-
   return (
     <MotionBox
       initial={{ x: -100, opacity: 0 }}
@@ -99,7 +97,6 @@ export const Payment = ({ product, images }) => {
           >
             <CartOrderSummary
               currentBid={product.current_bid ?? product.starting_bid}
-              showPaymentComplete={showPaymentComplete}
               setShowPaymentComplete={setShowPaymentComplete}
             />
             <HStack mt="6" fontWeight="semibold">
@@ -123,6 +120,7 @@ export const Payment = ({ product, images }) => {
           city={product?.seller?.city}
           mail={product?.seller?.email}
           phone={product?.seller?.phone}
+          setShowPaymentComplete={setShowPaymentComplete}
         />
       )}
     </MotionBox>
