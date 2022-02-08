@@ -46,7 +46,7 @@ export function registerInitialValues() {
     last_name: "",
     username: "",
     phone: "",
-    city: "",
+    // city: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -64,7 +64,7 @@ export function registerValidationSchema() {
       .min(3, "El apellido es demasiado corto")
       .matches(onlyLetters, "Solo se permiten letras"),
     username: Yup.string(),
-    city: Yup.string().required("Debe seleccionar una ciudad"),
+    // city: Yup.string().required("Debe seleccionar una ciudad"),
     phone: Yup.string()
       .max(9, "El numero maximo es 9")
       .matches(onlyNumbers, "Solo se permiten numeros"),

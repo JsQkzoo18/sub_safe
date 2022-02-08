@@ -17,8 +17,11 @@ import {
 import countries from "../../../public/ec.json";
 import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
-export default function CustomAutoCompleteInput({ helper = "" }) {
+export default function CustomAutoCompleteInput({ helper = "", formik }) {
   const [pickerItems, setPickerItems] = useState(countries);
+
+  console.log(formik.values);
+  console.log(formik.values.city);
 
   return (
     <FormControl id="city">
@@ -36,6 +39,10 @@ export default function CustomAutoCompleteInput({ helper = "" }) {
               value={x.value.toString()}
               label={x.label}
               textTransform={"capitalize"}
+              onChange={(event) => {
+                console.log("hla", "city", event.target.value);
+                // formik.setFieldValue("city", event.target.value);
+              }}
             >
               {x.label}
             </AutoCompleteItem>

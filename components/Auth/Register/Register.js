@@ -37,16 +37,8 @@ export default function Register() {
       initialValues={registerInitialValues()}
       validationSchema={Yup.object(registerValidationSchema())}
       onSubmit={async (values, actions) => {
-        setLoading(true);
-        const {
-          first_name,
-          last_name,
-          username,
-          phone,
-          city,
-          email,
-          password,
-        } = values;
+        const { first_name, last_name, username, phone, email, password } =
+          values;
 
         const dataForm = {
           first_name,
@@ -55,7 +47,7 @@ export default function Register() {
           email,
           password,
           phone: `+593${phone}`,
-          city,
+          city: 1,
           gender: "M",
         };
 
@@ -66,8 +58,6 @@ export default function Register() {
         } catch (error) {
           toast.error(error.message);
         }
-        setLoading(false);
-        // actions.resetForm();
       }}
     >
       {(formik) => (
@@ -86,6 +76,7 @@ export default function Register() {
               maxW={"lg"}
               mt={"60px"}
               as="form"
+              id="register"
               onSubmit={formik.handleSubmit}
             >
               <Header />
@@ -143,7 +134,10 @@ export default function Register() {
                     value={formik.values.phone}
                   />
 
-                  <CustomAutoCompleteInput helper="Escribe el nombre de tú ciudad" />
+                  <CustomAutoCompleteInput
+                    helper="Escribe el nombre de tú ciudad"
+                    formik={formik}
+                  />
                   <TextField
                     name="email"
                     placeholder="Ingresa tú email"
@@ -172,6 +166,7 @@ export default function Register() {
                   <Stack spacing={10} pt={2}>
                     <Button
                       type="submit"
+                      form="register"
                       size="lg"
                       border={"2px"}
                       borderColor={useColorModeValue(
