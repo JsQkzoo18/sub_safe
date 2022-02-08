@@ -61,6 +61,7 @@ export default function Register() {
 
         try {
           const response = await registerAPI(dataForm);
+          console.log("Register Responde", response);
         } catch (error) {
           toast.error(error.message);
         }
