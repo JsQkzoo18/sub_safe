@@ -23,10 +23,22 @@ export default function CustomAutoCompleteInput({ helper = "", formik }) {
   return (
     <FormControl id="city" name="city">
       <FormLabel>Ciudad</FormLabel>
-      <AutoComplete openOnFocus closeOnSelect maxSuggestions={4}>
+      <AutoComplete
+        openOnFocus
+        closeOnSelect
+        maxSuggestions={4}
+        onChange={(event) => formik.setFieldValue("city", event)}
+      >
         <AutoCompleteInput
           variant="outline"
-          placeholder="Selecciona tu ciudad de residencia"
+          placeholder="Selecciona tu ciuad de residencia"
+          onChange={
+            (event) => console.log(event)
+            // formik.setFieldValue(
+            //   "category",
+            //   event.target.selectedOptions[0].value
+            // )
+          }
         />
 
         <AutoCompleteList>

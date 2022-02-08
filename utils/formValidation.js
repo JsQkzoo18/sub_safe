@@ -45,6 +45,7 @@ export function registerInitialValues() {
     first_name: "",
     last_name: "",
     username: "",
+    city: "",
     phone: "",
     email: "",
     password: "",
@@ -107,7 +108,7 @@ export function commentValidationSchema() {
     content: Yup.string()
       .strict(true)
       .required("Ingresa la descripción por favor!")
-      .max(100, "La descripción debe tener menos de 100 carácteres"),
+      .max(400, "La descripción debe tener menos de 400 carácteres"),
   };
 }
 
@@ -134,7 +135,7 @@ export function productValidationSchema() {
     description: Yup.string()
       .strict(true)
       .required("Ingresa la descripción por favor!")
-      .max(100, "La descripción debe tener menos de 100 carácteres"),
+      .max(400, "La descripción debe tener menos de 400 carácteres"),
     // category: Yup.string()
     //   .strict(true)
     //   .required("Ingresa la categoria por favor!"),
@@ -194,7 +195,7 @@ export function productEditValidationSchema() {
     description: Yup.string()
       .strict(true)
       .required("Ingresa la descripción por favor!")
-      .max(100, "La descripción debe tener menos de 100 carácteres"),
+      .max(400, "La descripción debe tener menos de 400 carácteres"),
     current_bid: Yup.number(),
     starting_bid: Yup.number(),
 

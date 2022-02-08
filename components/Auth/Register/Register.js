@@ -40,17 +40,26 @@ export default function Register() {
       validationSchema={Yup.object(registerValidationSchema())}
       onSubmit={async (values, actions) => {
         setLoading(true);
-        const { first_name, last_name, username, phone, email, password } =
-          values;
+        const {
+          first_name,
+          last_name,
+          username,
+          city,
+          phone,
+          email,
+          password,
+        } = values;
+
+        console.log(city);
 
         const dataForm = {
           first_name,
           last_name,
           username,
           email,
+          city,
           password,
           phone: `593${phone}`,
-          city: 1,
           gender: "M",
         };
 
@@ -137,7 +146,12 @@ export default function Register() {
                     value={formik.values.phone}
                   />
 
-                  <CustomAutoCompleteInput helper="Escribe el nombre de tú ciudad" />
+                  <CustomAutoCompleteInput
+                    helper="Escribe el nombre de tú ciudad"
+                    name="city"
+                    id="city"
+                    formik={formik}
+                  />
                   <TextField
                     name="email"
                     placeholder="Ingresa tú email"
