@@ -59,6 +59,7 @@ export default function Register() {
           gender: "M",
         };
 
+        console.log("Data Form", dataForm);
         try {
           const response = await registerAPI(dataForm);
           console.log("Register Responde", response);

@@ -64,7 +64,9 @@ export async function registerAPI(formData) {
     };
 
     const response = await fetch(compositeUrl, params);
+    console.log("Fetch", response);
     const result = await response.json();
+    console.log("result api", result);
     return result;
   } catch (error) {
     return null;
