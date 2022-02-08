@@ -57,7 +57,7 @@ export default function Register() {
           last_name,
           username,
           email,
-          city,
+          city: 1,
           password,
           phone: `593${phone}`,
           gender: "M",
