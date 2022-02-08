@@ -37,7 +37,6 @@ export default function PaymentComplete({
   const router = useRouter();
 
   const goBack = () => {
-    setShowPaymentComplete(false);
     router.back;
   };
   return (

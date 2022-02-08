@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { addPaymentAPI } from "../../api/payments";
 import { useAuth } from "../../hooks";
@@ -33,7 +34,7 @@ export const CartOrderSummary = ({ currentBid, setShowPaymentComplete }) => {
 
   const { query } = useRouter();
 
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const data = {
     description: `Pago: ${currentBid}`,
@@ -42,8 +43,10 @@ export const CartOrderSummary = ({ currentBid, setShowPaymentComplete }) => {
     status_payment: 1,
   };
   const addPayment = async () => {
+    setLoading(true);
     const result = await addPaymentAPI(auth.token, data);
     setShowPaymentComplete(true);
+    setLoading(false);
   };
 
   return (
@@ -72,10 +75,12 @@ export const CartOrderSummary = ({ currentBid, setShowPaymentComplete }) => {
 
       <Button
         colorScheme={colorModeSchema()}
+        isLoading={loading}
+        loadingText={"Finalizando compra"}
         size="lg"
         fontSize="md"
         rightIcon={<FaArrowRight />}
-        onClick={addPayment}
+        onClick={() => addPayment()}
       >
         Finalizar
       </Button>

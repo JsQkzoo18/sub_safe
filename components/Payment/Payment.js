@@ -79,13 +79,13 @@ export const Payment = ({ product, images }) => {
             </Stack>
             <Divider />
 
-            <Heading fontSize="2xl" fontWeight="extrabold">
+            {/* <Heading fontSize="2xl" fontWeight="extrabold">
               Detalles del pago
             </Heading>
 
             <Stack spacing="6">
               <CartItem product={product} images={images} />
-            </Stack>
+            </Stack> */}
           </Stack>
 
           <Flex
@@ -120,7 +120,6 @@ export const Payment = ({ product, images }) => {
           city={product?.seller?.city}
           mail={product?.seller?.email}
           phone={product?.seller?.phone}
-          setShowPaymentComplete={setShowPaymentComplete}
         />
       )}
     </MotionBox>
